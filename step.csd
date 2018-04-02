@@ -9,11 +9,8 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-massign 0, 0
-
 #include "launchpad.inc"
 
-alwayson "step"
 
 
 instr step
@@ -90,6 +87,12 @@ instr synth
 	a1, a2 diskin2 Sfiles[inote]
 	out a1, a2
 endin
+
+; enable step instrument
+alwayson "step"
+; disable automatic midi channel assignment
+massign 0, 0
+
 
 </CsInstruments>
 <CsScore>
