@@ -126,16 +126,14 @@ endin
 
 instr synth
 	inote = p4
-	Sfiles[] fillarray "/home/gg/downloads/patatap-samples-wav/strike_A.wav",
-                   "/home/gg/downloads/patatap-samples-wav/strike_B.wav",
-                   "/home/gg/downloads/patatap-samples-wav/strike_C.wav",
-                   "/home/gg/downloads/patatap-samples-wav/strike_D.wav",
-                   "/home/gg/downloads/patatap-samples-wav/strike_E.wav",
-                   "/home/gg/downloads/patatap-samples-wav/strike_F.wav",
-                   "/home/gg/downloads/patatap-samples-wav/piston-1_A.wav"
+	Sdir = "/home/gg/downloads/samples/sums/step/"
+	Sfiles[] fillarray strcat(Sdir, "bd01.wav"), strcat(Sdir, "sd01.wav"),
+	                   strcat(Sdir, "mt01.wav"), strcat(Sdir, "cp01.wav"),
+	                   strcat(Sdir, "cr01.wav"), strcat(Sdir, "oh01.wav"),
+	                   strcat(Sdir, "hh01.wav")
 	xtratim filelen(Sfiles[inote])
-	a1, a2 diskin2 Sfiles[inote]
-	out a1, a2
+	a1 diskin2 Sfiles[inote]
+	out a1, a1
 endin
 
 ; enable step instrument
