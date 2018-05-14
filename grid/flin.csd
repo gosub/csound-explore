@@ -62,6 +62,15 @@ instr flin
      kcounter[kcol] = 1
      khead[kcol] = khead[kcol] + 1
      
+     ; if head reaches last row, play note
+     if khead[kcol] == 7 then
+      event "i", nstrnum("flin_synth")+(kcol*0.01), 0, -1, kcol
+     endif
+
+     ; if tail reaches last row, stop note
+     if khead[kcol] == 7 + klength[kcol] then
+      turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 0
+     endif
      
      ; if head reaches bottom of loop zone, backup
      if khead[kcol] >= 16 then
