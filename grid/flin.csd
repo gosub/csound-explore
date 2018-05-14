@@ -33,10 +33,8 @@ instr flin
 	if ktrig == 1 then
 		if kevent == 1 && krow == 7 then
 			; keypress on last row
-			; reset speed, head and counter
+			; set speed to zero
 			kspeed[kcol] = 0
-			khead[kcol] = -1
-			kcounter[kcol] = 0
 			; clear the column
 			kndx = 0
 			until kndx == 7 do
@@ -46,14 +44,47 @@ instr flin
 		elseif kevent == 1 && krow < 7 then
 		 ; keypress from first to butlast row
 		 ; set speed according to column
-			kspeed[kcol] = krow
+			; reinit head and counter
+			khead[kcol] = -1
+			kcounter[kcol] = 1
+			kspeed[kcol] = krow + 1
 		endif
 	endif
 
 	; set metronome to 16th of kbpm
 	ktick metro (kbpm * 4 / 60)
 	if ktick == 1 then
-	; HIC SUNT LEONES
+  kcol = 0
+  until kcol == 8 do
+   if kspeed[kcol] != 0 then
+    if kcounter[kcol] >= kspeed[kcol] then
+     
+     kcounter[kcol] = 1
+     khead[kcol] = khead[kcol] + 1
+     
+     
+     ; if head reaches bottom of loop zone, backup
+     if khead[kcol] >= 16 then
+      khead[kcol] = 0
+     endif
+     
+     ; if head between 0 and 6, light a led
+     if (khead[kcol] >= 0) && (khead[kcol] <= 6) then
+      LPledon $LPGREEN, khead[kcol], kcol
+     endif
+     
+     ; if tail between 0 and 6, turn off a led
+     if (khead[kcol] >= klength[kcol]) && (khead[kcol] <= 6+klength[kcol]) then
+      LPledoff khead[kcol]+klength[kcol], kcol
+     endif
+  
+    else
+     ; increase speed counter
+     kcounter[kcol] = kcounter[kcol] + 1
+    endif
+   endif
+   kcol += 1
+  od
 	endif
 endin
 
