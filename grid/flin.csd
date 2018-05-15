@@ -99,8 +99,9 @@ endin
 
 
 instr flin_synth
-	inote = p4
-	a1 oscili 0.1, (p4+1)*110
+	idegree = p4
+	iscale[] = fillarray 60, 62, 64, 65, 67, 69, 71, 72
+	a1 vco2 0.1, cpsmidinn(iscale[idegree])
 	out a1, a1
 endin
 
