@@ -69,7 +69,7 @@ instr flin
 
      ; if tail reaches last row, stop note
      if khead[kcol] == 7 + klength[kcol] then
-      turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 0
+      turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 1
      endif
      
      ; if head reaches bottom of loop zone, backup
@@ -100,9 +100,10 @@ endin
 
 instr flin_synth
 	idegree = p4
-	iscale[] = fillarray 60, 62, 64, 65, 67, 69, 71, 72
+	iscale[] fillarray 50, 52, 54, 55, 57, 59, 61, 62
+	aEnv madsr 0.5,0,1,1
 	a1 vco2 0.1, cpsmidinn(iscale[idegree])
-	out a1, a1
+	out a1*aEnv, a1*aEnv
 endin
 
 ; enable flin instrument
