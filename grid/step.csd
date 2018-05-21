@@ -18,9 +18,9 @@ nchnls = 2
 #define STEP_FSM_TILLRELEASE #2#
 
 ; colors
-#define STEP_NOTE_COLOR   #$LPGREEN#
-#define STEP_CURSOR_COLOR #$LPAMBER#
-#define STEP_LOOP_COLOR   #$LPGREEN#
+#define STEP_NOTE_COLOR   #$LP_GREEN#
+#define STEP_CURSOR_COLOR #$LP_AMBER#
+#define STEP_LOOP_COLOR   #$LP_GREEN_LOW#
 
 instr step
 	kgrid[][] init 8, 8
@@ -52,23 +52,23 @@ instr step
 	 kstatus = kgrid[krow][kcol]
 
 		; on keydown on row 2-8, toggle grid status
-		if krow > 0 && kevent == 1 && kstatus == 0 then
+		if krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 0 then
 		 kgrid[krow][kcol] = 1
 			LPledon $STEP_NOTE_COLOR, krow, kcol
 
-		elseif krow > 0 && kevent == 1 && kstatus == 1 then
+		elseif krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 1 then
 			kgrid[krow][kcol] = 0
 			LPledoff krow, kcol
 		
 		; keyevent on first row
 		elseif krow == 0 then
-			if kfsm == $STEP_FSM_WAIT && kevent == 1 then
+			if kfsm == $STEP_FSM_WAIT && kevent == $LP_KEY_DOWN then
 				key1 = kcol
 				kfsm = $STEP_FSM_KEYDOWN
-			elseif kfsm == $STEP_FSM_KEYDOWN && kevent == 0 then
+			elseif kfsm == $STEP_FSM_KEYDOWN && kevent == $LP_KEY_UP then
 				knextstep = kcol
 				kfsm = $STEP_FSM_WAIT
-			elseif kfsm == $STEP_FSM_KEYDOWN && kevent == 1 then
+			elseif kfsm == $STEP_FSM_KEYDOWN && kevent == $LP_KEY_DOWN then
 				; set new loop points
 			 kloopstart min kcol, key1
 			 kloopend max kcol, key1

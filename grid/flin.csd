@@ -25,13 +25,13 @@ instr flin
 	; fill the last row at init time
 	indx = 0
 	until indx == 8 do
-		LPledoni $LPRED, 7, indx
+		LPledoni $LP_RED_LOW, 7, indx
 		indx += 1
 	od
 
 	ktrig, kevent, krow, kcol LPread
 	if ktrig == 1 then
-		if kevent == 1 && krow == 7 then
+		if kevent == $LP_KEY_DOWN && krow == 7 then
 			; keypress on last row
 			; set speed to zero
 			kspeed[kcol] = 0
@@ -41,7 +41,7 @@ instr flin
 				LPledoff kndx, kcol
 				kndx += 1
 			od
-		elseif kevent == 1 && krow < 7 then
+		elseif kevent == $LP_KEY_DOWN && krow < 7 then
 		 ; keypress from first to butlast row
 		 ; set speed according to column
 			; reinit head and counter
@@ -79,7 +79,7 @@ instr flin
      
      ; if head between 0 and 6, light a led
      if (khead[kcol] >= 0) && (khead[kcol] <= 6) then
-      LPledon $LPGREEN, khead[kcol], kcol
+      LPledon $LP_GREEN, khead[kcol], kcol
      endif
      
      ; if tail between 0 and 6, turn off a led
