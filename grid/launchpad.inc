@@ -77,5 +77,13 @@ opcode LPcolor, k, kk
 	kred, kgreen xin
 	kred min kred, 3
 	kgreen min kgreen, 3
-	xout (kgreen*16)+kred
+	xout 12+(kgreen*16)+kred
+endop
+
+
+opcode LPcolori, i, ii
+	ired, igreen xin
+	ired min ired, 3
+	igreen min igreen, 3
+	xout 12+(igreen*16)+ired
 endop
