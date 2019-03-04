@@ -31,7 +31,7 @@ instr step
 	klaststep init 7
 
 	; clear the grid at init time
-	LPcleari
+	lpcleari
 
 	; loop start / loop end
 	kloopstart init 0
@@ -43,22 +43,22 @@ instr step
 	; fill the first row at init time
 	indx = 0
 	until indx == 8 do
-		LPledoni $STEP_LOOP_COLOR, 0, indx
+		lpledoni $STEP_LOOP_COLOR, 0, indx
 		indx += 1
 	od
 
-	ktrig, kevent, krow, kcol LPread
+	ktrig, kevent, krow, kcol lpread
 	if ktrig == 1 then
 	 kstatus = kgrid[krow][kcol]
 
 		; on keydown on row 2-8, toggle grid status
 		if krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 0 then
 		 kgrid[krow][kcol] = 1
-			LPledon $STEP_NOTE_COLOR, krow, kcol
+			lpledon $STEP_NOTE_COLOR, krow, kcol
 
 		elseif krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 1 then
 			kgrid[krow][kcol] = 0
-			LPledoff krow, kcol
+			lpledoff krow, kcol
 		
 		; keyevent on first row
 		elseif krow == 0 then
@@ -76,9 +76,9 @@ instr step
 			 kndx = 0
 			 until kndx == 8 do
 					if kndx >= kloopstart && kndx <= kloopend then
-						LPledon $STEP_LOOP_COLOR, 0, kndx
+						lpledon $STEP_LOOP_COLOR, 0, kndx
 					else
-						LPledoff 0, kndx
+						lpledoff 0, kndx
 					endif
 					kndx += 1
 			 od
@@ -105,11 +105,11 @@ instr step
 			if kstate == 1 then
 				event "i", "synth", 0, 0.1, kndx-1
 			else
-				LPledon $STEP_CURSOR_COLOR, kndx, knextstep
+				lpledon $STEP_CURSOR_COLOR, kndx, knextstep
 			endif
 
 			if kgrid[kndx][klaststep] == 0 then
-				LPledoff kndx, klaststep
+				lpledoff kndx, klaststep
 			endif
 
 			kndx += 1

@@ -17,7 +17,7 @@
 #define LP_TOP_DOWN  #5#
 #define LP_TOP_UP    #4#
 
-opcode LPread, kkkk, J
+opcode lpread, kkkk, J
 	kch xin
 
 	ktrigger = 0
@@ -43,37 +43,37 @@ opcode LPread, kkkk, J
 endop
 
 
-opcode LPledon, 0, kkkO
+opcode lpledon, 0, kkkO
 	kcolor, krow, kcol, kchan xin
 	midiout $LP_NOTEON, kchan, (krow*16)+kcol, kcolor
 endop
 
 
-opcode LPledoni, 0, iiio
+opcode lpledoni, 0, iiio
 	icolor, irow, icol, ichan xin
 	midiout_i $LP_NOTEON, ichan, (irow*16)+icol, icolor
 endop
 
 
-opcode LPledoff, 0, kkO
+opcode lpledoff, 0, kkO
 	krow, kcol, kchan xin
 	midiout $LP_NOTEOFF, kchan, (krow*16)+kcol, 0
 endop
 
 
-opcode LPclear, 0, O
+opcode lpclear, 0, O
 	kchan xin
 	midiout 176, kchan, 0, 0
 endop
 
 
-opcode LPcleari, 0, o
+opcode lpcleari, 0, o
 	ichan xin
 	midiout_i 176, ichan, 0, 0
 endop
 
 
-opcode LPcolor, k, kk
+opcode lpcolor, k, kk
 	kred, kgreen xin
 	kred min kred, 3
 	kgreen min kgreen, 3
@@ -81,7 +81,7 @@ opcode LPcolor, k, kk
 endop
 
 
-opcode LPcolori, i, ii
+opcode lpcolori, i, ii
 	ired, igreen xin
 	ired min ired, 3
 	igreen min igreen, 3

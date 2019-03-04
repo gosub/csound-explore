@@ -20,16 +20,16 @@ instr flin
 	kcounter[] init 8
 
 	; clear the grid at init time
-	LPcleari
+	lpcleari
 
 	; fill the last row at init time
 	indx = 0
 	until indx == 8 do
-		LPledoni $LP_RED_LOW, 7, indx
+		lpledoni $LP_RED_LOW, 7, indx
 		indx += 1
 	od
 
-	ktrig, kevent, krow, kcol LPread
+	ktrig, kevent, krow, kcol lpread
 	if ktrig == 1 then
 		if kevent == $LP_KEY_DOWN && krow == 7 then
 			; keypress on last row
@@ -38,7 +38,7 @@ instr flin
 			; clear the column
 			kndx = 0
 			until kndx == 7 do
-				LPledoff kndx, kcol
+				lpledoff kndx, kcol
 				kndx += 1
 			od
 		elseif kevent == $LP_KEY_DOWN && krow < 7 then
@@ -79,12 +79,12 @@ instr flin
      
      ; if head between 0 and 6, light a led
      if (khead[kcol] >= 0) && (khead[kcol] <= 6) then
-      LPledon $LP_GREEN, khead[kcol], kcol
+      lpledon $LP_GREEN, khead[kcol], kcol
      endif
      
      ; if tail between 0 and 6, turn off a led
      if (khead[kcol] >= klength[kcol]) && (khead[kcol] <= 6+klength[kcol]) then
-      LPledoff khead[kcol]+klength[kcol], kcol
+      lpledoff khead[kcol]+klength[kcol], kcol
      endif
   
     else

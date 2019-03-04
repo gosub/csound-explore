@@ -41,19 +41,19 @@ instr 1
  print iRatio, iIndex, iAtt, iDec, iSus, iRel, iOscCar, iOscMod
 
  ; clear the grid at init time
- LPcleari
+ lpcleari
 
- ktrig, kevent, krow, kcol LPread
+ ktrig, kevent, krow, kcol lpread
  if ktrig == 1 then
   kIns = (8*krow+kcol) * 0.01
   if kevent == $LP_KEY_DOWN then
    ; notes go up by octaves, and left by iScale degrees
    kNote = iBase + (7-krow)*12 + iScale[kcol]
    event "i", 2+kIns, 0, -1, cpsmidinn(kNote), iRatio, iIndex, iAtt, iDec, iSus, iRel, iOscCar, iOscMod
-   LPledon $LP_GREEN, krow, kcol
+   lpledon $LP_GREEN, krow, kcol
   elseif kevent == $LP_KEY_UP then
    turnoff2 2+kIns, 4, 1
-   LPledoff krow, kcol
+   lpledoff krow, kcol
   endif
  endif
 endin
