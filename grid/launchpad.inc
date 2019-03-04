@@ -62,6 +62,12 @@ opcode lpledoff, 0, kkO
 endop
 
 
+opcode lpledoff_i, 0, iio
+  irow, icol, ichan xin
+  midiout_i $LP_NOTEOFF, ichan, (irow*16)+icol, 0
+endop
+
+
 opcode lpclear, 0, O
   kchan xin
   midiout 176, kchan, 0, 0
