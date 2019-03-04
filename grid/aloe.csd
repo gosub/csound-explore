@@ -41,7 +41,7 @@ instr 1
  print iRatio, iIndex, iAtt, iDec, iSus, iRel, iOscCar, iOscMod
 
  ; clear the grid at init time
- lpcleari
+ lpclear_i
 
  ktrig, kevent, krow, kcol lpread
  if ktrig == 1 then

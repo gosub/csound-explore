@@ -20,12 +20,12 @@ instr flin
 	kcounter[] init 8
 
 	; clear the grid at init time
-	lpcleari
+	lpclear_i
 
 	; fill the last row at init time
 	indx = 0
 	until indx == 8 do
-		lpledoni $LP_RED_LOW, 7, indx
+		lpledon_i $LP_RED_LOW, 7, indx
 		indx += 1
 	od
 

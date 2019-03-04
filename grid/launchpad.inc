@@ -49,7 +49,7 @@ opcode lpledon, 0, kkkO
 endop
 
 
-opcode lpledoni, 0, iiio
+opcode lpledon_i, 0, iiio
 	icolor, irow, icol, ichan xin
 	midiout_i $LP_NOTEON, ichan, (irow*16)+icol, icolor
 endop
@@ -67,7 +67,7 @@ opcode lpclear, 0, O
 endop
 
 
-opcode lpcleari, 0, o
+opcode lpclear_i, 0, o
 	ichan xin
 	midiout_i 176, ichan, 0, 0
 endop
@@ -81,7 +81,7 @@ opcode lpcolor, k, kk
 endop
 
 
-opcode lpcolori, i, ii
+opcode lpcolor_i, i, ii
 	ired, igreen xin
 	ired min ired, 3
 	igreen min igreen, 3

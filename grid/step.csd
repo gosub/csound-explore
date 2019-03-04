@@ -31,7 +31,7 @@ instr step
 	klaststep init 7
 
 	; clear the grid at init time
-	lpcleari
+	lpclear_i
 
 	; loop start / loop end
 	kloopstart init 0
@@ -43,7 +43,7 @@ instr step
 	; fill the first row at init time
 	indx = 0
 	until indx == 8 do
-		lpledoni $STEP_LOOP_COLOR, 0, indx
+		lpledon_i $STEP_LOOP_COLOR, 0, indx
 		indx += 1
 	od
 
