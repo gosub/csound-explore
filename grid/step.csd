@@ -22,119 +22,121 @@ nchnls = 2
 #define STEP_CURSOR_COLOR #$LP_AMBER#
 #define STEP_LOOP_COLOR   #$LP_GREEN_LOW#
 
+
 instr step
-	kgrid[][] init 8, 8
-	kbpm init 80
-	
-	; next step and last step
-	knextstep init 0
-	klaststep init 7
+  kgrid[][] init 8, 8
+  kbpm init 80
 
-	; clear the grid at init time
-	lpclear_i
+  ; next step and last step
+  knextstep init 0
+  klaststep init 7
 
-	; loop start / loop end
-	kloopstart init 0
-	kloopend init 7
+  ; clear the grid at init time
+  lpclear_i
 
-	; initialize top row state machine
-	kfsm init $STEP_FSM_WAIT
-	
-	; fill the first row at init time
-	indx = 0
-	until indx == 8 do
-		lpledon_i $STEP_LOOP_COLOR, 0, indx
-		indx += 1
-	od
+  ; loop start / loop end
+  kloopstart init 0
+  kloopend init 7
 
-	ktrig, kevent, krow, kcol lpread
-	if ktrig == 1 then
-	 kstatus = kgrid[krow][kcol]
+  ; initialize top row state machine
+  kfsm init $STEP_FSM_WAIT
 
-		; on keydown on row 2-8, toggle grid status
-		if krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 0 then
-		 kgrid[krow][kcol] = 1
-			lpledon $STEP_NOTE_COLOR, krow, kcol
+  ; fill the first row at init time
+  indx = 0
+  until indx == 8 do
+    lpledon_i $STEP_LOOP_COLOR, 0, indx
+    indx += 1
+  od
 
-		elseif krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 1 then
-			kgrid[krow][kcol] = 0
-			lpledoff krow, kcol
-		
-		; keyevent on first row
-		elseif krow == 0 then
-			if kfsm == $STEP_FSM_WAIT && kevent == $LP_KEY_DOWN then
-				key1 = kcol
-				kfsm = $STEP_FSM_KEYDOWN
-			elseif kfsm == $STEP_FSM_KEYDOWN && kevent == $LP_KEY_UP then
-				knextstep = kcol
-				kfsm = $STEP_FSM_WAIT
-			elseif kfsm == $STEP_FSM_KEYDOWN && kevent == $LP_KEY_DOWN then
-				; set new loop points
-			 kloopstart min kcol, key1
-			 kloopend max kcol, key1
-			 ; update top row
-			 kndx = 0
-			 until kndx == 8 do
-					if kndx >= kloopstart && kndx <= kloopend then
-						lpledon $STEP_LOOP_COLOR, 0, kndx
-					else
-						lpledoff 0, kndx
-					endif
-					kndx += 1
-			 od
-			 ; new fsm state
-				kfsm = $STEP_FSM_TILLRELEASE
-				kfsm_tillrelease = 2
-			elseif kfsm == $STEP_FSM_TILLRELEASE && kevent == 1 then
-				kfsm_tillrelease += 1
-			elseif kfsm == $STEP_FSM_TILLRELEASE && kevent == 0 then
-			 kfsm_tillrelease -= 1
-			 if kfsm_tillrelease == 0 then
-					kfsm = $STEP_FSM_WAIT
-			 endif
-			endif
-		endif
-	endif
-	
-	ktick metro (kbpm * 4 / 60)
-	if ktick == 1 then
-		
-		kndx = 1
-		until kndx == 8 do
-			kstate = kgrid[kndx][knextstep]
-			if kstate == 1 then
-				event "i", "synth", 0, 0.1, kndx-1
-			else
-				lpledon $STEP_CURSOR_COLOR, kndx, knextstep
-			endif
+  ktrig, kevent, krow, kcol lpread
+  if ktrig == 1 then
+    kstatus = kgrid[krow][kcol]
 
-			if kgrid[kndx][klaststep] == 0 then
-				lpledoff kndx, klaststep
-			endif
+    ; on keydown on row 2-8, toggle grid status
+    if krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 0 then
+      kgrid[krow][kcol] = 1
+      lpledon $STEP_NOTE_COLOR, krow, kcol
 
-			kndx += 1
-		od
-		
-		klaststep = knextstep
-		knextstep += 1
-		if knextstep > kloopend then
-			knextstep = kloopstart
-		endif
-	endif
+    elseif krow > 0 && kevent == $LP_KEY_DOWN && kstatus == 1 then
+      kgrid[krow][kcol] = 0
+      lpledoff krow, kcol
+
+    ; keyevent on first row
+    elseif krow == 0 then
+      if kfsm == $STEP_FSM_WAIT && kevent == $LP_KEY_DOWN then
+        key1 = kcol
+        kfsm = $STEP_FSM_KEYDOWN
+      elseif kfsm == $STEP_FSM_KEYDOWN && kevent == $LP_KEY_UP then
+        knextstep = kcol
+        kfsm = $STEP_FSM_WAIT
+      elseif kfsm == $STEP_FSM_KEYDOWN && kevent == $LP_KEY_DOWN then
+        ; set new loop points
+        kloopstart min kcol, key1
+        kloopend max kcol, key1
+        ; update top row
+        kndx = 0
+        until kndx == 8 do
+          if kndx >= kloopstart && kndx <= kloopend then
+            lpledon $STEP_LOOP_COLOR, 0, kndx
+          else
+            lpledoff 0, kndx
+          endif
+          kndx += 1
+        od
+        ; new fsm state
+        kfsm = $STEP_FSM_TILLRELEASE
+        kfsm_tillrelease = 2
+      elseif kfsm == $STEP_FSM_TILLRELEASE && kevent == 1 then
+        kfsm_tillrelease += 1
+      elseif kfsm == $STEP_FSM_TILLRELEASE && kevent == 0 then
+        kfsm_tillrelease -= 1
+        if kfsm_tillrelease == 0 then
+          kfsm = $STEP_FSM_WAIT
+        endif
+      endif
+    endif
+  endif
+
+  ktick metro (kbpm * 4 / 60)
+  if ktick == 1 then
+
+    kndx = 1
+    until kndx == 8 do
+      kstate = kgrid[kndx][knextstep]
+      if kstate == 1 then
+        event "i", "synth", 0, 0.1, kndx-1
+      else
+        lpledon $STEP_CURSOR_COLOR, kndx, knextstep
+      endif
+
+      if kgrid[kndx][klaststep] == 0 then
+        lpledoff kndx, klaststep
+      endif
+
+      kndx += 1
+    od
+
+    klaststep = knextstep
+    knextstep += 1
+    if knextstep > kloopend then
+      knextstep = kloopstart
+    endif
+  endif
 endin
 
 
 instr synth
-	inote = p4
-	Sdir = "/home/gg/downloads/samples/sums/step/"
-	Sfiles[] fillarray strcat(Sdir, "bd01.wav"), strcat(Sdir, "sd01.wav"),
-	                   strcat(Sdir, "mt01.wav"), strcat(Sdir, "cp01.wav"),
-	                   strcat(Sdir, "cr01.wav"), strcat(Sdir, "oh01.wav"),
-	                   strcat(Sdir, "hh01.wav")
-	xtratim filelen(Sfiles[inote])
-	a1 diskin2 Sfiles[inote]
-	out a1, a1
+  inote = p4
+  Sdir = "/home/gg/downloads/samples/sums/step/"
+  Sfiles[] fillarray strcat(Sdir, "bd01.wav"), strcat(Sdir, "sd01.wav"),
+                     strcat(Sdir, "mt01.wav"), strcat(Sdir, "cp01.wav"),
+                     strcat(Sdir, "cr01.wav"), strcat(Sdir, "oh01.wav"),
+                     strcat(Sdir, "hh01.wav")
+  xtratim filelen(Sfiles[inote])
+  a1 diskin2 Sfiles[inote]
+  out a1, a1
 endin
+
 
 ; enable step instrument
 alwayson "step"

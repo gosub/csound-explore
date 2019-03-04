@@ -17,73 +17,74 @@
 #define LP_TOP_DOWN  #5#
 #define LP_TOP_UP    #4#
 
+
 opcode lpread, kkkk, J
-	kch xin
+  kch xin
 
-	ktrigger = 0
-	kevent = 0
-	krow = 0
-	kcol = 0
+  ktrigger = 0
+  kevent = 0
+  krow = 0
+  kcol = 0
 
-	kstatus, kchan, kdata1, kdata2 midiin
-	if kchan == kch || kch == -1 then
-		if kstatus == $LP_NOTEON then
-			krow = int(kdata1 / 16)
-			kcol = int(kdata1 % 16)
-			if kdata2 == 127 then
-				ktrigger = 1
-				kevent = (kcol == 8 ? $LP_SIDE_DOWN : $LP_KEY_DOWN)
-			elseif kdata2 == 0 then
-			 ktrigger = 1
-				kevent = (kcol == 8 ? $LP_SIDE_UP : $LP_KEY_UP)
-			endif
-		endif 
-	endif
-	xout ktrigger, kevent, krow, kcol
+  kstatus, kchan, kdata1, kdata2 midiin
+  if kchan == kch || kch == -1 then
+    if kstatus == $LP_NOTEON then
+      krow = int(kdata1 / 16)
+      kcol = int(kdata1 % 16)
+      if kdata2 == 127 then
+        ktrigger = 1
+        kevent = (kcol == 8 ? $LP_SIDE_DOWN : $LP_KEY_DOWN)
+      elseif kdata2 == 0 then
+        ktrigger = 1
+        kevent = (kcol == 8 ? $LP_SIDE_UP : $LP_KEY_UP)
+      endif
+    endif
+  endif
+  xout ktrigger, kevent, krow, kcol
 endop
 
 
 opcode lpledon, 0, kkkO
-	kcolor, krow, kcol, kchan xin
-	midiout $LP_NOTEON, kchan, (krow*16)+kcol, kcolor
+  kcolor, krow, kcol, kchan xin
+  midiout $LP_NOTEON, kchan, (krow*16)+kcol, kcolor
 endop
 
 
 opcode lpledon_i, 0, iiio
-	icolor, irow, icol, ichan xin
-	midiout_i $LP_NOTEON, ichan, (irow*16)+icol, icolor
+  icolor, irow, icol, ichan xin
+  midiout_i $LP_NOTEON, ichan, (irow*16)+icol, icolor
 endop
 
 
 opcode lpledoff, 0, kkO
-	krow, kcol, kchan xin
-	midiout $LP_NOTEOFF, kchan, (krow*16)+kcol, 0
+  krow, kcol, kchan xin
+  midiout $LP_NOTEOFF, kchan, (krow*16)+kcol, 0
 endop
 
 
 opcode lpclear, 0, O
-	kchan xin
-	midiout 176, kchan, 0, 0
+  kchan xin
+  midiout 176, kchan, 0, 0
 endop
 
 
 opcode lpclear_i, 0, o
-	ichan xin
-	midiout_i 176, ichan, 0, 0
+  ichan xin
+  midiout_i 176, ichan, 0, 0
 endop
 
 
 opcode lpcolor, k, kk
-	kred, kgreen xin
-	kred min kred, 3
-	kgreen min kgreen, 3
-	xout 12+(kgreen*16)+kred
+  kred, kgreen xin
+  kred min kred, 3
+  kgreen min kgreen, 3
+  xout 12+(kgreen*16)+kred
 endop
 
 
 opcode lpcolor_i, i, ii
-	ired, igreen xin
-	ired min ired, 3
-	igreen min igreen, 3
-	xout 12+(igreen*16)+ired
+  ired, igreen xin
+  ired min ired, 3
+  igreen min igreen, 3
+  xout 12+(igreen*16)+ired
 endop
