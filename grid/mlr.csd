@@ -1,6 +1,7 @@
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
+-+rtmidi=alsaseq -M20 -Q20
 </CsOptions>
 <CsInstruments>
 
@@ -16,14 +17,37 @@ gSamplename = "/home/gg/downloads/loop.wav"
 giSample   ftgen 0,0,0,1,gSamplename,0,0,1
 giSampleLen filelen gSamplename
 
+
 instr mlr
-  kindex init 0
-  aph phasor 1/giSampleLen
-  asig tablei aph, giSample, 1
+  klast init -1
+  kindex init -1
+  kreset init 0
+  koffset init 0
+  icolumns init 8
+
+  lpclear_i
+
+  ktrig, kevent, krow, kcol lpread
+  if (ktrig==1 && kevent==$LP_KEY_DOWN && krow==0) then
+    kreset = 1
+    koffset = kcol
+  else
+    kreset = 0
+  fi
+  areset upsamp kreset
+  aph, adummy syncphasor 1/giSampleLen, areset
+  kph downsamp aph
+  kindex = (int(kph*7.999) + koffset) % icolumns
+  if (changed2:k(kindex)==1) then
+    lpledon $LP_GREEN, 0, kindex
+    if (klast != -1) then
+      lpledoff 0, klast
+    fi
+    klast = kindex
+  fi
+  aph += 1/8 * koffset
+  asig tablei aph, giSample, 1, 0, 1
   outs asig, asig
-  kindex downsamp aph
-  kindex = int(kindex*7.999)
-  printk2 kindex
 endin
 
 
