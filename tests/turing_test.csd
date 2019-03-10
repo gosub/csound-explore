@@ -14,12 +14,21 @@ nchnls = 2
 
 instr 1
   kprob init 0.3
-  krate rspline 2, 8, 2, 10
-  ktrig metro krate
+  ktrig metro 8
 
-  kpulse turing ktrig, kprob
+  ksteps init 1
+  ktrig2 metro 1/10
+  if (ktrig2 == 1) then
+    ksteps += 1
+    if (ksteps > 16) then
+      ksteps = 2
+    fi
+  fi
+  printk2 ksteps, 0, 1
 
-  kfreq = kpulse * 1000 + 100
+  kpulse turing ktrig, kprob, ksteps
+
+  kfreq cpsmidinn 40 + int(kpulse * 40)
   schedkwhen kpulse, 0, 0, 2, 0, 0.2, kfreq
 endin
 
