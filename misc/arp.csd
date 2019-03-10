@@ -108,7 +108,7 @@ giNote[] fillarray 50, 53, 57, 59
 instr 2
  kbpm init 100
  kndx init 0
- ipre = 4
+ ipre = p4
  kbeat = giBeats[kndx]
  kdur = 60*kbeat/kbpm
  knote = giNote[kndx]
@@ -152,7 +152,11 @@ endin
 
 
 
-i2 0 100
+i2 0 10 1
+i2 + .  2
+i2 + .  3
+i2 + .  4
+
 </CsScore>
 
 </CsoundSynthesizer>
