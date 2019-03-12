@@ -1,25 +1,51 @@
+/*
+  euclidean - Euclidean Pattern Sequencer
+  euclideangen - Euclidean Step Calculator
+*/
 
-;; TODO: turn isteps into ksteps
-;; TODO: euclidean
 
-opcode euclideanarray, k[], ikk
-  ; uses bresenham algorithm
-  isteps, kpulses, krotate xin
-  kArray[] init isteps
-  if (kpulses > 0) then
-    kslope = kpulses/isteps
-    kprevious = -1
-    kloop = 0
-    while kloop < isteps do
-      kcurrent = round(floor(kloop*kslope))
-      kindex = (kloop + krotate) % isteps
-      kArray[kindex] = (kcurrent != kprevious ? 1 : 0)
-      kprevious = kcurrent
-      kloop += 1
-    od
+opcode euclideangen, k, kkkO
+  ; uses bresenham's algorithm
+  kindex, kpulses, ksteps, krotate xin
+  kslope = kpulses/ksteps
+  kstep = (kindex + krotate) % ksteps
+  ; to accomodate for floating point error
+  if (kslope - frac(kstep*kslope) > 0.000001) then
+    kout = 1
   else
-    kArray[] = kArray * 0
-  endif
-  xout kArray
+    kout = 0
+  fi
+  xout kout
+endop
+
+
+opcode euclideangen, i, iiio
+  ; uses bresenham's algorithm
+  iindex, ipulses, isteps, irotate xin
+  islope = ipulses/isteps
+  istep = (iindex + irotate) % isteps
+  ; to accomodate for floating point error
+  if (islope - frac(istep*islope) > 0.000001) then
+    iout = 1
+  else
+    iout = 0
+  fi
+  xout iout
+endop
+
+
+;; TODO: add reset signal to euclidean
+
+opcode euclidean, k, kkkO
+  ktrig, kpulses, ksteps, krotate xin
+  kout = 0
+  kindex init -1
+
+  if (ktrig == 1) then
+    kindex += 1
+    kindex = kindex % ksteps
+    kout euclideangen kindex, kpulses, ksteps, krotate
+  fi
+  xout kout
 endop
 
