@@ -101,11 +101,16 @@ endin
 
 
 instr flin_synth
+  imidi = 0
   idegree = p4
-  iscale[] fillarray 50, 52, 54, 55, 57, 59, 61, 62
-  aEnv madsr 0.5,0,1,1
-  a1 vco2 0.1, cpsmidinn(iscale[idegree])
-  out a1*aEnv, a1*aEnv
+  iscale[] fillarray 50, 54, 57, 60, 64, 67, 71, 74
+  if (imidi==0) then
+    aEnv madsr 0.5,0,1,1
+    a1 vco2 0.1, cpsmidinn(iscale[idegree])
+    out a1*aEnv, a1*aEnv
+  else
+    midion 2, iscale[idegree], 100
+  fi
 endin
 
 
