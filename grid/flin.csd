@@ -44,8 +44,10 @@ instr flin
       ; keypress from first to butlast row
       ; set speed according to column
       ; reinit head and counter
-      khead[kcol] = -1
-      kcounter[kcol] = 1
+      if (kspeed[kcol] == 0) then
+        khead[kcol] = -1
+        kcounter[kcol] = 1
+      fi
       kspeed[kcol] = krow + 1
     endif
   endif
