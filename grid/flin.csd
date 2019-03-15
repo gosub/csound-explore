@@ -28,6 +28,10 @@ instr flin
   if ktrig == 1 then
     if kevent == $LP_KEY_DOWN && krow == 7 then
       ; keypress on last row
+      ; if column running, stop the note
+      if (kspeed[kcol] != 0) then
+        turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 1
+      fi
       ; set speed to zero
       kspeed[kcol] = 0
       ; clear the column
