@@ -14,7 +14,7 @@ nchnls = 2
 
 
 instr flin
-  kbpm init 80
+  kbpm init 120
   khead[] init 8
   kspeed[] init 8
   klength[] fillarray 4,4,4,4,4,4,4,4
