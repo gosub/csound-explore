@@ -1,6 +1,7 @@
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
+-+rtmidi=alsaseq -M20 -Q20
 </CsOptions>
 <CsInstruments>
 
