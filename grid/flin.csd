@@ -19,6 +19,7 @@ instr flin
   kspeed[] init 8
   klength[] fillarray 4,4,4,4,4,4,4,4
   kcounter[] init 8
+  kdepth init 16
 
   ; clear the grid at init time
   lpclear_i
@@ -56,6 +57,11 @@ instr flin
           kcounter[kcol] = 1
           khead[kcol] = khead[kcol] + 1
 
+          ; if head reaches bottom of loop zone, backup
+          if khead[kcol] >= kdepth then
+            khead[kcol] = 0
+          endif
+
           ; if head reaches last row, play note
           if khead[kcol] == 7 then
             event "i", nstrnum("flin_synth")+(kcol*0.01), 0, -1, kcol
@@ -66,10 +72,6 @@ instr flin
             turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 1
           endif
 
-          ; if head reaches bottom of loop zone, backup
-          if khead[kcol] >= 16 then
-            khead[kcol] = 0
-          endif
 
           ; if head between 0 and 7, light a led
           if (khead[kcol] >= 0) && (khead[kcol] <= 7) then
