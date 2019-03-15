@@ -1,14 +1,22 @@
 #define LP_NOTEON   #144#
 #define LP_NOTEOFF  #128#
 
-#define LP_OFF       #12#
-#define LP_RED       #15#
-#define LP_RED_LOW   #13#
-#define LP_AMBER     #63#
-#define LP_AMBER_LOW #29#
-#define LP_YELLOW    #62#
-#define LP_GREEN     #60#
-#define LP_GREEN_LOW #28#
+#define LP_OFF        #12#
+#define LP_GREEN      #60#
+#define LP_GREEN_MID  #44#
+#define LP_GREEN_LOW  #28#
+#define LP_RED        #15#
+#define LP_RED_MID    #14#
+#define LP_RED_LOW    #13#
+#define LP_YELLOW     #61#
+#define LP_AMBER      #31#
+#define LP_AMBER_MID  #30#
+#define LP_AMBER_LOW  #47#
+#define LP_ORANGE     #63#
+#define LP_ORANGE_MID #46#
+#define LP_ORANGE_LOW #29#
+#define LP_OCHRE      #62#
+#define LP_OCHRE_LOW  #45#
 
 #define LP_KEY_DOWN  #1#
 #define LP_KEY_UP    #0#
