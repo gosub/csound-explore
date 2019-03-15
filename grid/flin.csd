@@ -62,13 +62,13 @@ instr flin
             khead[kcol] = 0
           endif
 
-          ; if head reaches last row, play note
-          if khead[kcol] == 7 then
+          ; if head reaches first row, play note
+          if khead[kcol] == 0 then
             event "i", nstrnum("flin_synth")+(kcol*0.01), 0, -1, kcol
           endif
 
-          ; if tail reaches last row, stop note
-          if khead[kcol] == 7 + klength[kcol] then
+          ; if tail reaches first row, stop note
+          if khead[kcol] == 0 + klength[kcol] then
             turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 1
           endif
 
