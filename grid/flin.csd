@@ -35,11 +35,7 @@ instr flin
       ; set speed to zero
       kspeed[kcol] = 0
       ; clear the column
-      kndx = 0
-      while kndx <= 7 do
-        lpledoff kndx, kcol
-        kndx += 1
-      od
+      lpcolumnoff kcol
     elseif kevent == $LP_KEY_DOWN && krow < 7 then
       ; keypress from first to butlast row
       ; set speed according to column
