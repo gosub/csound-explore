@@ -12,33 +12,71 @@ nchnls = 2
 
 #include "launchpad.inc"
 
+; states of a finite state machine
+; for the possible key presses
+; each column has its state
+; INIT: no key presses
+; HOLD1: one key down
+; HOLDN: multiple keys down
+
 #define FSM_INIT  #0#
 #define FSM_HOLD1 #1#
 #define FSM_HOLDN #2#
 
 
 instr flin
+  ; BPM
   kbpm init 120
+
+  ; head position of the falling note, from 0 to kdepth
   khead[] init 8
+
+  ; speed of the falling note
+  ; also indicates if the note is on or off
+  ; 1 is max speed, 8 min speed
+  ; each tick a counter is increased
+  ; when counter equals speed, note falls a step
   kspeed[] init 8
+
+  ; length of the falling note
   klength[] fillarray 4,4,4,4,4,4,4,4
+
+  ; virtual depth of the columns
   kdepth init 16
+
+  ; counters for the speed measurement
   kcounter[] init 8
+
+  ; current state of the column in the finite state machine
   kfsm[] init 8
+
+  ; hold values for the state transitions
   kfsm_state[] init 8
+
 
   ; clear the grid at init time
   lpclear_i
 
   ktrig, kevent, krow, kcol lpread
+  ; when a midi event occurs
   if ktrig == 1 then
 
+    ; when no key are pressed and one key down occurs
+    ; save the current row and transition to HOLD1
     if kfsm[kcol] == $FSM_INIT then
       if kevent == $LP_KEY_DOWN then
         kfsm_state[kcol] = krow
         kfsm[kcol] = $FSM_HOLD1
       endif
 
+    ; when one key is pressed
+    ; if one key up occurs
+    ;   stop a running note if last row
+    ;   start note and set speed based on row
+    ;   go back to INIT
+    ; if another key down occurs
+    ;   save number ok keys down (2) to fsm_state
+    ;   transition to HOLDN
     elseif kfsm[kcol] == $FSM_HOLD1 then
       if kevent == $LP_KEY_UP then
         if krow == 7 then
@@ -65,6 +103,12 @@ instr flin
         kfsm[kcol] = $FSM_HOLDN
       endif
 
+    ; when multiple keys are down
+    ; fsm_value counts the number of keys down
+    ; additional key_downs increase that value
+    ; key_ups decrease it
+    ; when state is 0 no button is pressed anymore
+    ; and is possible to go back to INIT
     elseif kfsm[kcol] == $FSM_HOLDN then
       if kevent == $LP_KEY_DOWN then
         kfsm_state[kcol] = kfsm_state[kcol] + 1
@@ -83,7 +127,11 @@ instr flin
   if ktick == 1 then
     kcol = 0
     until kcol == 8 do
+      ; when note in current column is running
       if kspeed[kcol] != 0 then
+        ; a note ticks only when counter matches speed
+        ; speed is not a good name since 1 is max speed and
+        ; 8 is min speed, slowness or drag would be a better name
         if kcounter[kcol] >= kspeed[kcol] then
 
           kcounter[kcol] = 1
@@ -95,6 +143,7 @@ instr flin
           endif
 
           ;; ktail is the last led of the falling note
+          ;; if length is 1, ktail == khead
           ktail = khead[kcol] - klength[kcol] + 1
 
           ; if head reaches first row, play note
