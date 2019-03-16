@@ -88,6 +88,46 @@ opcode lpclear_i, 0, o
 endop
 
 
+opcode lpcolumnon, 0, kkO
+  kcolor, kcolumn, kchan xin
+  kindex = 0
+  while (kindex < 8) do
+    lpledon kcolor, kindex, kcolumn, kchan
+    kindex += 1
+  od
+endop
+
+
+opcode lpcolumnon_i, 0, iio
+  icolor, icolumn, ichan xin
+  iindex = 0
+  while (iindex < 8) do
+    lpledon_i icolor, iindex, icolumn, ichan
+    iindex += 1
+  od
+endop
+
+
+opcode lpcolumnoff, 0, kO
+  kcolumn, kchan xin
+  kindex = 0
+  while (kindex < 8) do
+    lpledoff kindex, kcolumn, kchan
+    kindex += 1
+  od
+endop
+
+
+opcode lpcolumnoff_i, 0, io
+  icolumn, ichan xin
+  iindex = 0
+  while (iindex < 8) do
+    lpledoff_i iindex, icolumn, ichan
+    iindex += 1
+  od
+endop
+
+
 opcode lpcolor, k, kk
   kred, kgreen xin
   kred min kred, 3
