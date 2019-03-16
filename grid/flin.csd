@@ -43,6 +43,7 @@ instr flin
       if (kspeed[kcol] == 0) then
         khead[kcol] = -1
         kcounter[kcol] = 1
+        lpcolumnon $LP_GREEN_LOW, kcol
       fi
       kspeed[kcol] = krow + 1
     endif
@@ -82,7 +83,7 @@ instr flin
 
           ; if tail between 0 and 7, turn off a led
           if (khead[kcol] >= klength[kcol]) && (khead[kcol] <= 7+klength[kcol]) then
-            lpledoff khead[kcol]+klength[kcol], kcol
+            lpledon $LP_GREEN_LOW, khead[kcol]+klength[kcol], kcol
           endif
 
         else
