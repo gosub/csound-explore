@@ -128,7 +128,7 @@ endin
 
 instr synth
   inote = p4
-  Sdir = "/home/gg/downloads/samples/sums/step/"
+  Sdir = "/home/gg/downloads/audio/samples/sums/step/"
   Sfiles[] fillarray strcat(Sdir, "bd01.wav"), strcat(Sdir, "sd01.wav"),
                      strcat(Sdir, "mt01.wav"), strcat(Sdir, "cp01.wav"),
                      strcat(Sdir, "cr01.wav"), strcat(Sdir, "oh01.wav"),
