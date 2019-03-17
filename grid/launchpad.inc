@@ -1,3 +1,6 @@
+#ifndef LAUNCHPADINC
+
+
 #define LP_NOTEON   #144#
 #define LP_NOTEOFF  #128#
 
@@ -142,3 +145,7 @@ opcode lpcolor_i, i, ii
   igreen min igreen, 3
   xout 12+(igreen*16)+ired
 endop
+
+
+#define LAUNCHPADINC ##
+#end
