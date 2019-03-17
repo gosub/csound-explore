@@ -119,7 +119,7 @@ instr step
 
     klaststep = knextstep
     knextstep += 1
-    if knextstep > kloopend then
+    if (knextstep > kloopend) || (knextstep < kloopstart) then
       knextstep = kloopstart
     endif
   endif
