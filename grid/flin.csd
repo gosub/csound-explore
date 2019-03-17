@@ -95,10 +95,27 @@ instr flin
         endif
         kfsm[kcol] = $FSM_INIT
       elseif kevent == $LP_KEY_DOWN then
-        ;; TODO: when changing length
-        ;;       leds get messy, must be redrawn
-        ;;       but only if running!
-        klength[kcol] = krow + 1
+        ; when changing from a greater to a smaller
+        ; length, the remains of the tail must be cleared
+        ; but only if the column is running
+        knewlength = krow + 1
+        koldtail = khead[kcol] - klength[kcol] + 1
+        knewtail = khead[kcol] - knewlength + 1
+        if (kspeed[kcol] != 0) && (knewlength < klength[kcol]) then
+          kindex = koldtail
+          until kindex == knewtail do
+            if (kindex >= 0) && (kindex <= 7) then
+              lpledon $LP_GREEN_LOW, kindex, kcol
+            endif
+            kindex += 1
+          od
+        endif
+        ; if oldtail is behind first row
+        ; and newtail is after, note must be stopped
+        if (kspeed[kcol] != 0) && (koldtail <= 0) && (knewtail > 0) then
+          turnoff2 nstrnum("flin_synth")+(kcol*0.01), 4, 1
+        endif
+        klength[kcol] = knewlength
         kfsm_state[kcol] = 2
         kfsm[kcol] = $FSM_HOLDN
       endif
