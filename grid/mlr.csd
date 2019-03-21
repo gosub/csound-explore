@@ -10,7 +10,7 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-#include "launchpad.inc"
+#include "lpmini.inc"
 
 gSamplename = "/home/gg/downloads/loop.wav"
 ;read mono sample, since tablei does not support stereo
