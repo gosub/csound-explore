@@ -1,4 +1,4 @@
-#ifndef LAUNCHPADINC
+#ifndef LPMINIINC
 
 
 #define LP_NOTEON   #144#
@@ -147,5 +147,5 @@ opcode lpcolor_i, i, ii
 endop
 
 
-#define LAUNCHPADINC ##
+#define LPMINIINC ##
 #end
