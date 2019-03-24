@@ -10,6 +10,10 @@ ksmps = 4
 nchnls = 2
 0dbfs = 1
 
+;; TODO: turn the instrument into a separate UDO
+;; TODO: turn the presets into a separate UDO
+;; TODO: add a preset generator as a UDO
+
 initc7 1,1,0.8                 ;set initial controller position
 
 prealloc 1, 10
