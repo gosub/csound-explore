@@ -131,7 +131,44 @@ opcode lpcolumnoff_i, 0, io
 endop
 
 
-;; TODO: add lprowon, lprowon_i, lprowoff, lprowoff_i
+opcode lprowon, 0, kkO
+  kcolor, krow, kchan xin
+  kindex = 0
+  while (kindex < 8) do
+    lpledon kcolor, krow, kindex, kchan
+    kindex += 1
+  od
+endop
+
+
+opcode lprowon_i, 0, iio
+  icolor, irow, ichan xin
+  iindex = 0
+  while (iindex < 8) do
+    lpledon_i icolor, irow, iindex, ichan
+    iindex += 1
+  od
+endop
+
+
+opcode lprowoff, 0, kO
+  krow, kchan xin
+  kindex = 0
+  while (kindex < 8) do
+    lpledoff krow, kindex, kchan
+    kindex += 1
+  od
+endop
+
+
+opcode lprowoff_i, 0, io
+  irow, ichan xin
+  iindex = 0
+  while (iindex < 8) do
+    lpledoff_i irow, iindex, ichan
+    iindex += 1
+  od
+endop
 
 
 opcode lpcolor, k, kk
