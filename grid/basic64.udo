@@ -111,3 +111,6 @@ opcode fado, k[], 0
   ksmooth[7] _fado_row kvalue[7], 7, ksmoothness
   xout ksmooth
 endop
+
+
+;; TODO: add pato, basic cable patching app

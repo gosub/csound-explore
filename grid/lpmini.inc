@@ -131,6 +131,9 @@ opcode lpcolumnoff_i, 0, io
 endop
 
 
+;; TODO: add lprowon, lprowon_i, lprowoff, lprowoff_i
+
+
 opcode lpcolor, k, kk
   kred, kgreen xin
   kred min kred, 3
