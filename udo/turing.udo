@@ -2,8 +2,6 @@
   turing - MusicThing Turing Machine clone
 */
 
-; TODO: add audio rate version
-; TODO: write expansion outputs to channel
 
 opcode turing, k, kkO
   ktrig, kctrl, ksteps xin
@@ -35,3 +33,13 @@ opcode turing, k, kkO
   xout kregisters[0] * ktrig
 endop
 
+
+#include "shiftreg.udo"
+
+
+opcode turingpulses, kkkkkkkkkkkk, kkO
+  ktrig, kctrl, ksteps xin
+  kinput turing ktrig, kctrl, ksteps
+  k1,k2,k3,k4,k5,k6,k7,k8 shiftreg kinput, ktrig
+  xout k1, k2, k3, k4, k5, k6, k7, k8, k1+k2, k2+k4, k4+k7, k1+k2+k4+k7
+endop
