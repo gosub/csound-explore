@@ -187,5 +187,10 @@ opcode lpcolor_i, i, ii
 endop
 
 
+;; TODO: add TOPROW support to lpread
+;; TODO: add lpsideon, lpsideoff, lpsideon_i, lpsideoff_i
+;; TODO: add lptopon, lptopoff, lptopon_i, lptopoff_i
+
+
 #define LPMINIINC ##
 #end
