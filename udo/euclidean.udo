@@ -34,12 +34,14 @@ opcode euclideangen, i, iiio
 endop
 
 
-;; TODO: add reset signal to euclidean
-
-opcode euclidean, k, kkkO
-  ktrig, kpulses, ksteps, krotate xin
+opcode euclidean, k, kkkOO
+  ktrig, kpulses, ksteps, krotate, kreset xin
   kout = 0
   kindex init -1
+
+  if kreset == 1 then
+    kindex = -1
+  endif
 
   if (ktrig == 1) then
     kindex += 1
