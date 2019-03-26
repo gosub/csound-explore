@@ -1,8 +1,7 @@
 <CsoundSynthesizer>
 <CsOptions>
-; Select audio/midi flags here according to platform
-; Audio out   Audio in
--odac -+rtmidi=alsaseq -Q20 -M20
+-d -odac
+-+rtmidi=alsaseq -Q20 -M20
 </CsOptions>
 <CsInstruments>
 
