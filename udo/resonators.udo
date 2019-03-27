@@ -10,15 +10,17 @@ opcode resonators, aa, aa
   kdecay init 0.5
   knote init 60
   kfilterfreq init 500
+  kfilteron init 1
   ksemitonesII init 3
   ksemitonesIII init 5
   ksemitonesIV init 7
   ksemitonesV init 11
 
   ;; TODO: filter type selectable
-  ;; TODO: filter on/off
-  ainL butterlp ainL, kfilterfreq
-  ainR butterlp ainR, kfilterfreq
+  if kfilteron == 1 then
+    ainL butterlp ainL, kfilterfreq
+    ainR butterlp ainR, kfilterfreq
+  endif
 
   ;; TODO: add cent detune
   kfreqI cpsmidinn knote
