@@ -10,9 +10,8 @@ nchnls = 2
 0dbfs  = 1
 
 
-;; TODO: add fuzz FX
-;; TODO: add delay FX
-;; TODO: add reverb FX
+gaBus1 init 0
+
 
 instr pluck
   kamp init 0.1
@@ -21,7 +20,7 @@ instr pluck
   imethod = 3
   aenv linen 1, 0.001, p3, p3-0.001
   ares pluck kamp, kcps, icps, 0, imethod
-  outs ares*aenv, ares*aenv
+  gaBus1 += ares*aenv
 endin
 
 
@@ -39,12 +38,49 @@ instr plucker
   elseif kcount % 4 >= 2 then
     ktempo = 2
   endif
-  schedkwhen ktick, 0, 0, "pluck", 0, 0.5, 57
-  printk2 kcount
+  knote = (int(kcount/8) % 4 == 3 ? 33 : 45)
+  schedkwhen ktick, 0, 0, "pluck", 0, 0.1, knote
+  printk2 knote
 endin
 
 
+; TODO: finalFX, extract UDO
+; TODO: finalFX, better reverb
+; TODO: finalFX, lowpass?
+
+instr finalFX
+  ; reverb params
+  kreverbtime init 0.7
+  ; delay params
+  kfeedback init 0.2
+  kdelaymix init 0.6
+  kdelaytime init 0.333
+  ; distortion params
+  idistortion = 0
+  kgain = 3
+
+  asig = gaBus1
+
+  ; reverb
+  asig reverb asig, kreverbtime
+
+  ; delay
+  adummy delayr 10
+  adelay deltap kdelaytime
+  asig += adelay * kdelaymix
+  delayw asig + adelay*kfeedback
+
+  ; fuzz/disortion
+  asig clip asig*kgain, idistortion, 0.1
+
+  outs asig, asig
+  clear gaBus1
+endin
+
+
+alwayson "finalFX"
 alwayson "plucker"
+
 
 </CsInstruments>
 <CsScore>
