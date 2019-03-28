@@ -10,16 +10,29 @@ opcode resonators, aa, aa
   kdecay init 0.5
   knote init 60
   kfilterfreq init 500
+  kfiltermode init 0
   kfilteron init 1
   ksemitonesII init 3
   ksemitonesIII init 5
   ksemitonesIV init 7
   ksemitonesV init 11
 
-  ;; TODO: filter type selectable
   if kfilteron == 1 then
-    ainL butterlp ainL, kfilterfreq
-    ainR butterlp ainR, kfilterfreq
+    if kfiltermode == 0 then
+      ainL butterlp ainL, kfilterfreq
+      ainR butterlp ainR, kfilterfreq
+    elseif kfiltermode == 1 then
+      ainL butterhp ainL, kfilterfreq
+      ainR butterhp ainR, kfilterfreq
+    elseif kfiltermode == 2 then
+      ainL butterbp ainL, kfilterfreq, kfilterfreq/10
+      ainR butterbp ainR, kfilterfreq, kfilterfreq/10
+    elseif kfiltermode == 3 then
+      ainL butterbr ainL, kfilterfreq, kfilterfreq/10
+      ainR butterbr ainR, kfilterfreq, kfilterfreq/10
+    else
+      printks2 "ERROR - invalid kfiltermode value: %d\n", kfiltermode
+    endif
   endif
 
   ;; TODO: add cent detune
