@@ -16,6 +16,7 @@ opcode resonators, aa, aa
   ksemitonesIII init 5
   ksemitonesIV init 7
   ksemitonesV init 11
+  kdetuneI, kdetuneII, kdetuneIII, kdetuneIV, kdetuneV init 0, 0, 0, 0, 0
 
   if kfilteron == 1 then
     if kfiltermode == 0 then
@@ -35,12 +36,12 @@ opcode resonators, aa, aa
     endif
   endif
 
-  ;; TODO: add cent detune
   kfreqI cpsmidinn knote
-  kfreqII  = kfreqI * semitone(ksemitonesII)
-  kfreqIII = kfreqI * semitone(ksemitonesIII)
-  kfreqIV  = kfreqI * semitone(ksemitonesIV)
-  kfreqV   = kfreqI * semitone(ksemitonesV)
+  kfreqI *= cent(kdetuneI)
+  kfreqII  = kfreqI * semitone(ksemitonesII)  * cent(kdetuneII)
+  kfreqIII = kfreqI * semitone(ksemitonesIII) * cent(kdetuneIII)
+  kfreqIV  = kfreqI * semitone(ksemitonesIV)  * cent(kdetuneIV)
+  kfreqV   = kfreqI * semitone(ksemitonesV)   * cent(kdetuneV)
 
   aresI   vcomb (ainL+ainR), kdecay, 1/kfreqI, 1
   aresII  vcomb ainL, kdecay, 1/kfreqII, 1
