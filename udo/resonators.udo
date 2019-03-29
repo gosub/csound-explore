@@ -12,10 +12,10 @@ opcode resonators, aa, aa
   kfilterfreq init 500
   kfiltermode init 0
   kfilteron init 1
-  ksemitonesII init 3
-  ksemitonesIII init 5
-  ksemitonesIV init 7
-  ksemitonesV init 11
+  ksemitonesII init 4
+  ksemitonesIII init 7
+  ksemitonesIV init 11
+  ksemitonesV init 12
   kdetuneI, kdetuneII, kdetuneIII, kdetuneIV, kdetuneV init 0, 0, 0, 0, 0
 
   if kfilteron == 1 then
