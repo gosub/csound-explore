@@ -17,6 +17,7 @@ opcode resonators, aa, aa
   ksemitonesIV init 11
   ksemitonesV init 12
   kdetuneI, kdetuneII, kdetuneIII, kdetuneIV, kdetuneV init 0, 0, 0, 0, 0
+  kdrywet init 1
 
   if kfilteron == 1 then
     if kfiltermode == 0 then
@@ -49,9 +50,11 @@ opcode resonators, aa, aa
   aresIV  vcomb ainL, kdecay, 1/kfreqIV, 1
   aresV   vcomb ainR, kdecay, 1/kfreqV, 1
 
-  ;; TODO: add spread, dry/wet, gain
+  ;; TODO: add spread, gain
   aoutL sum aresI/2, aresII, aresIV
   aoutR sum aresI/2, aresIII, aresV
-  xout aoutL, aoutR
+  amixL = aoutL * kdrywet + ainL * (1 - kdrywet)
+  amixR = aoutR * kdrywet + ainR * (1 - kdrywet)
+  xout amixL, amixR
 endop
 
