@@ -53,8 +53,8 @@ opcode resonators, aa, aa
   ;; TODO: add spread, gain
   aoutL sum aresI/2, aresII, aresIV
   aoutR sum aresI/2, aresIII, aresV
-  amixL = aoutL * kdrywet + ainL * (1 - kdrywet)
-  amixR = aoutR * kdrywet + ainR * (1 - kdrywet)
+  amixL = aoutL * sqrt(kdrywet) + ainL * sqrt(1 - kdrywet)
+  amixR = aoutR * sqrt(kdrywet) + ainR * sqrt(1 - kdrywet)
   xout amixL, amixR
 endop
 
