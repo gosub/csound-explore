@@ -65,7 +65,7 @@ opcode runbygrid, 0, k[]kO
 endop
 
 
-opcode _fado_row, k, kik
+opcode _fado_col, k, kik
   krow, icol, ksmoothness xin
   koldled init 1
   ksmooth init 0
@@ -101,14 +101,14 @@ opcode fado, k[], 0
       kvalue[kcol] = 7-krow
     endif
   endif
-  ksmooth[0] _fado_row kvalue[0], 0, ksmoothness
-  ksmooth[1] _fado_row kvalue[1], 1, ksmoothness
-  ksmooth[2] _fado_row kvalue[2], 2, ksmoothness
-  ksmooth[3] _fado_row kvalue[3], 3, ksmoothness
-  ksmooth[4] _fado_row kvalue[4], 4, ksmoothness
-  ksmooth[5] _fado_row kvalue[5], 5, ksmoothness
-  ksmooth[6] _fado_row kvalue[6], 6, ksmoothness
-  ksmooth[7] _fado_row kvalue[7], 7, ksmoothness
+  ksmooth[0] _fado_col kvalue[0], 0, ksmoothness
+  ksmooth[1] _fado_col kvalue[1], 1, ksmoothness
+  ksmooth[2] _fado_col kvalue[2], 2, ksmoothness
+  ksmooth[3] _fado_col kvalue[3], 3, ksmoothness
+  ksmooth[4] _fado_col kvalue[4], 4, ksmoothness
+  ksmooth[5] _fado_col kvalue[5], 5, ksmoothness
+  ksmooth[6] _fado_col kvalue[6], 6, ksmoothness
+  ksmooth[7] _fado_col kvalue[7], 7, ksmoothness
   xout ksmooth
 endop
 
