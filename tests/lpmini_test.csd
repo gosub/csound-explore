@@ -1,6 +1,6 @@
 <CsoundSynthesizer>
 <CsOptions>
--odac -d
+-odac -dm0
 -+rtmidi=alsaseq -M20 -Q20
 </CsOptions>
 <CsInstruments>
@@ -94,9 +94,6 @@ instr 5, lprowon_i_test, lprowoff_i_test, lpcolumnon_i_test, lpcolumnoff_i_test
   lpcolumnon_i $LP_RED, 6
   lpcolumnoff_i 2
 endin
-
-
-;; TODO: add test for lpread
 
 
 instr 99, all_test
