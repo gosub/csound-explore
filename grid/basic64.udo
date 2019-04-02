@@ -67,17 +67,18 @@ endop
 
 opcode _fado_col, k, kik
   krow, icol, ksmoothness xin
-  koldled init 1
   ksmooth init 0
+  kled init 0
   lpledon_i $LP_GREEN, 7, icol
 
   ksmooth portk krow/7, ksmoothness
+  koldled = kled
   kled = round(portk(krow, ksmoothness))
   if (changed:k(kled) == 1) then
-    ;; TODO: optimize, do not redraw the whole
-    ;;       column every time
-    kindex = 0
-    while kindex <= 7 do
+    kstart min kled, koldled
+    kend max kled, koldled
+    kindex = kstart
+    while kindex <= kend do
       if kindex <= kled then
         lpledon $LP_GREEN, 7-kindex, icol
       else
