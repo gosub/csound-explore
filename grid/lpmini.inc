@@ -3,6 +3,7 @@
 
 #define LP_NOTEON   #144#
 #define LP_NOTEOFF  #128#
+#define LP_MIDICC   #176#
 
 #define LP_OFF        #12#
 #define LP_GREEN      #60#
@@ -48,6 +49,16 @@ opcode lpread, kkkk, J
       elseif kdata2 == 0 then
         ktrigger = 1
         kevent = (kcol == 8 ? $LP_SIDE_UP : $LP_KEY_UP)
+      endif
+    elseif kstatus == $LP_MIDICC then
+      kcol = kdata1-104
+      krow = 0
+      if kdata2 == 127 then
+        ktrigger = 1
+        kevent = $LP_TOP_DOWN
+      elseif kdata2 == 0 then
+        ktrigger = 1
+        kevent = $LP_TOP_UP
       endif
     endif
   endif
@@ -187,7 +198,6 @@ opcode lpcolor_i, i, ii
 endop
 
 
-;; TODO: add TOPROW support to lpread
 ;; TODO: add lpsideon, lpsideoff, lpsideon_i, lpsideoff_i
 ;; TODO: add lptopon, lptopoff, lptopon_i, lptopoff_i
 
