@@ -1,3 +1,10 @@
+/*
+  momo - 64 momentary switches
+  togo - 64 toggle switches
+  runbygrid - udo for scheduling instruments with momo and togo
+  fado - 8 smooth faders
+*/
+
 #include "lpmini.inc"
 
 
