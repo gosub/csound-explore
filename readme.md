@@ -1,4 +1,4 @@
-#  Documentation for my Csound explorations
+#  Overview of my Csound explorations
 
 ## grid
 
