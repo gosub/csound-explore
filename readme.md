@@ -22,6 +22,7 @@ launchpad based, monome inspired
 - tee.udo - trigger based UDOs
   - tsequence - sequence an array on trigger (udo)
   - tchoice - sequence a random array member on trigger (udo) 
+  - twchoice - sequence a random array member on trigger, with probability (udo)
   - tstepper - sequence an array on trigger, with step-length, reverse, rotation and reset (udo) 
 
 ## sccode
