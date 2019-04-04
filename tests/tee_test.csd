@@ -12,22 +12,22 @@ nchnls = 2
 #include "../udo/tee.udo"
 
 
-instr 1, tsequence__tstepper_tchoice_test
+instr 1, tsequence_tstepper_tchoice_twchoice_test
   prints "=== tee test ===\n"
   ksequence[] fillarray 45, 49, 52, 56, 57, 61
+  kweights[]  fillarray 8,  1,  1,  1,  4,  1
   ktrig metro 6
   kdur timeinsts
   kdur = int(kdur/4)
-  kalt = kdur % 3
+  kalt = kdur % 4
   if kalt == 0 then
-    printks "tsequence\n", 12
     knote tsequence ktrig, ksequence+12
   elseif kalt == 1 then
-    printks "tstepper\n", 12
     knote tstepper ktrig, ksequence+7, 1, 1, 3
-  else
-    printks "tchoice\n", 12
+  elseif kalt == 2 then
     knote tchoice ktrig, ksequence
+  elseif kalt == 3 then
+    knote twchoice ktrig, ksequence, kweights
   endif
   schedkwhen ktrig, 0, 0, 2, 0, 0.2, cpsmidinn(knote)
 endin
