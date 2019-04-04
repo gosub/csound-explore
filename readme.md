@@ -11,6 +11,7 @@ launchpad based, monome inspired
   - momo - 64 momentary switches (udo)
   - togo - 64 toggle switches (udo)
   - fado - 8 smooth faders (udo)
+  - pato - 64 patching points, 32ins-left 32outs-right (udo)
 
 ## udo
 
