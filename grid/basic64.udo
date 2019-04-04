@@ -3,6 +3,8 @@
   togo - 64 toggle switches
   runbygrid - udo for scheduling instruments with momo and togo
   fado - 8 smooth faders
+  pato - 64 patching points, 32ins (left) 32outs (right)
+  patchby - udo for connecting opcodes with pato
 */
 
 #include "lpmini.inc"
