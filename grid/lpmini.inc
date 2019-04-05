@@ -198,7 +198,30 @@ opcode lpcolor_i, i, ii
 endop
 
 
-;; TODO: add lpsideon, lpsideoff, lpsideon_i, lpsideoff_i
+opcode lpsideon, 0, kkO
+  kcolor, krow, kchan xin
+  midiout $LP_NOTEON, kchan, (krow*16)+8, kcolor
+endop
+
+
+opcode lpsideon_i, 0, iio
+  icolor, irow, ichan xin
+  midiout_i $LP_NOTEON, ichan, (irow*16)+8, icolor
+endop
+
+
+opcode lpsideoff, 0, kO
+  krow, kchan xin
+  midiout $LP_NOTEOFF, kchan, (krow*16)+8, 0
+endop
+
+
+opcode lpsideoff_i, 0, io
+  irow, ichan xin
+  midiout_i $LP_NOTEOFF, ichan, (irow*16)+8, 0
+endop
+
+
 ;; TODO: add lptopon, lptopoff, lptopon_i, lptopoff_i
 
 
