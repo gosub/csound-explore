@@ -20,7 +20,7 @@ instr 1, lpledon_test, lpledoff_test, lpcolor_test
   kcolumn init 0
   krow init 0
   lpclear_i
-  kmetro metro 2
+  kmetro metro 4
   if (kmetro == 1) then
     lpledoff krow, kcolumn
     krow = int(rnd:k(8))
@@ -35,7 +35,7 @@ instr 2, lpcolumnon_test, lpcolumnoff_test
   prints "Running test for lpcolumnon, lpcolumnoff\n"
   kcolumn init 0
   lpclear_i
-  kmetro metro 2
+  kmetro metro 4
   if (kmetro == 1) then
     lpcolumnoff kcolumn
     kcolumn = int(rnd:k(8))
@@ -49,7 +49,7 @@ instr 3, lprowon_test, lprowoff_test
   prints "Running test for lprowon, lprowoff\n"
   krow init 0
   lpclear_i
-  kmetro metro 2
+  kmetro metro 4
   if (kmetro == 1) then
     lprowoff krow
     krow = int(rnd:k(8))
@@ -107,7 +107,7 @@ instr 6, lpsideon_test, lpsideoff_test, lpsideon_i_test, lpsideoff_i_test
   lpsideoff_i 6
   kindex init 0
   kcol init 0
-  ktick metro 2
+  ktick metro 4
   if ktick == 1 then
     lpsideoff kcol
     kcol += 1
@@ -120,7 +120,7 @@ endin
 instr 99, all_test
   prints "TEST LOOP BEGINS\n"
   itests = 6
-  itestinterval = 5
+  itestinterval = 4
   itest = 1
   while itest <= itests do
     schedule itest, (itest-1)*itestinterval, itestinterval
