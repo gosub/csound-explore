@@ -19,10 +19,39 @@ giSample   ftgen 0,0,0,1,gSamplename,0,0,1
 giSampleLen filelen gSamplename
 
 
+opcode _mlr_lane, a, iiiikkk
+  ilane, ilength, isampletable, isamplelen, klooping, ksync, kposition xin
+  klast init -1
+  kprevlooping init 0
+
+  asig = 0
+  if klooping == 1 then
+    async upsamp ksync
+    aphase, adummy syncphasor 1/isamplelen, async
+    kphase downsamp aphase
+    kindex = (int(kphase*(ilength-0.001)) + kposition) % ilength
+    if kindex != klast then
+      lpledon $LP_GREEN, ilane, kindex
+      if klast != -1 then
+        lpledoff ilane, klast
+      endif
+      klast = kindex
+    endif
+    aphase += 1/ilength * kposition
+    asig tablei aphase, isampletable, 1, 0, 1
+  else
+    if kprevlooping == 1 then
+      lpledoff ilane, klast
+      klast = -1
+    endif
+  endif
+  kprevlooping = klooping
+  xout asig
+endop
+
+
 instr mlr
   icolumns init 8
-  klast init -1
-  kindex init -1
   kreset init 0
   koffset init 0
   krunning init 0
@@ -38,8 +67,6 @@ instr mlr
       if kcol == kgroup then
         krunning = 0
         lpledoff 0, kgroup
-        lpledoff klane, klast
-        klast = -1
       endif
     else
       if krow == klane then
@@ -53,23 +80,7 @@ instr mlr
     endif
   endif
 
-  asig = 0
-
-  if krunning == 1 then
-    areset upsamp kreset
-    aph, adummy syncphasor 1/giSampleLen, areset
-    kph downsamp aph
-    kindex = (int(kph*7.999) + koffset) % icolumns
-    if kindex != klast then
-      lpledon $LP_GREEN, klane, kindex
-      if klast != -1 then
-        lpledoff klane, klast
-      endif
-      klast = kindex
-    endif
-    aph += 1/8 * koffset
-    asig tablei aph, giSample, 1, 0, 1
-  endif
+  asig _mlr_lane 1, icolumns, giSample, giSampleLen, krunning, kreset, koffset
   outs asig, asig
 endin
 
