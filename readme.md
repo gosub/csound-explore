@@ -5,8 +5,8 @@
 launchpad based, monome inspired
 
 - lpmini.inc - library for the launchpad mini mkII
-- flin.csd - clone of flin instrument from monome sums
-- step.csd - clone of step instrument from monome sums
+- flin.csd - clone of flin instrument from monome sum
+- step.csd - clone of step instrument from monome sum
 - basic64.udo - simple grid UDOs
   - momo - 64 momentary switches (udo)
   - togo - 64 toggle switches (udo)
