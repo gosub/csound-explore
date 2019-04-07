@@ -96,8 +96,9 @@ instr 5, lprowon_i_test, lprowoff_i_test, lpcolumnon_i_test, lpcolumnoff_i_test
 endin
 
 
-instr 6, lpsideon_test, lpsideoff_test, lpsideon_i_test, lpsideoff_i_test
+instr 6, lpside_test, lptop_test
   prints "Running test for lpsideon, lpsideoff, lpsideon_i, lpsideoff_i\n"
+  prints "             and lptopon, lptopoff, lptopon_i, lptopoff_i\n"
   lpclear_i
   lpsideon_i $LP_GREEN, 4
   lpsideon_i $LP_GREEN, 5
@@ -105,14 +106,22 @@ instr 6, lpsideon_test, lpsideoff_test, lpsideon_i_test, lpsideoff_i_test
   lpsideon_i $LP_RED, 7
   lpsideoff_i 5
   lpsideoff_i 6
+  lptopon_i $LP_GREEN, 3
+  lptopon_i $LP_GREEN, 2
+  lptopon_i $LP_RED, 1
+  lptopon_i $LP_RED, 0
+  lptopoff_i 1
+  lptopoff_i 2
   kindex init 0
   kcol init 0
   ktick metro 4
   if ktick == 1 then
     lpsideoff kcol
+    lptopoff 7-kcol
     kcol += 1
     kcol = kcol % 4
     lpsideon $LP_YELLOW, kcol
+    lptopon $LP_YELLOW, 7-kcol
   endif
 endin
 
