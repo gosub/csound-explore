@@ -286,7 +286,38 @@ opcode lpsideoff_i, 0, io
 endop
 
 
-;; TODO: add lptopon, lptopoff, lptopon_i, lptopoff_i
+/*
+  TOP LED CONTROL
+  lptopon kcolor, kcol, [kchan]   - turn on top row led at k-rate
+  lptopoff kcol, [kchan]          - turn off top row led at k-rate
+  lptopon_i icolor, icol, [ichan] - turn on top row led at i-rate
+  lptopoff_i icol, [ichan]        - turn off top row led at i-rate
+*/
+
+
+opcode lptopon, 0, kkO
+  kcolor, kcol, kchan xin
+  midiout $LP_MIDICC, kchan, 104+kcol, kcolor
+endop
+
+
+opcode lptopon_i, 0, iio
+  icolor, icol, ichan xin
+  midiout_i $LP_MIDICC, ichan, 104+icol, icolor
+endop
+
+
+opcode lptopoff, 0, kO
+  kcol, kchan xin
+  midiout $LP_MIDICC, kchan, 104+kcol, 0
+endop
+
+
+opcode lptopoff_i, 0, io
+  icol, ichan xin
+  midiout_i $LP_MIDICC, ichan, 104+icol, 0
+endop
+
 
 
 #define LPMINIINC ##
