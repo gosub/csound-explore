@@ -2,6 +2,7 @@
 
 <CsOptions>
 -odac -Ma
+-m0
 </CsOptions>
 
 <CsInstruments>
@@ -112,7 +113,7 @@ giBeats[] fillarray 1/4, 1/4, 1/4, 1/4
 giNote[] fillarray 50, 53, 57, 59
 
 instr 2
- kbpm init 100
+ kbpm init 120
  kndx init 0
  ipre = p4
  kbeat = giBeats[kndx]
