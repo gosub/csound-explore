@@ -20,6 +20,7 @@ opcode resonators, aa, aa
   kgainI, kgainII, kgainIII, kgainIV, kgainV init 0, 0, 0, 0, 0
   kgainfinal init 0
   kdrywet init 1
+  kspread init 1
 
   if kfilteron == 1 then
     if kfiltermode == 0 then
@@ -58,13 +59,14 @@ opcode resonators, aa, aa
   aresIV  *= ampdbfs(kgainIV)
   aresV   *= ampdbfs(kgainV)
 
-  ;; TODO: add spread
-  aoutL sum aresI/2, aresII, aresIV
-  aoutR sum aresI/2, aresIII, aresV
-  aoutL *= ampdbfs(kgainfinal)
-  aoutR *= ampdbfs(kgainfinal)
-  amixL = aoutL * sqrt(kdrywet) + ainL * sqrt(1 - kdrywet)
-  amixR = aoutR * sqrt(kdrywet) + ainR * sqrt(1 - kdrywet)
-  xout amixL, amixR
+  asumL sum aresI/2, aresII, aresIV
+  asumR sum aresI/2, aresIII, aresV
+  asumL *= ampdbfs(kgainfinal)
+  asumR *= ampdbfs(kgainfinal)
+  amix1 = asumL * sqrt(kdrywet) + ainL * sqrt(1 - kdrywet)
+  amix2 = asumR * sqrt(kdrywet) + ainR * sqrt(1 - kdrywet)
+  amix1L, amix1R pan2 amix1, 0.5 - (0.5 * kspread)
+  amix2L, amix2R pan2 amix2, 0.5 + (0.5 * kspread)
+  xout amix1L + amix2L, amix1R + amix2R
 endop
 
