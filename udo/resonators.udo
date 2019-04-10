@@ -3,24 +3,23 @@
 */
 
 
-opcode resonators, aa, aa
-  ainL, ainR xin
+opcode resonators, aa, aak
+  ainL, ainR, knote xin
 
   ;; TODO: transform this variables in parameters
-  kdecay init 0.5
-  knote init 60
-  kfilterfreq init 500
-  kfiltermode init 0
-  kfilteron init 1
   ksemitonesII init 4
   ksemitonesIII init 7
   ksemitonesIV init 11
   ksemitonesV init 12
-  kdetuneI, kdetuneII, kdetuneIII, kdetuneIV, kdetuneV init 0, 0, 0, 0, 0
-  kgainI, kgainII, kgainIII, kgainIV, kgainV init 0, 0, 0, 0, 0
+  kdecay init 0.5
+  kfilteron init 1
+  kfiltermode init 0
+  kfilterfreq init 500
+  kspread init 1
   kgainfinal init 0
   kdrywet init 1
-  kspread init 1
+  kgainI, kgainII, kgainIII, kgainIV, kgainV init 0, 0, 0, 0, 0
+  kdetuneI, kdetuneII, kdetuneIII, kdetuneIV, kdetuneV init 0, 0, 0, 0, 0
 
   if kfilteron == 1 then
     if kfiltermode == 0 then
