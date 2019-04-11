@@ -3,14 +3,10 @@
 */
 
 
-opcode resonators, aa, aak
-  ainL, ainR, knote xin
+opcode resonators, aa, aakkkkk
+  ainL, ainR, knote, ksemiII, ksemiIII, ksemiIV, ksemiV xin
 
   ;; TODO: transform this variables in parameters
-  ksemitonesII init 4
-  ksemitonesIII init 7
-  ksemitonesIV init 11
-  ksemitonesV init 12
   kdecay init 0.5
   kfilteron init 1
   kfiltermode init 0
@@ -41,10 +37,10 @@ opcode resonators, aa, aak
 
   kfreqI cpsmidinn knote
   kfreqI *= cent(kdetuneI)
-  kfreqII  = kfreqI * semitone(ksemitonesII)  * cent(kdetuneII)
-  kfreqIII = kfreqI * semitone(ksemitonesIII) * cent(kdetuneIII)
-  kfreqIV  = kfreqI * semitone(ksemitonesIV)  * cent(kdetuneIV)
-  kfreqV   = kfreqI * semitone(ksemitonesV)   * cent(kdetuneV)
+  kfreqII  = kfreqI * semitone(ksemiII)  * cent(kdetuneII)
+  kfreqIII = kfreqI * semitone(ksemiIII) * cent(kdetuneIII)
+  kfreqIV  = kfreqI * semitone(ksemiIV)  * cent(kdetuneIV)
+  kfreqV   = kfreqI * semitone(ksemiV)   * cent(kdetuneV)
 
   aresI   vcomb (ainL+ainR), kdecay, 1/kfreqI, 1
   aresII  vcomb ainL, kdecay, 1/kfreqII, 1
