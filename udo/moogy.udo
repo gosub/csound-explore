@@ -1,15 +1,6 @@
-<CsoundSynthesizer>
-
-<CsOptions>
--odac -Ma
--m0
-</CsOptions>
-
-<CsInstruments>
-sr = 48000
-ksmps = 4
-nchnls = 2
-0dbfs = 1
+/*
+  moogy - 2osc+noise Moog inspired instrument
+*/
 
 
 opcode moogy, a, ikikkkkikkkiiiiikiiii
@@ -94,47 +85,11 @@ opcode moogy_preset, k[], k
                      .2,  2,  .5,   0,  -8,  .2,  2,   0.5, 0,    8,   3,   .01,  1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
                      .2,  2,  .5,   0,  -8,  .2,  2,   0.5, -1,   8,   7,  .01,   1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
                      .2,  1,  .5,   0,  -10, .2,  1,   0.5, -2,   10,  40,  .01,  3,    .001, .1,  .5,  .005, .01, 1,   .05
+  kpresetnum max kpresetnum, 0
+  kpresetnum min kpresetnum, lenarray:k(kPresets, 1)-1
   kpreset[] getrow kPresets, kpresetnum
   xout kpreset
 endop
 
 
 ;; TODO: add a preset generator as a UDO
-
-prealloc 1, 10
-
-instr 1
-  kpreset[] moogy_preset p5
-  aOut moogy p4, kpreset
-  outs aOut,aOut
-endin
-
-giBeats[] fillarray 1/4, 1/4, 1/4, 1/4
-giNote[] fillarray 50, 53, 57, 59
-
-instr 2
- kbpm init 120
- kndx init 0
- ipre = p4
- kbeat = giBeats[kndx]
- kdur = 60*kbeat/kbpm
- knote = giNote[kndx]
- kmetro metro 1/kdur
-	if kmetro == 1 then
-		event "i", 1, 0, kdur, knote, ipre
-	 kndx += 1
-	 kndx = kndx % 4
-	endif
-endin
-</CsInstruments>
-
-<CsScore>
-
-i2 0 10 0
-i2 + .  1
-i2 + .  2
-i2 + .  3
-
-</CsScore>
-
-</CsoundSynthesizer>
