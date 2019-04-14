@@ -12,16 +12,28 @@ opcode moogy, a, ikikkkkikkkiiiiikiiii
   kTune2 cent kTune2
 
   ; oscillator 1
-  if iType1==1 || iType1==2 then
-    iMode1 = (iType1==1?0:2)
+  if iType1 <= 3 then
+    if iType1 == 1 then
+      iMode1 = 0
+    elseif iType1 == 2 then
+      iMode1 = 2
+    elseif iType1 == 3 then
+      iMode1 = 4
+    endif
     aSig1 vco2 kAmp1, iCPS*kOct1*kTune1, iMode1, kPW1
   else
     aSig1 noise kAmp1, 0.5
   endif
 
   ; oscillator 2
-  if iType2==1 || iType2==2 then
-    iMode2 = (iType2==1?0:2)
+  if iType2 <= 3 then
+    if iType2 == 1 then
+      iMode2 = 0
+    elseif iType2 == 2 then
+      iMode2 = 2
+    elseif iType2 == 3 then
+      iMode2 = 4
+    endif
     aSig2 vco2 kAmp2, iCPS*kOct2*kTune2, iMode2, kPW2
   else
     aSig2 noise kAmp2, 0.5
