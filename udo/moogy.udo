@@ -117,17 +117,29 @@ opcode moogy, a, ik[]
 endop
 
 
+giMoogyPresets[][] init 4, 20
+giMoogyPresets fillarray .2,  2,  .5,   0,  -5,  .2,  2,   0.5, 0,    5,   1,   .01,  1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
+                         .2,  2,  .5,   0,  -8,  .2,  2,   0.5, 0,    8,   3,   .01,  1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
+                         .2,  2,  .5,   0,  -8,  .2,  2,   0.5, -1,   8,   7,  .01,   1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
+                         .2,  1,  .5,   0,  -10, .2,  1,   0.5, -2,   10,  40,  .01,  3,    .001, .1,  .5,  .005, .01, 1,   .05
+
+
 opcode moogy_preset, k[], k
   kpresetnum xin
-  kPresets[][] init 4, 20
-  kPresets fillarray .2,  2,  .5,   0,  -5,  .2,  2,   0.5, 0,    5,   1,   .01,  1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
-                     .2,  2,  .5,   0,  -8,  .2,  2,   0.5, 0,    8,   3,   .01,  1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
-                     .2,  2,  .5,   0,  -8,  .2,  2,   0.5, -1,   8,   7,  .01,   1,    .1,   .1,  .5,  .005, .01, 1,   .05, \
-                     .2,  1,  .5,   0,  -10, .2,  1,   0.5, -2,   10,  40,  .01,  3,    .001, .1,  .5,  .005, .01, 1,   .05
   kpresetnum max kpresetnum, 0
-  kpresetnum min kpresetnum, lenarray:k(kPresets, 1)-1
+  kpresetnum min kpresetnum, lenarray:k(giMoogyPresets, 1)-1
+  kPresets[][] = giMoogyPresets
   kpreset[] getrow kPresets, kpresetnum
   xout kpreset
+endop
+
+
+opcode moogy_preset, i[], i
+  ipresetnum xin
+  ipresetnum max ipresetnum, 0
+  ipresetnum min ipresetnum, lenarray:i(giMoogyPresets, 1)-1
+  ipreset[] getrow giMoogyPresets, ipresetnum
+  xout ipreset
 endop
 
 
