@@ -21,6 +21,7 @@ launchpad based, monome inspired
   - moogy - udo with all controls as parameter
   - moogy(ik[]) - same udo with controls passed via an array (except note)
   - moogy\_preset - collection of presets to pass directly to moogy(ik[]) 
+  - moogy\_rnd\_preset - random preset generator to pass directly to moogy(ik[]) 
 - resonators.udo - clone of Resonators device from Ableton Live
 - shiftreg.udo - digital shift register with 8 outputs
 - tee.udo - trigger based UDOs
