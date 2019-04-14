@@ -52,6 +52,33 @@ opcode moogy, a, ikikkkkikkkiiiiikiiii
 endop
 
 
+opcode moogy, a, ii[]
+  inote, ipreset[] xin
+  kAmp1 = ipreset[0]
+  iType1 = ipreset[1]
+  kPW1 = ipreset[2]
+  kOct1 = ipreset[3]
+  kTune1 = ipreset[4]
+  kAmp2 = ipreset[5]
+  iType2 = ipreset[6]
+  kPW2 = ipreset[7]
+  kOct2 = ipreset[8]
+  kTune2 = ipreset[9]
+  iCF = ipreset[10]
+  iFAtt = ipreset[11]
+  iFDec = ipreset[12]
+  iFSus = ipreset[13]
+  iFRel = ipreset[14]
+  kRes = ipreset[15]
+  iAAtt = ipreset[16]
+  iADec = ipreset[17]
+  iASus = ipreset[18]
+  iARel = ipreset[19]
+  aout moogy inote,kAmp1,iType1,kPW1,kOct1,kTune1,kAmp2,iType2,kPW2,kOct2,kTune2,iCF,iFAtt,iFDec,iFSus,iFRel,kRes,iAAtt,iADec,iASus,iARel
+  xout aout
+endop
+
+
 opcode moogy, a, ik[]
   inote, kpreset[] xin
   kAmp1 = kpreset[0]
