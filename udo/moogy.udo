@@ -143,4 +143,35 @@ opcode moogy_preset, i[], i
 endop
 
 
-;; TODO: add a preset generator as a UDO
+opcode moogy_rnd_preset, i[], o
+  iprintit xin
+
+  seed 0
+  ;; TODO: better random parameters
+  iAmp1 random 0.1, 0.7
+  iType1 int random(1, 4.999)
+  iPW1 random 0.1, 0.9
+  iOct1 int random(-1.999, 2.999)
+  iTune1 = (random(0, 1)>0.5 ? 0 : int(linrand(100)+1))
+  iAmp2 random 0.1, 0.7
+  iType2 int random(1, 4.999)
+  iPW2 random 0.1, 0.9
+  iOct2 int random(-1.999, 2.999)
+  iTune2 = (random(0,1)>0.5 ? 0 : int(linrand(100)+1))
+  iCF = (random(0, 1)>0.5 ? 1 : int(linrand(10)+1))
+  iFAtt random 0.001, 0.1
+  iFDec random 0, 0.1
+  iFSus = (random(0,1)>0.5 ? 1 : int(linrand(10)+1))
+  iFRel random 0.001, 0.5
+  iRes random 0, 1
+  iAAtt random 0.001, 0.1
+  iADec random 0, 0.1
+  iASus random 0, 1
+  iARel random 0.001, 0.5
+
+  ipreset[] fillarray iAmp1,iType1,iPW1,iOct1,iTune1,iAmp2,iType2,iPW2,iOct2,iTune2,iCF,iFAtt,iFDec,iFSus,iFRel,iRes,iAAtt,iADec,iASus,iARel
+  if iprintit == 1 then
+    printarray ipreset, "%.3f,"
+  endif
+  xout ipreset
+endop
