@@ -19,7 +19,11 @@ instr 1
   klfo2 lfo 1, 1/3, 3
   kdecay lfo 0.3, 1/2
   kdecay += 0.7
-  aL, aR resonators apulse, apulse, 60-klfo, 4-klfo2, 7, 11, 12, kdecay
+  kfilteron init 1
+  kfiltermode lfo 2, 1/10, 3
+  kfilterfreq lfo 200, 1/20
+  kfilterfreq += 400
+  aL, aR resonators apulse, apulse, 60-klfo, 4-klfo2, 7, 11, 12, kdecay, kfilteron, kfiltermode, kfilterfreq
   outs aL, aR
 endin
 
