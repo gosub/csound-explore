@@ -23,7 +23,11 @@ instr 1
   kfiltermode lfo 2, 1/10, 3
   kfilterfreq lfo 200, 1/20
   kfilterfreq += 400
-  aL, aR resonators apulse, apulse, 60-klfo, 4-klfo2, 7, 11, 12, kdecay, kfilteron, kfiltermode, kfilterfreq
+  kspread lfo 0.5, 1/7
+  kspread += 0.5
+  kgainfinal init 10
+  aL, aR resonators apulse, apulse, 60-klfo, 4-klfo2, 7, 11, 12, kdecay, \
+                    kfilteron, kfiltermode, kfilterfreq, kspread, kgainfinal
   outs aL, aR
 endin
 
