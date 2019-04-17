@@ -16,17 +16,6 @@ gSdirectory = "/home/gg/downloads/audio/samples/sums/step"
 gSfiles[] directory gSdirectory
 ginumfiles lenarray gSfiles
 
-opcode inckwhen, k, ki
-  ktrig, imax xin
-  kvalue init imax
-  if ktrig == 1 then
-    kvalue += 1
-  endif
-  kvalue = kvalue % imax
-  xout kvalue
-endop
-
-
 
 instr sample
   iamp = p5

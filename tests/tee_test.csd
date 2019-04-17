@@ -12,11 +12,13 @@ nchnls = 2
 #include "../udo/tee.udo"
 
 
-instr 1, tsequence_tstepper_tchoice_twchoice_test
+instr 1, tsequence_tstepper_tchoice_twchoice_tcount_test
   prints "=== tee test ===\n"
   ksequence[] fillarray 45, 49, 52, 56, 57, 61
   kweights[]  fillarray 8,  1,  1,  1,  4,  1
   ktrig metro 6
+  printks2 "trig counter: %d, ",tcount(ktrig)
+  printks2 "wrap 10: %d\n", tcount(ktrig, 10)
   kdur timeinsts
   kdur = int(kdur/4)
   kalt = kdur % 4
