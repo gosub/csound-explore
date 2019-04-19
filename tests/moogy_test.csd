@@ -17,24 +17,42 @@ prealloc 1, 10
 
 giparams[] init 20
 
-instr moogy_test
+instr moogy_note
   ipresetnum = p5
   aOut moogy p4, giparams
   outs aOut,aOut
 endin
 
 
-giBeats[] fillarray 1/4, 1/4, 1/4, 1/4
-giNote[] fillarray 50, 53, 57, 59
+;; TODO: arrayshuffle
+;; TODO: arrayreverse
+;; TODO: once
+;; TODO: extract all this from this test
 
 
-;; TODO: extract arpy as seperate UDO
+opcode arpy, kk, kk[]k[]V
+  kbpm, kdurations[], knotes[], kgate xin
+  kdur_idx, knot_idx init 0, 0
+  ktriggernote = 0
+  kduration = 60*kdurations[kdur_idx]/kbpm
+  knote = knotes[knot_idx]
+  kmetro metro 1/kduration
+  if kmetro == 1 then
+    ktriggernote = knote
+    kdurationout = kduration * kgate
+    kdur_idx += 1
+    kdur_idx = kdur_idx % lenarray:k(kdurations)
+    knot_idx += 1
+    knot_idx = knot_idx % lenarray:k(knotes)
+  endif
+  xout ktriggernote, kdurationout
+endop
 
 
-instr arpy
-  kbpm init 80
-  kndx init 0
+instr moogy_test
   ipre = p4
+  kbeats[] fillarray 1/4, 1/3, 1/4, 1/2
+  knotes[] fillarray 50, 53, 57, 59, 53
   if ipre < 100 then
     prints "Playing preset: %d\n", p4
     giparams moogy_preset ipre
@@ -42,29 +60,23 @@ instr arpy
     prints "Playing random preset\n"
     giparams moogy_rnd_preset 1
   endif
-  kbeat = giBeats[kndx]
-  kdur = 60*kbeat/kbpm
-  knote = giNote[kndx]
-  kmetro metro 1/kdur
-  if kmetro == 1 then
-    event "i", "moogy_test", 0, kdur, knote
-    kndx += 1
-    kndx = kndx % 4
-  endif
+  ktrignote, kdur arpy 80, kbeats, knotes, 0.5
+  schedkwhen ktrignote, 0, 0, "moogy_note", 0, kdur, ktrignote
 endin
+
 
 </CsInstruments>
 
 <CsScore>
 
-i "arpy" 0 5  0
-i "arpy" + .  1
-i "arpy" + .  2
-i "arpy" + .  3
-i "arpy" + .  101
-i "arpy" + .  102
-i "arpy" + .  103
-i "arpy" + .  104
+i "moogy_test" 0 5  0
+i "moogy_test" + .  1
+i "moogy_test" + .  2
+i "moogy_test" + .  3
+i "moogy_test" + .  101
+i "moogy_test" + .  102
+i "moogy_test" + .  103
+i "moogy_test" + .  104
 
 </CsScore>
 
