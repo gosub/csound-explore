@@ -24,12 +24,6 @@ instr moogy_note
 endin
 
 
-;; TODO: arrayshuffle
-;; TODO: arrayreverse
-;; TODO: once
-;; TODO: extract all this from this test
-
-
 opcode arpy, kk, kk[]k[]V
   kbpm, kdurations[], knotes[], kgate xin
   kdur_idx, knot_idx init 0, 0
