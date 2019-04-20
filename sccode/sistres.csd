@@ -10,8 +10,35 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
+#include "../udo/tee.udo"
+
 ; port of «sistres» by alln4tural
 ; http://sccode.org/1-1Ni
+
+;; TODO: instr "sine"
+;; TODO: arrayofsubinstr
+;; TODO: splay
+;; TODO: lfgauss
+;; TODO: c_part
+
+
+instr b_instr
+  idur = p3
+  cluster[] init 16
+  sines[] arrayofsubinstr cluster, "sine"
+  asigL, asigR splay sines
+  aenv lfgauss idur, 1/4, 0, 0
+  outs asigL*aenv, asigR*aenv
+endin
+
+
+instr b_part
+  knotes[] fillarray 40, 45, 52
+  kmetro metro 1/4
+  knote tchoice kmetro, knotes
+  schedkwhen kmetro, 0, 0, "b_instr", 0, 9
+endin
+
 
 </CsInstruments>
 <CsScore>
