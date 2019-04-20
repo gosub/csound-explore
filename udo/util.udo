@@ -1,7 +1,16 @@
 /*
+  once - true only once, at k-rate
 */
 
 ;; TODO: arrayshuffle
 ;; TODO: arrayreverse
-;; TODO: once
 ;; TODO: randint
+
+
+opcode once, k, 0
+  kcount init 2
+  if kcount > 0 then
+    kcount -= 1
+  endif
+  xout kcount
+endop
