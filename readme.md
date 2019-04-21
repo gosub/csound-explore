@@ -33,6 +33,7 @@ launchpad based, monome inspired
 - turing.udo - Turing Machine eurorack module clone
 - utility.udo
   - once - is true only once, at k-rate
+  - randint - return a random int between max and min (default 0)
 
 ## sccode
 
