@@ -31,6 +31,8 @@ launchpad based, monome inspired
   - tstepper - sequence an array on trigger, with step-length, reverse, rotation and reset (udo) 
   - tcount - trigger counter, with optional wrap-around (udo)
 - turing.udo - Turing Machine eurorack module clone
+- utility.udo
+  - once - is true only once, at k-rate
 
 ## sccode
 

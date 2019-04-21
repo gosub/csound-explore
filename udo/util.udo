@@ -5,7 +5,6 @@
 ;; TODO: arrayshuffle
 ;; TODO: arrayreverse
 ;; TODO: randint
-;; TODO: add "once" to readme
 
 
 opcode once, k, 0
