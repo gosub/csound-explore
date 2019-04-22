@@ -28,6 +28,20 @@ opcode lfgauss, a, kkk
   xout aout
 endop
 
+opcode exprand, i, ii
+  ilo, ihi xin
+  iout = ilo * exp(log(ihi/ilo) * random(0, 1))
+  xout iout
+endop
+
+
+opcode exprand, k, kk
+  klo, khi xin
+  kout = klo * exp(log(khi/klo) * random(0, 1))
+  xout kout
+endop
+
+
 
 instr b_instr
   idur = p3
