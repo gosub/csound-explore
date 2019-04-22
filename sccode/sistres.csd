@@ -16,7 +16,6 @@ nchnls = 2
 ; http://sccode.org/1-1Ni
 
 ;; TODO: instr "sine"
-;; TODO: arrayofsubinstr
 ;; TODO: c_part
 
 opcode lfgauss, a, kkk
@@ -38,6 +37,25 @@ opcode exprand, k, kk
   klo, khi xin
   kout = klo * exp(log(khi/klo) * random(0, 1))
   xout kout
+endop
+
+
+opcode arrayofsubinstr, a[], a[]iio
+  audioarr[], index, instrnum, iparam xin
+  ilen lenarray audioarr
+  if index < ilen then
+    audioarr arrayofsubinstr audioarr, index+1, instrnum, iparam
+    audioarr[index] subinstr instrnum, index, ilen-1, iparam
+  endif
+  xout audioarr
+endop
+
+
+opcode arrayofsubinstr, a[], a[]iSo
+  audioarr[], index, Sinstrname, iparam xin
+  instrnum nstrnum Sinstrname
+  audioarr arrayofsubinstr audioarr, index, instrnum, iparam
+  xout audioarr
 endop
 
 
