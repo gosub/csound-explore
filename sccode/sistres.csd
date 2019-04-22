@@ -24,6 +24,7 @@ nchnls = 2
 
 instr b_instr
   idur = p3
+  inote = p4
   cluster[] init 16
   sines[] arrayofsubinstr cluster, "sine"
   asigL, asigR splay sines
@@ -32,16 +33,18 @@ instr b_instr
 endin
 
 
+
 instr b_part
   knotes[] fillarray 40, 45, 52
   kmetro metro 1/4
   knote tchoice kmetro, knotes
-  schedkwhen kmetro, 0, 0, "b_instr", 0, 9
+  schedkwhen kmetro, 0, 0, "b_instr", 0, 9, knote
 endin
 
 
 </CsInstruments>
 <CsScore>
+i "b_part" 0 60
 
 </CsScore>
 </CsoundSynthesizer>
