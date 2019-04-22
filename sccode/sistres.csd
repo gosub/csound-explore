@@ -15,7 +15,6 @@ nchnls = 2
 ; port of «sistres» by alln4tural
 ; http://sccode.org/1-1Ni
 
-;; TODO: instr "sine"
 ;; TODO: c_part
 
 opcode lfgauss, a, kkk
@@ -76,13 +75,22 @@ opcode splay, aa, a[]o
 endop
 
 
+instr b_sine
+  iindex = p4
+  imaxindex = p5
+  inote = p6
+  ifreq cpsmidinn inote
+  icps exprand ifreq, ifreq+(ifreq/64)
+  aout poscil 0.2, icps
+  out aout
+endin
 
 instr b_instr
   idur = p3
   inote = p4
-  cluster[] init 16
-  sines[] arrayofsubinstr cluster, "sine"
-  asigL, asigR splay sines
+  acluster[] init 16
+  asines[] arrayofsubinstr acluster, 0, "b_sine", inote
+  asigL, asigR splay asines
   aenv lfgauss idur, 1/4, 0, 0
   outs asigL*aenv, asigR*aenv
 endin
