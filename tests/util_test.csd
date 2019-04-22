@@ -57,9 +57,23 @@ instr randint_test
 endin
 
 
+instr arrayreverse_test
+  prints "arrayreverse test\n"
+  iarray[] genarray 1, 10
+  ireversed[] arrayreverse iarray
+  printarray iarray, "%.0f", "original array (i-rate): "
+  printarray ireversed, "%.0f", "reversed array (i-rate): "
+  karray[] genarray_i 7, 14
+  kreversed[] arrayreverse karray
+  konce once
+  printarray karray, konce, "%.0f", "original array (k-rate): "
+  printarray kreversed, konce, "%.0f", "reversed array (k-rate): "
+endin
+
 </CsInstruments>
 <CsScore>
 i "once_test"    0 1
-i "randint_test" 1 2
+i "randint_test" 1 1
+i "arrayreverse_test" 2 1
 </CsScore>
 </CsoundSynthesizer>
