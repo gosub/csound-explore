@@ -17,7 +17,6 @@ nchnls = 2
 
 ;; TODO: instr "sine"
 ;; TODO: arrayofsubinstr
-;; TODO: splay
 ;; TODO: c_part
 
 opcode lfgauss, a, kkk
@@ -39,6 +38,23 @@ opcode exprand, k, kk
   klo, khi xin
   kout = klo * exp(log(khi/klo) * random(0, 1))
   xout kout
+endop
+
+
+opcode splay, aa, a[]o
+  asignals[], index xin
+  aL, aR init 0, 0
+  ilen lenarray asignals
+  ; level compensation only on index 0, after all the recursions
+  ilevel = (index==0 ? sqrt(1/ilen) : 1)
+  if index < ilen then
+    ipos = index * 1/(ilen-1)
+    aL, aR pan2 asignals[index], ipos, 2
+    arestL, arestR splay asignals, index+1
+    aL += arestL
+    aR += arestR
+  endif
+  xout aL*ilevel, aR*ilevel
 endop
 
 
