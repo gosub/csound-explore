@@ -16,6 +16,8 @@ nchnls = 2
 ; http://sccode.org/1-1Ni
 
 ;; TODO: c_part
+;; TODO: x_part
+;; TODO: score
 
 opcode lfgauss, a, kkk
   kdur, kwidth, kphase xin
@@ -85,6 +87,7 @@ instr b_sine
   out aout
 endin
 
+
 instr b_instr
   idur = p3
   inote = p4
@@ -94,7 +97,6 @@ instr b_instr
   aenv lfgauss idur, 1/4, 0, 0
   outs asigL*aenv, asigR*aenv
 endin
-
 
 
 instr b_part
