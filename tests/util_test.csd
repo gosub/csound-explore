@@ -70,10 +70,26 @@ instr arrayreverse_test
   printarray kreversed, konce, "%.0f", "reversed array (k-rate): "
 endin
 
+
+instr arrayshuffle_test
+  prints "arrayshuffle test\n"
+  iarray[] genarray 1, 10
+  ishuffled[] arrayshuffle iarray
+  printarray iarray, "%.0f", "original array (i-rate): "
+  printarray ishuffled, "%.0f", "shuffled array (i-rate): "
+  karray[] genarray_i 7, 14
+  kshuffled[] arrayshuffle karray
+  konce once
+  printarray karray, konce, "%.0f", "original array (k-rate): "
+  printarray kshuffled, konce, "%.0f", "shuffled array (k-rate): "
+endin
+
+
 </CsInstruments>
 <CsScore>
 i "once_test"    0 1
 i "randint_test" 1 1
 i "arrayreverse_test" 2 1
+i "arrayshuffle_test" 3 1
 </CsScore>
 </CsoundSynthesizer>

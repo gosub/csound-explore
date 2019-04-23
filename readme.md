@@ -35,6 +35,7 @@ launchpad based, monome inspired
   - once - is true only once, at k-rate
   - randint - return a random int between max and min (default 0)
   - arrayreverse - reverse an array
+  - arrayshuffle - shuffle an array with the Fisher-Yates algorithm
 
 ## sccode
 
