@@ -18,6 +18,11 @@ nchnls = 2
 ;; TODO: c_part
 ;; TODO: x_part
 ;; TODO: score
+; increase to 16 for the original value
+; my pc starts having buffer underruns around 10
+#define CLUSTERSIZE #8#
+
+
 
 opcode lfgauss, a, kkk
   kdur, kwidth, kphase xin
@@ -88,11 +93,12 @@ instr b_sine
 endin
 
 
-instr b_instr
+instr cluster
   idur = p3
   inote = p4
-  acluster[] init 16
-  asines[] arrayofsubinstr acluster, 0, "b_sine", inote
+  insnum = p5
+  acluster[] init $CLUSTERSIZE
+  asines[] arrayofsubinstr acluster, 0, insnum, inote
   asigL, asigR splay asines
   aenv lfgauss idur, 1/4, 0, 0
   outs asigL*aenv, asigR*aenv
@@ -103,7 +109,7 @@ instr b_part
   knotes[] fillarray 40, 45, 52
   kmetro metro 1/4
   knote tchoice kmetro, knotes
-  schedkwhen kmetro, 0, 0, "b_instr", 0, 9, knote
+  schedkwhen kmetro, 0, 0, "cluster", 0, 9, knote, nstrnum("b_sine")
 endin
 
 
