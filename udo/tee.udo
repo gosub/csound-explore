@@ -20,6 +20,18 @@ opcode tsequence, k, kk[]
 endop
 
 
+opcode tsequence, k[], kk[][]
+  ktrig, ksequence[][] xin
+  kindex init -1
+  if (ktrig == 1) then
+    kindex += 1
+    kindex = kindex % lenarray:k(ksequence)
+    kout[] getrow ksequence, int(kindex)
+  endif
+  xout kout
+endop
+
+
 opcode tchoice, k, kk[]
   ktrig, ksequence[] xin
   kout init 0
