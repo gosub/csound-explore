@@ -15,7 +15,6 @@ nchnls = 2
 ; port of «sistres» by alln4tural
 ; http://sccode.org/1-1Ni
 
-;; TODO: x_part
 ;; TODO: score
 ; increase to 16 for the original value
 ; my pc starts having buffer underruns around 10
@@ -113,6 +112,21 @@ endin
 
 
 gkxnotes[] fillarray 72, 69, 64
+
+instr x_part
+  knotes[][] init 6, 3
+  knotes fillarray 72,69,64,\
+                   70,64,62,\
+                   67,60,70,\
+                   65,60,69,\
+                   64,60,67,\
+                   65,60,69
+  kmetro metro 1/10
+  gkxnotes tsequence kmetro, knotes
+  printarray gkxnotes, kmetro, "%.0f"
+endin
+
+
 instr c_sine
   iindex = p4
   imaxindex = p5
