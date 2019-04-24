@@ -15,7 +15,6 @@ nchnls = 2
 ; port of «sistres» by alln4tural
 ; http://sccode.org/1-1Ni
 
-;; TODO: c_part
 ;; TODO: x_part
 ;; TODO: score
 ; increase to 16 for the original value
@@ -110,6 +109,25 @@ instr b_part
   kmetro metro 1/4
   knote tchoice kmetro, knotes
   schedkwhen kmetro, 0, 0, "cluster", 0, 9, knote, nstrnum("b_sine")
+endin
+
+
+gkxnotes[] fillarray 72, 69, 64
+instr c_sine
+  iindex = p4
+  imaxindex = p5
+  inote = p6
+  ifreq cpsmidinn inote
+  icps exprand ifreq-(ifreq/128), ifreq+(ifreq/128)
+  aout poscil 0.1, icps
+  out aout
+endin
+
+
+instr c_part
+  kmetro metro 2
+  knote tchoice kmetro, gkxnotes
+  schedkwhen kmetro, 0, 0, "cluster", 0, 6, knote, nstrnum("c_sine")
 endin
 
 
