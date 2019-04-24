@@ -44,6 +44,7 @@ ports of SuperCollider instruments, from sccode.org
 - 3kicks - port of [«three kicks» by snappizz](http://sccode.org/1-57g)
 - fm\_rhodes - port of [«FM Rhodes» by snappizz](http://sccode.org/1-522)
 - wavetable\_bass - port of [«wavetable bass» by snappizz](http://sccode.org/1-57b)
+- sistres - port of [«sistres» by alln4tural](http://sccode.org/1-1Ni)
 
 ## tests
 minimal tests for all my instruments and UDOs
