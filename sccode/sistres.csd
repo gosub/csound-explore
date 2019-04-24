@@ -12,10 +12,11 @@ nchnls = 2
 
 #include "../udo/tee.udo"
 
+
 ; port of «sistres» by alln4tural
 ; http://sccode.org/1-1Ni
 
-;; TODO: score
+
 ; increase to 16 for the original value
 ; my pc starts having buffer underruns around 10
 #define CLUSTERSIZE #8#
@@ -29,6 +30,7 @@ opcode lfgauss, a, kkk
   aout = exp:a((ax - kphase)^2 / (-2.0 * kwidth^2))
   xout aout
 endop
+
 
 opcode exprand, i, ii
   ilo, ihi xin
@@ -147,7 +149,8 @@ endin
 
 </CsInstruments>
 <CsScore>
-i "b_part" 0 60
-
+i "b_part" 0 314
+i "x_part" 0 300
+i "c_part" 0.1 310
 </CsScore>
 </CsoundSynthesizer>
