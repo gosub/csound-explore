@@ -1,7 +1,7 @@
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
--m0
+-m4
 </CsOptions>
 <CsInstruments>
 
@@ -21,6 +21,11 @@ nchnls = 2
 ; my pc starts having buffer underruns around 10
 #define CLUSTERSIZE #8#
 
+
+;; TODO: extract lfgauss
+;; TODO: extract exprand
+;; TODO: extract splay
+;; TODO: extract arrayofsubinstr
 
 
 opcode lfgauss, a, kkk
