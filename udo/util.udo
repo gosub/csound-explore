@@ -15,6 +15,10 @@ opcode once, k, 0
 endop
 
 
+;; TODO: minmax
+;; TODO: sort min & max in randint
+
+
 opcode randint, k, kO
   kmax, kmin xin
   kmin int kmin
