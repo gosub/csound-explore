@@ -85,6 +85,9 @@ instr arrayshuffle_test
 endin
 
 
+;; TODO: minmax_test
+;; TODO: minmax 2 readme
+
 </CsInstruments>
 <CsScore>
 i "once_test"    0 1
