@@ -31,8 +31,9 @@ launchpad based, monome inspired
   - tstepper - sequence an array on trigger, with step-length, reverse, rotation and reset (udo) 
   - tcount - trigger counter, with optional wrap-around (udo)
 - turing.udo - Turing Machine eurorack module clone
-- utility.udo
+- util.udo
   - once - is true only once, at k-rate
+  - minmax - sorts two numbers
   - randint - return a random int between max and min (default 0)
   - arrayreverse - reverse an array
   - arrayshuffle - shuffle an array with the Fisher-Yates algorithm
