@@ -15,14 +15,28 @@ opcode once, k, 0
 endop
 
 
-;; TODO: minmax
-;; TODO: sort min & max in randint
+opcode minmax, kk, kk
+  ka, kb xin
+  kmin min ka, kb
+  kmax max ka, kb
+  xout kmin, kmax
+endop
+
+
+opcode minmax, ii, ii
+  ia, ib xin
+  imin min ia, ib
+  imax max ia, ib
+  xout imin, imax
+endop
 
 
 opcode randint, k, kO
   kmax, kmin xin
   kmin int kmin
   kmax int kmax
+  ; ensure sorting
+  kmin, kmax minmax kmin, kmax
   krnd random kmin, kmax+0.9999
   krnd int krnd
   xout krnd
@@ -33,6 +47,8 @@ opcode randint, i, io
   imax, imin xin
   imin int imin
   imax int imax
+  ; ensure sorting
+  imin, imax minmax imin, imax
   irnd random imin, imax+0.9999
   irnd int irnd
   xout irnd
@@ -92,20 +108,4 @@ opcode arrayshuffle, k[], k[]
     kindex += 1
   od
   xout kinputarray
-endop
-
-
-opcode minmax, kk, kk
-  ka, kb xin
-  kmin min ka, kb
-  kmax max ka, kb
-  xout kmin, kmax
-endop
-
-
-opcode minmax, ii, ii
-  ia, ib xin
-  imin min ia, ib
-  imax max ia, ib
-  xout imin, imax
 endop
