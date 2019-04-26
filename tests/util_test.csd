@@ -85,8 +85,16 @@ instr arrayshuffle_test
 endin
 
 
-;; TODO: minmax_test
-;; TODO: minmax 2 readme
+instr minmax_test
+  prints "minmax test\n"
+  imin, imax minmax 3, 5
+  prints "minmax 3,5: %d,%d\n", imin, imax
+  imin, imax minmax 7, 4
+  prints "minmax 7,4: %d,%d\n", imin, imax
+  imin, imax minmax 2, 2
+  prints "minmax 2,2: %d,%d\n", imin, imax
+endin
+
 
 </CsInstruments>
 <CsScore>
@@ -94,5 +102,6 @@ i "once_test"    0 1
 i "randint_test" 1 1
 i "arrayreverse_test" 2 1
 i "arrayshuffle_test" 3 1
+i "minmax_test" 4 1
 </CsScore>
 </CsoundSynthesizer>
