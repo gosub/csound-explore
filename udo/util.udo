@@ -1,5 +1,6 @@
 /*
   once - true only once, at k-rate
+  minmax - sort two numbers
   randint - return a random int between max and min (default 0)
   arrayreverse - reverse an array
   arrayshuffle - shuffle an array with the Fisher-Yates algorithm
