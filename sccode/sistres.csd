@@ -11,6 +11,7 @@ nchnls = 2
 0dbfs = 1
 
 #include "../udo/tee.udo"
+#include "../udo/util.udo"
 
 
 ; port of «sistres» by alln4tural
@@ -25,7 +26,6 @@ nchnls = 2
 ;; TODO: extract lfgauss
 ;; TODO: extract exprand
 ;; TODO: extract splay
-;; TODO: extract arrayofsubinstr
 
 
 opcode lfgauss, a, kkk
@@ -48,25 +48,6 @@ opcode exprand, k, kk
   klo, khi xin
   kout = klo * exp(log(khi/klo) * random(0, 1))
   xout kout
-endop
-
-
-opcode arrayofsubinstr, a[], a[]iio
-  audioarr[], index, instrnum, iparam xin
-  ilen lenarray audioarr
-  if index < ilen then
-    audioarr arrayofsubinstr audioarr, index+1, instrnum, iparam
-    audioarr[index] subinstr instrnum, index, ilen-1, iparam
-  endif
-  xout audioarr
-endop
-
-
-opcode arrayofsubinstr, a[], a[]iSo
-  audioarr[], index, Sinstrname, iparam xin
-  instrnum nstrnum Sinstrname
-  audioarr arrayofsubinstr audioarr, index, instrnum, iparam
-  xout audioarr
 endop
 
 

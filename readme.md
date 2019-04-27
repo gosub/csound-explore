@@ -37,6 +37,7 @@ launchpad based, monome inspired
   - randint - return a random int between max and min (default 0)
   - arrayreverse - reverse an array
   - arrayshuffle - shuffle an array with the Fisher-Yates algorithm
+  - arrayofsubinstr - instatiate n subinstruments inside an a-rate array
 
 ## sccode
 
