@@ -30,6 +30,7 @@ launchpad based, monome inspired
   - twchoice - sequence a random array member on trigger, with probability (udo)
   - tstepper - sequence an array on trigger, with step-length, reverse, rotation and reset (udo) 
   - tcount - trigger counter, with optional wrap-around (udo)
+  - tline - triggerable version of the line opcode (udo)
 - turing.udo - Turing Machine eurorack module clone
 - util.udo
   - once - is true only once, at k-rate
