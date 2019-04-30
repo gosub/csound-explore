@@ -24,6 +24,10 @@ launchpad based, monome inspired
   - moogy\_rnd\_preset - random preset generator to pass directly to moogy(ik[]) 
 - resonators.udo - clone of Resonators device from Ableton Live
 - shiftreg.udo - digital shift register with 8 outputs
+- sc - port of SuperCollider UGens
+  - exprand - [logarithmic uniform distribution random number generator](http://doc.sccode.org/Classes/SimpleNumber.html#-exprand)
+  - lfgauss - [non-band-limited gaussian function oscillator](http://doc.sccode.org/Classes/LFGauss.html)
+  - splay - [spreads an array of channels across the stereo field](http://doc.sccode.org/Classes/Splay.html)
 - tee.udo - trigger based UDOs
   - tsequence - sequence an array on trigger (udo)
   - tchoice - sequence a random array member on trigger (udo) 

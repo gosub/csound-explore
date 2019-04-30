@@ -12,6 +12,9 @@ nchnls = 2
 
 #include "../udo/tee.udo"
 #include "../udo/util.udo"
+#include "../udo/sc/lfgauss.udo"
+#include "../udo/sc/exprand.udo"
+#include "../udo/sc/splay.udo"
 
 
 ; port of «sistres» by alln4tural
@@ -21,51 +24,6 @@ nchnls = 2
 ; increase to 16 for the original value
 ; my pc starts having buffer underruns around 10
 #define CLUSTERSIZE #8#
-
-
-;; TODO: extract lfgauss
-;; TODO: extract exprand
-;; TODO: extract splay
-
-
-opcode lfgauss, a, kkk
-  kdur, kwidth, kphase xin
-  ax phasor 1/kdur
-  ax = ax*2 - 1
-  aout = exp:a((ax - kphase)^2 / (-2.0 * kwidth^2))
-  xout aout
-endop
-
-
-opcode exprand, i, ii
-  ilo, ihi xin
-  iout = ilo * exp(log(ihi/ilo) * random(0, 1))
-  xout iout
-endop
-
-
-opcode exprand, k, kk
-  klo, khi xin
-  kout = klo * exp(log(khi/klo) * random(0, 1))
-  xout kout
-endop
-
-
-opcode splay, aa, a[]o
-  asignals[], index xin
-  aL, aR init 0, 0
-  ilen lenarray asignals
-  ; level compensation only on index 0, after all the recursions
-  ilevel = (index==0 ? sqrt(1/ilen) : 1)
-  if index < ilen then
-    ipos = index * 1/(ilen-1)
-    aL, aR pan2 asignals[index], ipos, 2
-    arestL, arestR splay asignals, index+1
-    aL += arestL
-    aR += arestR
-  endif
-  xout aL*ilevel, aR*ilevel
-endop
 
 
 instr b_sine
