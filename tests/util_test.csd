@@ -10,7 +10,11 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-#include "../udo/util.udo"
+#include "../udo/util/arrayreverse.udo"
+#include "../udo/util/arrayshuffle.udo"
+#include "../udo/util/once.udo"
+#include "../udo/util/minmax.udo"
+#include "../udo/util/randint.udo"
 
 
 instr once_test

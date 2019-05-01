@@ -37,13 +37,13 @@ launchpad based, monome inspired
   - tline - triggerable version of the line opcode (udo)
   - tlinen - triggerable version of the linen opcode (udo)
 - turing.udo - Turing Machine eurorack module clone
-- util.udo
-  - once - is true only once, at k-rate
-  - minmax - sorts two numbers
-  - randint - return a random int between max and min (default 0)
-  - arrayreverse - reverse an array
-  - arrayshuffle - shuffle an array with the Fisher-Yates algorithm
-  - arrayofsubinstr - instatiate n subinstruments inside an a-rate array
+- util
+  - once.udo - is true only once, at k-rate
+  - minmax.udo - sorts two numbers
+  - randint.udo - return a random int between max and min (default 0)
+  - arrayreverse.udo - reverse an array
+  - arrayshuffle.udo - shuffle an array with the Fisher-Yates algorithm
+  - arrayofsubinstr.udo - instatiate n subinstruments inside an a-rate array
 
 ## sccode
 
