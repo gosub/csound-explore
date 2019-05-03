@@ -44,11 +44,16 @@ instr plucker
 endin
 
 
-; TODO: finalFX, extract UDO
-; TODO: finalFX, better reverb
-; TODO: finalFX, lowpass?
+;; TODO: blackhole, better reverb
+;; TODO: blackhole, lowpass?
+;; TODO: blackhole - ergosphere
+;; TODO: blackhole - event horizon
+;; TODO: blackhole - singularity
 
-instr finalFX
+
+opcode blackhole, a, a
+  ain xin
+
   ; reverb params
   kreverbtime init 0.7
   ; delay params
@@ -59,20 +64,24 @@ instr finalFX
   idistortion = 0
   kgain = 3
 
-  asig = gaBus1
-
   ; reverb
-  asig reverb asig, kreverbtime
+  asig0 reverb ain, kreverbtime
 
   ; delay
   adummy delayr 10
   adelay deltap kdelaytime
-  asig += adelay * kdelaymix
-  delayw asig + adelay*kfeedback
+  asig1 = asig0 + adelay * kdelaymix
+  delayw asig1 + adelay*kfeedback
 
   ; fuzz/disortion
-  asig clip asig*kgain, idistortion, 0.1
+  asig2 clip asig1*kgain, idistortion, 0.1
+  xout asig2
+endop
 
+
+instr finalFX
+  asig = gaBus1
+  asig blackhole asig
   outs asig, asig
   clear gaBus1
 endin
