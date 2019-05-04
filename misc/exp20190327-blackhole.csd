@@ -46,9 +46,30 @@ endin
 
 ;; TODO: blackhole, better reverb
 ;; TODO: blackhole, lowpass?
-;; TODO: blackhole - ergosphere
 ;; TODO: blackhole - event horizon
 ;; TODO: blackhole - singularity
+
+;; TODO: blackhole - verify ergosphere
+;; TODO: blackhole - check ergosphere params
+;; TODO: blackhole - incorporate ergosphere
+
+
+; ergosphere - modulation delay
+
+
+opcode ergosphere, a, akkkkkk
+  ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
+  if kbypass = 1 then
+    aout = ain
+  else
+    alfo poscil kmod, kspeed
+    adummy delayr 1
+    adelay deltap3 ktime + alfo
+    delayw ain + kfeedback * adelay
+    aout ntrpol ain, adelay, kmix
+  endif
+  xout aout
+endop
 
 
 opcode blackhole, a, a
