@@ -30,16 +30,16 @@ endin
 
 instr plucker
   kcount init -1
-  ktempo init 3
+  ktempo init 1
   ktick metro ktempo
   kcount += ktick
   if kcount % 4 == 0 then
-    ktempo = 6
-  elseif kcount % 4 >= 2 then
     ktempo = 2
+  elseif kcount % 4 >= 2 then
+    ktempo = 1/2
   endif
-  knote = (int(kcount/8) % 4 == 3 ? 33 : 45)
   schedkwhen ktick, 0, 0, "pluck", 0, 0.1, knote
+  knote = (int(kcount/8) % 4 == 3 ? 41 : 48)
   printk2 knote
 endin
 
