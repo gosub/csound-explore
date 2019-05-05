@@ -24,6 +24,14 @@ instr pluck
 endin
 
 
+instr cleanguit
+  inote = p4
+  irate semitone inote-48
+  a1, a2 diskin2 "/home/gg/downloads/audio/samples/cleanguitC3.wav", irate
+  gaBus1 += a1
+endin
+
+
 ;; TODO: plucker, extract value (tempo) alternator
 ;; TODO: plucker, add octave selector
 ;; TODO: plucker, add pentatonic selector
@@ -38,8 +46,8 @@ instr plucker
   elseif kcount % 4 >= 2 then
     ktempo = 1/2
   endif
-  schedkwhen ktick, 0, 0, "pluck", 0, 0.1, knote
   knote = (int(kcount/8) % 4 == 3 ? 41 : 48)
+  schedkwhen ktick, 0, 0, "cleanguit", 0, 0.1, knote
   printk2 knote
 endin
 
