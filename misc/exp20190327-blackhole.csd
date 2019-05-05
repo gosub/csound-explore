@@ -52,18 +52,11 @@ instr plucker
 endin
 
 
-;; TODO: blackhole, better reverb
-;; TODO: blackhole, lowpass?
-;; TODO: blackhole - event horizon
-;; TODO: blackhole - singularity
-
-;; TODO: blackhole - verify ergosphere
-;; TODO: blackhole - check ergosphere params
-;; TODO: blackhole - incorporate ergosphere
-
-
 ; ergosphere - modulation delay
 
+;; TODO: ergosphere - verify functionality
+;; TODO: ergosphere - check parameters limits
+;; TODO: ergosphere - incorporate in blackhole
 
 opcode ergosphere, a, akkkkkk
   ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
@@ -76,6 +69,34 @@ opcode ergosphere, a, akkkkkk
     delayw ain + kfeedback * adelay
     aout ntrpol ain, adelay, kmix
   endif
+  xout aout
+endop
+
+
+; event horizon - space reverb
+
+;; TODO: eventhorizon - implement
+;; TODO: eventhorizon - verify functionality
+;; TODO: eventhorizon - check parameters limits
+;; TODO: eventhorizon - incorporate in blackhole
+
+opcode eventhorizon, a, akkkkk
+  ain, kmix, kecho, kradiancy, kpitch, kbypass xin
+  aout = ain
+  xout aout
+endop
+
+
+; singularity - destruction fuzz
+
+;; TODO: singularity - implement
+;; TODO: singularity - verify functionality
+;; TODO: singularity - check parameters limits
+;; TODO: singularity - incorporate in blackhole
+
+opcode singularity, a, akk
+  ain, kdisintegrate, kbypass xin
+  aout = ain
   xout aout
 endop
 
