@@ -75,14 +75,37 @@ endop
 
 ; event horizon - space reverb
 
-;; TODO: eventhorizon - implement
 ;; TODO: eventhorizon - verify functionality
+;; TODO: eventhorizon - verify signal chain
 ;; TODO: eventhorizon - check parameters limits
 ;; TODO: eventhorizon - incorporate in blackhole
+;; TODO: eventhorizon - select a value for irevcutoff, or derive it from kradiancy
 
 opcode eventhorizon, a, akkkkk
   ain, kmix, kecho, kradiancy, kpitch, kbypass xin
-  aout = ain
+  apitched init 0
+  irevcutoff init 1000
+
+  if kbypass == 1 then
+    aout = ain
+  else
+    apreverb = ain + apitched * kradiancy
+    apreverb dcblock2 apreverb
+    apreverb tanh apreverb
+    areverbL, areverbR reverbsc apreverb, apreverb, kecho, irevcutoff
+    areverb sum areverbL, areverbR
+
+    ifftsize  = 2048
+    ioverlap  = ifftsize / 4
+    iwinsize  = ifftsize
+    iwinshape = 1; von-Hann window
+
+    fftin pvsanal ain, ifftsize, ioverlap, iwinsize, iwinshape
+    fftscale pvscale fftin, kpitch, 0, 1
+    apitched pvsynth fftscale
+
+    aout ntrpol ain, areverb, kmix
+  endif
   xout aout
 endop
 
