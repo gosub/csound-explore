@@ -60,7 +60,7 @@ endin
 
 opcode ergosphere, a, akkkkkk
   ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
-  if kbypass = 1 then
+  if kbypass == 1 then
     aout = ain
   else
     alfo poscil kmod, kspeed
