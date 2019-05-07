@@ -112,14 +112,21 @@ endop
 
 ; singularity - destruction fuzz
 
-;; TODO: singularity - implement
 ;; TODO: singularity - verify functionality
 ;; TODO: singularity - check parameters limits
 ;; TODO: singularity - incorporate in blackhole
 
 opcode singularity, a, akk
   ain, kdisintegrate, kbypass xin
-  aout = ain
+  if kbypass == 1 then
+    aout = ain
+  else
+    kpregain = 1 + kdisintegrate
+    kpostgain = 1 - (kdisintegrate / 2)
+    kshape1 = 0.1
+    kshape2 = 0
+    aout distort1 ain, kpregain, kpostgain, kshape1, kshape2, 1
+  endif
   xout aout
 endop
 
