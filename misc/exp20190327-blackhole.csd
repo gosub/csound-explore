@@ -56,8 +56,6 @@ endin
 
 ; ergosphere - modulation delay
 
-;; TODO: ergosphere - verify functionality
-;; TODO: ergosphere - check parameters limits
 
 opcode ergosphere, a, akkkkkk
   ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
@@ -76,9 +74,6 @@ endop
 
 ; event horizon - space reverb
 
-;; TODO: eventhorizon - verify functionality
-;; TODO: eventhorizon - verify signal chain
-;; TODO: eventhorizon - check parameters limits
 ;; TODO: eventhorizon - select a value for irevcutoff, or derive it from kradiancy
 
 opcode eventhorizon, a, akkkkk
@@ -112,8 +107,6 @@ endop
 
 ; singularity - destruction fuzz
 
-;; TODO: singularity - verify functionality
-;; TODO: singularity - check parameters limits
 
 opcode singularity, a, akk
   ain, kdisintegrate, kbypass xin
@@ -130,6 +123,9 @@ opcode singularity, a, akk
 endop
 
 
+;; TODO: blackhole - map parameters limits for ergosphere to [0:1]
+;; TODO: blackhole - map parameters limits for eventhorizon to [0:1]
+;; TODO: blackhole - map parameters limits for singularity to [0:1]
 
 
 opcode blackhole, a, akkkkkkkkkkkkk
