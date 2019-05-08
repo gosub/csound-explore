@@ -27,7 +27,9 @@ endin
 instr cleanguit
   inote = p4
   irate semitone inote-48
-  a1, a2 diskin2 "/home/gg/downloads/audio/samples/cleanguitC3.wav", irate
+  Sfile =  "/home/gg/downloads/audio/samples/cleanguitC3.wav"
+  a1, a2 diskin2 Sfile, irate
+  xtratim filelen(Sfile)
   gaBus1 += a1
 endin
 
