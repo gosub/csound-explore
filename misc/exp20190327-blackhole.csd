@@ -56,6 +56,7 @@ endin
 
 ; ergosphere - modulation delay
 
+;; TODO: ergosphere - choose if alfo shoud be absolute or depend on ktime
 
 opcode ergosphere, a, akkkkkk
   ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
@@ -74,7 +75,7 @@ endop
 
 ; event horizon - space reverb
 
-;; TODO: eventhorizon - select a value for irevcutoff, or derive it from kradiancy
+;; TODO: eventhorizon - find a value for irevcutoff, or derive it from kradiancy
 
 opcode eventhorizon, a, akkkkk
   ain, kmix, kecho, kradiancy, kpitch, kbypass xin
@@ -107,6 +108,7 @@ endop
 
 ; singularity - destruction fuzz
 
+;; TODO: singularity - derive pre&postgain, shape1&2 from kdisintegrate
 
 opcode singularity, a, akk
   ain, kdisintegrate, kbypass xin
