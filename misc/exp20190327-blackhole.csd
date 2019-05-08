@@ -125,8 +125,8 @@ opcode singularity, a, akk
   else
     kpregain = 1 + kdisintegrate
     kpostgain = 1 - (kdisintegrate / 2)
-    kshape1 = 0.1
-    kshape2 = 0
+    kshape1 = 1 - kdisintegrate
+    kshape2 = 1 - kdisintegrate/2
     aout distort1 ain, kpregain, kpostgain, kshape1, kshape2, 1
   endif
   xout aout
