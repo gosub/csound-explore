@@ -58,7 +58,6 @@ endin
 
 ;; TODO: ergosphere - verify functionality
 ;; TODO: ergosphere - check parameters limits
-;; TODO: ergosphere - incorporate in blackhole
 
 opcode ergosphere, a, akkkkkk
   ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
@@ -80,7 +79,6 @@ endop
 ;; TODO: eventhorizon - verify functionality
 ;; TODO: eventhorizon - verify signal chain
 ;; TODO: eventhorizon - check parameters limits
-;; TODO: eventhorizon - incorporate in blackhole
 ;; TODO: eventhorizon - select a value for irevcutoff, or derive it from kradiancy
 
 opcode eventhorizon, a, akkkkk
@@ -116,7 +114,6 @@ endop
 
 ;; TODO: singularity - verify functionality
 ;; TODO: singularity - check parameters limits
-;; TODO: singularity - incorporate in blackhole
 
 opcode singularity, a, akk
   ain, kdisintegrate, kbypass xin
@@ -133,37 +130,29 @@ opcode singularity, a, akk
 endop
 
 
-opcode blackhole, a, a
-  ain xin
 
-  ; reverb params
-  kreverbtime init 0.7
-  ; delay params
-  kfeedback init 0.2
-  kdelaymix init 0.6
-  kdelaytime init 0.333
-  ; distortion params
-  idistortion = 0
-  kgain = 3
 
-  ; reverb
-  asig0 reverb ain, kreverbtime
-
-  ; delay
-  adummy delayr 10
-  adelay deltap kdelaytime
-  asig1 = asig0 + adelay * kdelaymix
-  delayw asig1 + adelay*kfeedback
-
-  ; fuzz/disortion
-  asig2 clip asig1*kgain, idistortion, 0.1
-  xout asig2
+opcode blackhole, a, akkkkkkkkkkkkk
+  ain, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1, \
+             kmix2, kecho, kradiancy, kpitch, kbypass2, \
+                               kdisintegrate, kbypass3 xin
+  asig1 ergosphere ain, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1
+  asig2 eventhorizon asig1, kmix2, kecho, kradiancy, kpitch, kbypass2
+  aout singularity asig2, kdisintegrate, kbypass3
+  xout aout
 endop
 
 
 instr finalFX
   asig = gaBus1
-  asig blackhole asig
+
+  kmix1, ktime, kfeedback, kmod, kspeed, kbypass1 init 0.5, 0.3, 0.2, 0.1, 1/5, 0
+  kmix2, kecho, kradiancy, kpitch, kbypass2 init 0.7, 0.9, 0.7, 1.5, 0
+  kdisintegrate, kbypass3 init 0.9, 0
+
+  asig blackhole asig, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1, \
+                       kmix2, kecho, kradiancy, kpitch, kbypass2, \
+                       kdisintegrate, kbypass3
   outs asig, asig
   clear gaBus1
 endin
