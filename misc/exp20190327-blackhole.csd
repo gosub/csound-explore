@@ -65,7 +65,7 @@ opcode ergosphere, a, akkkkkk
   if kbypass == 1 then
     aout = ain
   else
-    alfo poscil kmod, kspeed
+    alfo poscil kmod * ktime, kspeed
     adummy delayr 1
     adelay deltap3 ktime + alfo
     delayw ain + kfeedback * adelay
