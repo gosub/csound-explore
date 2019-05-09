@@ -196,3 +196,6 @@ opcode tlinen, a, kaiii
   aout = (koutside == 1 ? 0 : linen:a(aamp, irise, idur, idec))
   xout aout
 endop
+
+
+;; TODO: each udo in a separate file inside the tee directory
