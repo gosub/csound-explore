@@ -34,21 +34,30 @@ instr cleanguit
 endin
 
 
-;; TODO: plucker, extract value (tempo) alternator
 ;; TODO: plucker, add octave selector
 ;; TODO: plucker, add pentatonic selector
+
+
+opcode talternate, k, kkkkkP
+  ktrig, ka, kb, kmod, kthres, kdiv xin
+  kcount init -1
+  kcount += ktrig
+  if int(kcount/kdiv)%kmod < kthres then
+    kout = ka
+  else
+    kout = kb
+  endif
+  xout kout
+endop
+
 
 instr plucker
   kcount init -1
   ktempo init 1
   ktick metro ktempo
   kcount += ktick
-  if kcount % 4 == 0 then
-    ktempo = 2
-  elseif kcount % 4 >= 2 then
-    ktempo = 1/2
-  endif
-  knote = (int(kcount/8) % 4 == 3 ? 41 : 48)
+  ktempo talternate ktick, 1, 2, 4, 2
+  knote talternate ktick, 48, 41, 4, 3, 8
   schedkwhen ktick, 0, 0, "cleanguit", 0, 0.1, knote
   printk2 knote
 endin
