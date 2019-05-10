@@ -63,9 +63,6 @@ instr 1
 endin
 
 
-;; TODO: extract scale2midinn in a util/ udo
-
-
 opcode scale2midinn, i, i[]iii
  iscale[], ioctave, iroot, idegree xin
  inote = ioctave * 12 + iroot
