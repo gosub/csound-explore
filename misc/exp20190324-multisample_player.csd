@@ -10,6 +10,7 @@ nchnls = 2
 0dbfs = 1
 
 ;; TODO: turn into a directory sample player UDO
+;; (or an instrument, since you cannot change diskin2 filename at k-time)
 
 gSdirectory = "/home/gg/downloads/audio/samples/sums/step"
 ;gSdirectory = "/home/gg/downloads/audio/samples/patatap-samples-wav"
@@ -65,6 +66,7 @@ instr random_player
   schedkwhen kmetro, 0, 0, "sample", 0, 1, random:k(0,1), 0.1
   schedkwhen kmetronome, 0, 0, "sample", 0, 1, 0.5, 0.8
 endin
+
 
 alwayson "random_player"
 </CsInstruments>
