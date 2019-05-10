@@ -17,6 +17,35 @@ gSfiles[] directory gSdirectory
 ginumfiles lenarray gSfiles
 
 
+opcode playfile, a, S
+  Sfilename xin
+  p3 filelen Sfilename
+  inumchan filenchnls Sfilename
+  if inumchan == 1 then
+    asig diskin2 Sfilename
+  else
+    asig1, asig2 diskin2 Sfilename
+    asig = asig1 + asig2
+  endif
+  xout asig
+endop
+
+
+opcode playfile, aa, S
+  Sfilename xin
+  p3 filelen Sfilename
+  inumchan filenchnls Sfilename
+  if inumchan == 1 then
+    asig diskin2 Sfilename
+    asig1 = asig
+    asig2 = asig
+  else
+    asig1, asig2 diskin2 Sfilename
+  endif
+  xout asig1, asig2
+endop
+
+
 instr sample
   iamp = p5
   isample = round(p4 * (ginumfiles-1))
