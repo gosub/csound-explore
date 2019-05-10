@@ -50,9 +50,8 @@ instr sample
   iamp = p5
   isample = round(p4 * (ginumfiles-1))
   Ssample = gSfiles[isample]
-  p3 filelen Ssample
-  asig diskin2 Ssample
-  outs asig*iamp, asig*iamp
+  asig1, asig2 playfile Ssample
+  outs asig1*iamp, asig2*iamp
 endin
 
 
