@@ -4,10 +4,10 @@
 
 
 ;; TODO: default values for degree = 0, root = -1 = C3, octave = 0
-;; TODO: tests
 ;; TODO: name2scale.udo - return most common scales by name
 ;; TODO: scale2midinn with scale parameter as string
 ;; TODO: k-rate version
+;; TODO: tests
 ;; TODO: add to readme
 
 
