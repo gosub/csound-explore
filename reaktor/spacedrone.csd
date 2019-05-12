@@ -1,10 +1,7 @@
 <CsoundSynthesizer>
 <CsOptions>
-; Select audio/midi flags here according to platform
--odac     ;;;realtime audio out
-;-iadc    ;;;uncomment -iadc if RT audio input is needed too
-; For Non-realtime ouput leave only the line below:
-; -o rand.wav -W ;;; for file output any platform
+-odac
+-d
 </CsOptions>
 <CsInstruments>
 
