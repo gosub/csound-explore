@@ -71,8 +71,16 @@ opcode _NoiseSection, a, ikkkkkkk
 endop
 
 
-;; TODO: _EnvSection
-;; TODO: Geiger
+opcode _EnvSection, a, kkkkk
+  kDensity, kRndTrig, kDynamic, kAttack, kDecay xin
+  kgate _Geiger kDensity, kRndTrig, kDynamic
+  aenv _ADREnv kgate, kAttack, kDecay
+  xout aenv
+endop
+
+;; TODO: _Geiger
+;; TODO: _ADREnv
+;; TODO: instrument
 
 
 opcode spacedronevoice, aa, ikkkkkkkkkkkkkkk
