@@ -3,7 +3,6 @@
 */
 
 
-;; TODO: add modal scales
 ;; TODO: add harmonic minor
 ;; TODO: add blues scale
 ;; TODO: add pentatonic scales
@@ -18,10 +17,20 @@
 
 opcode name2scale, i[], S
   Scalename xin
-  if Scalename == "major" then
+  if Scalename == "major" || Scalename == "ionian" then
     iscale[] fillarray 0,2,4,5,7,9,11
-  elseif Scalename == "minor" then
+  elseif Scalename == "minor" || Scalename == "natural_minor" || Scalename == "aeolian" then
     iscale[] fillarray 0,2,3,5,7,8,10
+  elseif Scalename == "dorian" then
+    iscale[] fillarray 0,2,3,4,7,9,10
+  elseif Scalename == "phrygian" then
+    iscale[] fillarray 0,1,3,5,7,8,10
+  elseif Scalename == "lydian" then
+    iscale[] fillarray 0,2,4,6,7,9,11
+  elseif Scalename == "mixolydian" then
+    iscale[] fillarray 0,2,4,5,7,9,11
+  elseif Scalename == "locrian" then
+    iscale[] fillarray 0,1,3,5,6,8,10
   endif
   xout iscale
 endop
