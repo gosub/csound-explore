@@ -25,6 +25,13 @@ giVoices init 10 ;; dummy value, its changed inside spacedrone instrument
 ;; kRes           0,0.49,0.99
 
 
+opcode SlowRandom, k, kk
+  kF, kA xin
+  arnd random -kA, kA
+  aout zdf_1pole arnd, kF
+  kout downsamp aout
+  xout kout
+endop
 
 
 opcode _LFOSection, a, kk
