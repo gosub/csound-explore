@@ -15,14 +15,16 @@ giVoices init 10 ;; dummy value, its changed inside spacedrone instrument
 
 ;; spacedrone parameters - min,def,max
 
-;; kPan                        kDensity
-;; kRndPan                     kRndTrig
-;; kOffset                     kDynamic
-;; kFundamental                kAttack
-;; kPitch                      kDecay
-;; kSpeed                      kDamp
-;; kAmt                        kGain
-;; kRes
+;; kPan           -120,-60,0        kDensity     -96,-36,24
+;; kRndPan        -120,-60,0        kRndTrig      0,30,60
+;; kOffset        0,16,32           kDynamic      0, 0.5, 1
+;; kFundamental   0,60,120          kAttack       -20,40,100
+;; kPitch         -12,0,12          kDecay        -20,40,100
+;; kSpeed         0,5,10            kDamp         -2,0,2
+;; kAmt           0,1,2             kGain         0, 0.5, 1
+;; kRes           0,0.49,0.99
+
+
 
 
 opcode _LFOSection, a, kk
@@ -207,7 +209,6 @@ endop
 
 ;; TODO: put parameters inside array
 ;; TODO: clean tenvoices, maybe rename (spacedronevoiceX2, X8, X32, X96), use array
-;; TODO: copy parameters ranges
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
 ;; TODO: copy 3 presets
