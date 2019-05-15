@@ -4,7 +4,6 @@
 
 
 ;; TODO: add blues scale
-;; TODO: add pentatonic scales
 ;; TODO: add exotic scales
 ;; TODO: k-rate?
 ;; TODO: tests
@@ -32,6 +31,10 @@ opcode name2scale, i[], S
     iscale[] fillarray 0,1,3,5,6,8,10
   elseif Scalename == "harmonic_minor" then
     iscale[] fillarray 0,2,3,5,7,8,11
+  elseif Scalename == "pentatonic" || Scalename == "major_pentatonic" then
+    iscale[] fillarray 0,2,4,7,9
+  elseif Scalename == "minor_pentatonic" then
+    iscale[] fillarray 0,3,5,7,10
   endif
   xout iscale
 endop
