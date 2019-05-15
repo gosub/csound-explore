@@ -205,11 +205,11 @@ opcode tenvoices, aa, ikkkkkkkkkkkkkkk
 endop
 
 
-;; TODO: clean tenvoices, maybe rename (spacedronevoiceX2, X8, X32, X96)
+;; TODO: put parameters inside array
+;; TODO: clean tenvoices, maybe rename (spacedronevoiceX2, X8, X32, X96), use array
 ;; TODO: copy parameters ranges
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
-;; TODO: put parameters inside array
 ;; TODO: copy 3 presets
 ;; TODO: copy all other presets
 
