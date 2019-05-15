@@ -4,6 +4,8 @@
 
 
 ;; TODO: add blues scale
+;; TODO: add whole scale
+;; TODO: search supercollider Scale class for other interesting scales
 ;; TODO: add exotic scales
 ;; TODO: k-rate?
 ;; TODO: tests
