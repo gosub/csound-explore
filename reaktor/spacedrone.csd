@@ -37,7 +37,7 @@ endop
 opcode _LFOSection, a, kk
   kPan, kRnd xin
   krnd mtof kRnd
-  kcps = mtof(kPan) + randomh:k(-krnd, krnd, krnd)
+  kcps = mtof(kPan) + SlowRandom(krnd, krnd)
   alfo lfo 1, kcps, 1
   xout alfo
 endop
@@ -71,7 +71,7 @@ endop
 opcode _NoiseSection, a, ikkkkkkk
   iVoiceNum, kEnv, kPitch, kSpeed, kAmt, kRes, kOffset, kFundamental xin
   kvoiceoffset = ftom((iVoiceNum + kOffset) * mtof(kFundamental))
-  kfreq = mtof(randomh:k(-kAmt, kAmt, kSpeed) + (kPitch * kEnv + kvoiceoffset))
+  kfreq = mtof(SlowRandom(kSpeed,kAmt) + (kPitch * kEnv + kvoiceoffset))
   kq = kRes ^ 0.03125
   anoise rand 0.5
   kq = kq*499 + 1
