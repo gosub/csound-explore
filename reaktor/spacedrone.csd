@@ -206,7 +206,16 @@ opcode spacedronevoiceX2, aa, ik[]
 endop
 
 
-;; TODO: spacedronevoiceX8
+opcode spacedronevoiceX8, aa, ik[]
+  iVoiceNum, kParams[] xin
+  al1, ar1 spacedronevoiceX2 iVoiceNum+0, kParams
+  al2, ar2 spacedronevoiceX2 iVoiceNum+2, kParams
+  al3, ar3 spacedronevoiceX2 iVoiceNum+4, kParams
+  al4, ar4 spacedronevoiceX2 iVoiceNum+6, kParams
+  xout al1+al2+al3+al4, ar1+ar2+ar3+ar4
+endop
+
+
 ;; TODO: spacedronevoiceX32
 ;; TODO: spacedronevoiceX96
 ;; TODO: check section outputs against real thing (scope)
@@ -220,8 +229,8 @@ instr spacedrone
   kSubWind[] fillarray   -105, -40, 0, 12, 3, 1.5, 0.3, 0.77, -60, 30, 0.5, 80, 80, 0.75, 1
   kPolarWind[] fillarray -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.99
 
-  a1l, a1r spacedronevoiceX2 1, kPolarWind
-  a2l, a2r spacedronevoiceX2 3, kPolarWind
+  a1l, a1r spacedronevoiceX8 1, kPolarWind
+  a2l, a2r spacedronevoiceX8 9, kPolarWind
 
   asumL sum a1l,a2l
   asumR sum a1r,a2r
