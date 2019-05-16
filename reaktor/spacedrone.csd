@@ -206,6 +206,9 @@ opcode spacedronevoiceX2, aa, ik[]
 endop
 
 
+;; TODO: spacedronevoiceX8
+;; TODO: spacedronevoiceX32
+;; TODO: spacedronevoiceX96
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
 ;; TODO: copy 3 presets
