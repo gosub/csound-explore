@@ -198,24 +198,14 @@ opcode spacedronevoice, aa, ik[]
 endop
 
 
-opcode tenvoices, aa, ikkkkkkkkkkkkkkk
-  iVoiceNum, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, \
-  kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain xin
-  al1, ar1 spacedronevoice iVoiceNum+0, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al2, ar2 spacedronevoice iVoiceNum+1, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al3, ar3 spacedronevoice iVoiceNum+2, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al4, ar4 spacedronevoice iVoiceNum+3, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al5, ar5 spacedronevoice iVoiceNum+4, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al6, ar6 spacedronevoice iVoiceNum+5, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al7, ar7 spacedronevoice iVoiceNum+6, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al8, ar8 spacedronevoice iVoiceNum+7, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al9, ar9 spacedronevoice iVoiceNum+8, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  al10, ar10 spacedronevoice iVoiceNum+9, kPan, kRndPan, kOffset, kFundamental, kPitch, kSpeed, kAmt, kRes, kDensity, kRndTrig, kDynamic, kAttack, kDecay, kDamp, kGain
-  xout al1+al2+al3+al4+al5+al6+al7+al8+al9+al10, ar1+ar2+ar3+ar4+ar5+ar6+ar7+ar8+ar9+ar10
+opcode spacedronevoiceX2, aa, ik[]
+  iVoiceNum, kParams[] xin
+  al1, ar1 spacedronevoice iVoiceNum+0, kParams
+  al2, ar2 spacedronevoice iVoiceNum+1, kParams
+  xout al1+al2, ar1+ar2
 endop
 
 
-;; TODO: clean tenvoices, maybe rename (spacedronevoiceX2, X8, X32, X96), use array
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
 ;; TODO: copy 3 presets
@@ -223,23 +213,15 @@ endop
 
 
 instr spacedrone
-  giVoices init 60
-  ;; sub wind
-  ;; a1l, a1r spacedronevoice 1, -105, -40, 0, 12, 3, 1.5, 0.3, 0.77, -60, 30, 0.5, 80, 80, 0.75, 1
-
-  ;; polar wind
-  a1l, a1r tenvoices 1, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
-  a2l, a2r tenvoices 10, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
-  a3l, a3r tenvoices 20, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
-  a4l, a4r tenvoices 30, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
-  a5l, a5r tenvoices 40, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
-  a6l, a6r tenvoices 50, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
+  giVoices init 4
   kSubWind[] fillarray   -105, -40, 0, 12, 3, 1.5, 0.3, 0.77, -60, 30, 0.5, 80, 80, 0.75, 1
   kPolarWind[] fillarray -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.99
 
+  a1l, a1r spacedronevoiceX2 1, kPolarWind
+  a2l, a2r spacedronevoiceX2 3, kPolarWind
 
-  asumL sum a1l,a2l,a3l,a4l,a5l,a6l;,a7l,a8l,a9l,a10l
-  asumR sum a1r,a2r,a3r,a4r,a5r,a6r;,a7r,a8r,a9r,a10r
+  asumL sum a1l,a2l
+  asumR sum a1r,a2r
 
   aL, aR reverbsc asumL, asumR, 0.7, 1000
   outs aL, aR
