@@ -191,8 +191,9 @@ endop
 
 opcode spacedronevoice, aa, ik[]
   iVoiceNum, kPrm[] xin
-  aleft, aright spacedronevoice iVoiceNum, kPrm[0], kPrm[1], kPrm[2], kPrm[3], kPrm[4], kPrm[5], kPrm[6], \
-                                kPrm[7], kPrm[8], kPrm[9], kPrm[10], kPrm[11], kPrm[12], kPrm[13], kPrm[14]
+  aleft, aright spacedronevoice iVoiceNum, kPrm[0], kPrm[1], kPrm[2], kPrm[3], kPrm[4], kPrm[5], \
+                                           kPrm[6], kPrm[7], kPrm[8], kPrm[9], kPrm[10], kPrm[11], \
+                                           kPrm[12], kPrm[13], kPrm[14]
   xout aleft, aright
 endop
 
@@ -241,7 +242,6 @@ instr spacedrone
 
   aL, aR reverbsc asumL, asumR, 0.7, 1000
   outs aL, aR
-  ;outs asumL, asumR
 endin
 
 
