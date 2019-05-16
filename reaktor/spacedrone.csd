@@ -215,7 +215,6 @@ opcode tenvoices, aa, ikkkkkkkkkkkkkkk
 endop
 
 
-;; TODO: put parameters inside array
 ;; TODO: clean tenvoices, maybe rename (spacedronevoiceX2, X8, X32, X96), use array
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
@@ -235,6 +234,8 @@ instr spacedrone
   a4l, a4r tenvoices 30, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
   a5l, a5r tenvoices 40, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
   a6l, a6r tenvoices 50, -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.98
+  kSubWind[] fillarray   -105, -40, 0, 12, 3, 1.5, 0.3, 0.77, -60, 30, 0.5, 80, 80, 0.75, 1
+  kPolarWind[] fillarray -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.99
 
 
   asumL sum a1l,a2l,a3l,a4l,a5l,a6l;,a7l,a8l,a9l,a10l
