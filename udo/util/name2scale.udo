@@ -3,7 +3,6 @@
 */
 
 
-;; TODO: add blues scale
 ;; TODO: add whole scale
 ;; TODO: search supercollider Scale class for other interesting scales
 ;; TODO: add exotic scales
@@ -37,6 +36,8 @@ opcode name2scale, i[], S
     iscale[] fillarray 0,2,4,7,9
   elseif Scalename == "minor_pentatonic" then
     iscale[] fillarray 0,3,5,7,10
+  elseif Scalename == "blues" then
+    iscale[] fillarray 0,3,5,6,7,10
   endif
   xout iscale
 endop
