@@ -198,6 +198,10 @@ opcode tlinen, a, kaiii
 endop
 
 
-;; TODO: each udo in a separate file inside the tee directory
 ;; TODO: tcoin
+;; TODO: tcoin test
+;; TODO: tcoin to readme
 ;; TODO: trandomwalk
+;; TODO: trandomwalk test
+;; TODO: trandomwalk to readme
+;; TODO: each udo in a separate file inside the tee directory
