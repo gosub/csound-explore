@@ -216,7 +216,16 @@ opcode spacedronevoiceX8, aa, ik[]
 endop
 
 
-;; TODO: spacedronevoiceX32
+opcode spacedronevoiceX32, aa, ik[]
+  iVoiceNum, kParams[] xin
+  al1, ar1 spacedronevoiceX8 iVoiceNum+0, kParams
+  al2, ar2 spacedronevoiceX8 iVoiceNum+8, kParams
+  al3, ar3 spacedronevoiceX8 iVoiceNum+16, kParams
+  al4, ar4 spacedronevoiceX8 iVoiceNum+24, kParams
+  xout al1+al2+al3+al4, ar1+ar2+ar3+ar4
+endop
+
+
 ;; TODO: spacedronevoiceX96
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
@@ -225,17 +234,12 @@ endop
 
 
 instr spacedrone
-  giVoices init 4
+  giVoices init 32
   kSubWind[] fillarray   -105, -40, 0, 12, 3, 1.5, 0.3, 0.77, -60, 30, 0.5, 80, 80, 0.75, 1
   kPolarWind[] fillarray -96, -72, 0, 36, 0, 2.5, 0.12, 0.85, -72, 24, 0.5, 80, 80, 1.35, 0.99
 
-  a1l, a1r spacedronevoiceX8 1, kPolarWind
-  a2l, a2r spacedronevoiceX8 9, kPolarWind
-
-  asumL sum a1l,a2l
-  asumR sum a1r,a2r
-
-  aL, aR reverbsc asumL, asumR, 0.7, 1000
+  aL, aR spacedronevoiceX32 1, kPolarWind
+  aL, aR reverbsc aL, aR, 0.7, 1000
   outs aL, aR
 endin
 
