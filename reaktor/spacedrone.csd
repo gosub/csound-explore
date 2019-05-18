@@ -226,7 +226,15 @@ opcode spacedronevoiceX32, aa, ik[]
 endop
 
 
-;; TODO: spacedronevoiceX96
+opcode spacedronevoiceX96, aa, ik[]
+  iVoiceNum, kParams[] xin
+  al1, ar1 spacedronevoiceX32 iVoiceNum+0, kParams
+  al2, ar2 spacedronevoiceX32 iVoiceNum+32, kParams
+  al3, ar3 spacedronevoiceX32 iVoiceNum+64, kParams
+  xout al1+al2+al3, ar1+ar2+ar3
+endop
+
+
 ;; TODO: check section outputs against real thing (scope)
 ;; TODO: verify reverb parameters relations
 ;; TODO: copy 3 presets
