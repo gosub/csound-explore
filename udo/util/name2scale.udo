@@ -3,7 +3,6 @@
 */
 
 
-;; TODO: add whole scale
 ;; TODO: search supercollider Scale class for other interesting scales
 ;; TODO: add exotic scales
 ;; TODO: k-rate?
@@ -38,6 +37,8 @@ opcode name2scale, i[], S
     iscale[] fillarray 0,3,5,7,10
   elseif Scalename == "blues" then
     iscale[] fillarray 0,3,5,6,7,10
+  elseif Scalename == "whole" then
+    iscale[] fillarray 0,2,4,6,8,10
   endif
   xout iscale
 endop
