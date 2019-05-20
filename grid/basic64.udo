@@ -247,3 +247,6 @@ opcode patchby, k[], k[]k[]
   od
   xout koutputs
 endop
+
+
+;; TODO: each udo in a separate file inside the tee directory
