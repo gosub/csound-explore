@@ -6,6 +6,7 @@
   tcount    - Trigger counter
   tline     - Triggerable version of line opcode
   tlinen    - Triggerable version of linen opcode
+  tcoin     - Flip a coin on trigger
 */
 
 
@@ -198,7 +199,14 @@ opcode tlinen, a, kaiii
 endop
 
 
-;; TODO: tcoin
+opcode tcoin, k, k
+  ktrig xin
+  kcoin[] fillarray 0,1
+  kout tchoice ktrig, kcoin
+  xout kout
+endop
+
+
 ;; TODO: tcoin test
 ;; TODO: tcoin to readme
 ;; TODO: trandomwalk
