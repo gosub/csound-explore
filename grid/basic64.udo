@@ -249,4 +249,4 @@ opcode patchby, k[], k[]k[]
 endop
 
 
-;; TODO: each udo in a separate file inside the tee directory
+;; TODO: each udo in a separate file inside the basic64 directory
