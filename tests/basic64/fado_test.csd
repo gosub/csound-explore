@@ -5,7 +5,7 @@
 </CsOptions>
 <CsInstruments>
 
-#include "../grid/basic64.udo"
+#include "../../grid/basic64/fado.udo"
 
 sr = 48000
 ksmps = 32

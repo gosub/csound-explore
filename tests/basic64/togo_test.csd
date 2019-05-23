@@ -5,7 +5,8 @@
 </CsOptions>
 <CsInstruments>
 
-#include "../grid/basic64.udo"
+#include "../../grid/basic64/togo.udo"
+#include "../../grid/basic64/runbygrid.udo"
 
 sr = 48000
 ksmps = 32
@@ -25,7 +26,7 @@ endin
 
 instr 2
   kgrid[][] init 8,8
-  kgrid momo
+  kgrid togo
   runbygrid kgrid, 1
 endin
 

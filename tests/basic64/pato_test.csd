@@ -6,7 +6,8 @@
 </CsOptions>
 <CsInstruments>
 
-#include "../grid/basic64.udo"
+#include "../../grid/basic64/pato.udo"
+#include "../../grid/basic64/patchby.udo"
 
 sr = 48000
 ksmps = 32

@@ -7,11 +7,13 @@ launchpad based, monome inspired
 - lpmini.inc - library for the launchpad mini mkII
 - flin.csd - clone of flin instrument from monome sum
 - step.csd - clone of step instrument from monome sum
-- basic64.udo - simple grid UDOs
-  - momo - 64 momentary switches (udo)
-  - togo - 64 toggle switches (udo)
-  - fado - 8 smooth faders (udo)
-  - pato - 64 patching points, 32ins-left 32outs-right (udo)
+- basic64 - simple grid UDOs
+  - momo.udo - 64 momentary switches
+  - togo.udo - 64 toggle switches
+  - fado.udo - 8 smooth faders
+  - pato.udo - 64 patching points, 32ins-left 32outs-right
+  - runbygrid.udo - auxiliary UDO to use instruments with the array returned by momo and togo
+  - patchby.udo - auxiliary UDO to connect opcodes with the array returned by pato
 
 ## udo
 
