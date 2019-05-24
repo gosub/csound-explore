@@ -7,6 +7,7 @@
 
 opcode momo, k[], 0
   kgrid[][] init 8, 8
+  lpclear_i
   ktrigger, kevent, krow, kcol lpread
   if ktrigger == 1 then
     if kevent == $LP_KEY_DOWN then
