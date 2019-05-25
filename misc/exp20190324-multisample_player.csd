@@ -1,6 +1,7 @@
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
+-m0
 </CsOptions>
 <CsInstruments>
 
@@ -9,51 +10,54 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-;; TODO: turn into a directory sample player UDO
-;; (or an instrument, since you cannot change diskin2 filename at k-time)
+
+;; TODO: rename dirplay to __dirplay
+;; TODO: use channels to tunnel audio from __sndfileplay to dirplaywhen
+;; TODO: choose if use dirplay or dirplaywhen
+;; TODO: put in separate UDO
+;; TODO: test
+;; TODO: readme
+
 
 gSdirectory = "/home/gg/downloads/audio/samples/sums/step"
-;gSdirectory = "/home/gg/downloads/audio/samples/patatap-samples-wav"
-gSfiles[] directory gSdirectory
-ginumfiles lenarray gSfiles
 
 
-opcode playfile, a, S
-  Sfilename xin
+instr __sndfileplay
+  Sfilename = p4
   p3 filelen Sfilename
   inumchan filenchnls Sfilename
   if inumchan == 1 then
     asig diskin2 Sfilename
+    outs asig, asig
   else
-    asig1, asig2 diskin2 Sfilename
-    asig = asig1 + asig2
+    aL, aR diskin2 Sfilename
+    outs aL, aR
   endif
-  xout asig
-endop
-
-
-opcode playfile, aa, S
-  Sfilename xin
-  p3 filelen Sfilename
-  inumchan filenchnls Sfilename
-  if inumchan == 1 then
-    asig diskin2 Sfilename
-    asig1 = asig
-    asig2 = asig
-  else
-    asig1, asig2 diskin2 Sfilename
-  endif
-  xout asig1, asig2
-endop
-
-
-instr sample
-  iamp = p5
-  isample = round(p4 * (ginumfiles-1))
-  Ssample = gSfiles[isample]
-  asig1, asig2 playfile Ssample
-  outs asig1*iamp, asig2*iamp
 endin
+
+
+instr dirplay
+  Sdir = p4
+  ifilenum = p5
+  ichoke = p6
+  Sfilelist[] directory Sdir
+  ifilecount lenarray Sfilelist
+  Sfilename = Sfilelist[ifilenum%ifilecount]
+  if ichoke == 0 then
+    schedule "__sndfileplay", 0, 1, Sfilename
+  else
+    instance = nstrnum("__sndfileplay") + ichoke*0.01
+    turnoff2 instance, 4, 1
+    schedule instance, 0, 1, Sfilename
+  endif
+  turnoff
+endin
+
+
+opcode dirplaywhen, 0, kSkk
+  ktrig, Sdir, kfilenum, kchoke xin
+  scoreline sprintfk({{i %d 0 1 "%s" %d %d}}, nstrnum("dirplay"), Sdir, kfilenum, kchoke), ktrig
+endop
 
 
 instr random_player
@@ -62,9 +66,9 @@ instr random_player
   krandom randh lenarray(itempi)-1, itempochangerate
   ktempo = itempi[abs(krandom)]
   kmetro metro ktempo
-  kmetronome metro itempochangerate
-  schedkwhen kmetro, 0, 0, "sample", 0, 1, random:k(0,1), 0.1
-  schedkwhen kmetronome, 0, 0, "sample", 0, 1, 0.5, 0.8
+  kmetronome metro 1
+  dirplaywhen kmetro, gSdirectory, random:k(0,100), 0
+  dirplaywhen kmetronome, gSdirectory, 0, 1
 endin
 
 
