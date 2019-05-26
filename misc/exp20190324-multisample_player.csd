@@ -11,7 +11,6 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: rename dirplay to __dirplay
 ;; TODO: use channels to tunnel audio from __sndfileplay to dirplaywhen
 ;; TODO: choose if use dirplay or dirplaywhen
 ;; TODO: put in separate UDO
@@ -36,7 +35,7 @@ instr __sndfileplay
 endin
 
 
-instr dirplay
+instr __dirplay
   Sdir = p4
   ifilenum = p5
   ichoke = p6
@@ -56,7 +55,7 @@ endin
 
 opcode dirplaywhen, 0, kSkk
   ktrig, Sdir, kfilenum, kchoke xin
-  scoreline sprintfk({{i %d 0 1 "%s" %d %d}}, nstrnum("dirplay"), Sdir, kfilenum, kchoke), ktrig
+  scoreline sprintfk({{i %d 0 1 "%s" %d %d}}, nstrnum("__dirplay"), Sdir, kfilenum, kchoke), ktrig
 endop
 
 
