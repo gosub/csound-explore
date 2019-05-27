@@ -30,7 +30,7 @@ opcode rndstring, S, i
 endop
 
 
-gSdirectory = "/home/gg/downloads/audio/samples/sums/step"
+gSdirectory = "/home/gg/downloads/audio/samples/patatap-samples-wav"
 
 
 instr __sndfileplay
