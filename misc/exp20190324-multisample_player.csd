@@ -11,10 +11,11 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: choose if use dirplay or dirplaywhen
-;; TODO: put in separate UDO
+;; TODO: put dirplay/dirplaywhen in separate UDO
+;; TODO: put rndstring in separate UDO
 ;; TODO: test
 ;; TODO: readme
+;; TODO: reuse more options from diskin2
 
 
 opcode rndstring, S, i
