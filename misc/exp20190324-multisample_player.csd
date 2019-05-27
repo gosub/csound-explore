@@ -89,8 +89,11 @@ instr random_player
   ktempo = itempi[abs(krandom)]
   kmetro metro ktempo
   kmetronome metro 1
-  dirplaywhen kmetro, gSdirectory, random:k(0,100), 0
-  dirplaywhen kmetronome, gSdirectory, 0, 1
+  a1L, a1R dirplaywhen kmetro, gSdirectory, random:k(0,100), 0
+  a2L, a2R dirplaywhen kmetronome, gSdirectory, 4, 1
+  aL sum a1L/10, a2L/2
+  aR sum a1R/10, a2R/2
+  outs aL, aR
 endin
 
 
