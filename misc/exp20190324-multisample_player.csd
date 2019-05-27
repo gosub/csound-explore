@@ -82,6 +82,16 @@ opcode dirplaywhen, aa, kSkk
 endop
 
 
+opcode dirplay, aa, Sii
+  Sdir, ifilenum, ichoke xin
+  Schan rndstring 16
+  schedule "__dirplay", 0, 1, Sdir, ifilenum, ichoke, Schan
+  aL chnget strcat(Schan, "L")
+  aR chnget strcat(Schan, "R")
+  xout aL, aR
+endop
+
+
 instr random_player
   itempi[] fillarray 4,2,6,3,1.5
   itempochangerate = 1
