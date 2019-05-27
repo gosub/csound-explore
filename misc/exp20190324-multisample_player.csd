@@ -107,6 +107,12 @@ instr random_player
 endin
 
 
+instr single_player
+  aL, aR dirplay gSdirectory, 2, 0
+  outs aL, aR
+endin
+
+
 alwayson "random_player"
 </CsInstruments>
 <CsScore>
