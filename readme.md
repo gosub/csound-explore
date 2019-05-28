@@ -43,6 +43,7 @@ launchpad based, monome inspired
   - once.udo - is true only once, at k-rate
   - minmax.udo - sorts two numbers
   - randint.udo - return a random int between max and min (default 0)
+  - rndstring.udo - generate a random string of arbitrary length
   - arrayreverse.udo - reverse an array
   - arrayshuffle.udo - shuffle an array with the Fisher-Yates algorithm
   - arrayofsubinstr.udo - instatiate n subinstruments inside an a-rate array

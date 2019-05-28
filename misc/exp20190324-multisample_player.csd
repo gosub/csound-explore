@@ -12,25 +12,12 @@ nchnls = 2
 
 
 ;; TODO: put dirplay/dirplaywhen in separate UDO
-;; TODO: put rndstring in separate UDO
 ;; TODO: test
 ;; TODO: readme
 ;; TODO: reuse more options from diskin2
 
 
-opcode rndstring, S, i
-  ilen xin
-  Sresult init ""
-  ilen max 1, ilen
-  idx = 0
-  while idx < ilen do
-    Sresult strcat Sresult, sprintf("%c", random(97,122.999))
-    idx += 1
-  od
-  xout Sresult
-endop
-
-
+#include "../udo/util/rndstring.udo"
 gSdirectory = "/home/gg/downloads/audio/samples/patatap-samples-wav"
 
 
