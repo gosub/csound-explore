@@ -19,6 +19,9 @@ launchpad based, monome inspired
 
 - clockdiv.udo - clock divider
 - euclidean.udo - euclidean rhythm sequencer
+- dirplay.udo
+  - dirplay - play the nth file in a folder, with choke-group support (i-rate)
+  - dirplaywhen - play the nth file in a folder at trigger, with choke-group support (k-rate)
 - moogy.udo - 2osc + noise Moog inspired instrument
   - moogy - udo with all controls as parameter
   - moogy(ik[]) - same udo with controls passed via an array (except note)

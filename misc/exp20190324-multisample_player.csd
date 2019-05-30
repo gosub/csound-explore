@@ -12,7 +12,6 @@ nchnls = 2
 
 
 ;; TODO: transform this experiment in a test
-;; TODO: readme
 ;; TODO: reuse more options from diskin2
 
 
