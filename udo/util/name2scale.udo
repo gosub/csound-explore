@@ -3,7 +3,8 @@
 */
 
 
-;; TODO: search supercollider Scale class for other interesting scales
+;; TODO: hungarian scales
+;; TODO: neapolitan scales
 ;; TODO: add exotic scales
 ;; TODO: k-rate?
 ;; TODO: tests
@@ -39,6 +40,12 @@ opcode name2scale, i[], S
     iscale[] fillarray 0,3,5,6,7,10
   elseif Scalename == "whole" then
     iscale[] fillarray 0,2,4,6,8,10
+  elseif Scalename == "bartok" || Scalename == "hindu" then
+    iscale[] fillarray 0,2,4,5,7,8,10
+  elseif Scalename == "chromatic" then
+    iscale[] fillarray 0,1,2,3,4,5,6,7,8,9,10,11
+  elseif Scalename == "spanish" then
+    iscale[] fillarray 0,1,4,5,7,8,10
   endif
   xout iscale
 endop
