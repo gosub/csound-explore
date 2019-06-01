@@ -207,7 +207,6 @@ opcode tcoin, k, k
 endop
 
 
-;; TODO: tcoin test
 ;; TODO: tcoin to readme
 ;; TODO: trandomwalk
 ;; TODO: trandomwalk test
