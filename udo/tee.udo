@@ -7,6 +7,7 @@
   tline     - Triggerable version of line opcode
   tlinen    - Triggerable version of linen opcode
   tcoin     - Flip a coin on trigger
+  tprintk   - Print a k-rate value on trigger
 */
 
 
@@ -207,11 +208,18 @@ opcode tcoin, k, k
 endop
 
 
+opcode tprintk, 0, kk
+  ktrig, kvalue xin
+  if ktrig == 1 then
+    printk 0, kvalue
+  endif
+endop
+
+
 ;; TODO: tcoin to readme
 ;; TODO: trandomwalk
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme
 ;; TODO: each udo in a separate file inside the tee directory
-;; TODO: tprintk
 ;; TODO: tprintk test
 ;; TODO: tprintk to readme
