@@ -3,8 +3,6 @@
 */
 
 
-;; TODO: neapolitan scales
-;; TODO: add exotic scales
 ;; TODO: k-rate?
 ;; TODO: tests
 ;; TODO: add to readme
@@ -47,6 +45,10 @@ opcode name2scale, i[], S
     iscale[] fillarray 0,1,4,5,7,8,10
   elseif Scalename == "hungarian" || Scalename == "hungarian_minor" then
     iscale[] fillarray 0,2,3,6,7,8,11
+  elseif Scalename == "neapolitan" || Scalename == "neapolitan_minor" then
+    iscale[] fillarray 0,1,3,5,7,8,11
+  elseif Scalename == "neapolitan_major" then
+    iscale[] fillarray 0,1,3,5,7,9,11
   endif
   xout iscale
 endop
