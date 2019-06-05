@@ -16,6 +16,8 @@ nchnls = 2
 #include "../udo/util/minmax.udo"
 #include "../udo/util/randint.udo"
 
+;; TODO: separate tests in single files under the util directory
+
 
 instr once_test
   prints "once test\n"
