@@ -10,47 +10,66 @@
 
 #ifndef NAME2SCALEUDO
 
+#define STREQ(STRINGA'STRINGB) #(strcmp($STRINGA,$STRINGB)==0)#
 
-opcode name2scale, i[], S
+opcode name2scale, i[]i, S
   Scalename xin
-  if Scalename == "major" || Scalename == "ionian" then
+  if $STREQ(Scalename'"major") || $STREQ(Scalename'"ionian") then
     iscale[] fillarray 0,2,4,5,7,9,11
-  elseif Scalename == "minor" || Scalename == "natural_minor" || Scalename == "aeolian" then
+    isize = 7
+  elseif $STREQ(Scalename'"minor") || $STREQ(Scalename'"natural_minor") || $STREQ(Scalename'"aeolian") then
     iscale[] fillarray 0,2,3,5,7,8,10
-  elseif Scalename == "dorian" then
+    isize = 7
+  elseif $STREQ(Scalename'"dorian") then
     iscale[] fillarray 0,2,3,4,7,9,10
-  elseif Scalename == "phrygian" then
+    isize = 7
+  elseif $STREQ(Scalename'"phrygian") then
     iscale[] fillarray 0,1,3,5,7,8,10
-  elseif Scalename == "lydian" then
+    isize = 7
+  elseif $STREQ(Scalename'"lydian") then
     iscale[] fillarray 0,2,4,6,7,9,11
-  elseif Scalename == "mixolydian" then
+    isize = 7
+  elseif $STREQ(Scalename'"mixolydian") then
     iscale[] fillarray 0,2,4,5,7,9,11
-  elseif Scalename == "locrian" then
+    isize = 7
+  elseif $STREQ(Scalename'"locrian") then
     iscale[] fillarray 0,1,3,5,6,8,10
-  elseif Scalename == "harmonic_minor" then
+    isize = 7
+  elseif $STREQ(Scalename'"harmonic_minor") then
     iscale[] fillarray 0,2,3,5,7,8,11
-  elseif Scalename == "pentatonic" || Scalename == "major_pentatonic" then
+    isize = 7
+  elseif $STREQ(Scalename'"pentatonic") || $STREQ(Scalename'"major_pentatonic") then
     iscale[] fillarray 0,2,4,7,9
-  elseif Scalename == "minor_pentatonic" then
+    isize = 5
+  elseif $STREQ(Scalename'"minor_pentatonic") then
     iscale[] fillarray 0,3,5,7,10
-  elseif Scalename == "blues" then
+    isize = 5
+  elseif $STREQ(Scalename'"blues") then
     iscale[] fillarray 0,3,5,6,7,10
-  elseif Scalename == "whole" then
+    isize = 6
+  elseif $STREQ(Scalename'"whole") then
     iscale[] fillarray 0,2,4,6,8,10
-  elseif Scalename == "bartok" || Scalename == "hindu" then
+    isize = 6
+  elseif $STREQ(Scalename'"bartok") || $STREQ(Scalename'"hindu") then
     iscale[] fillarray 0,2,4,5,7,8,10
-  elseif Scalename == "chromatic" then
+    isize = 7
+  elseif $STREQ(Scalename'"chromatic") then
     iscale[] fillarray 0,1,2,3,4,5,6,7,8,9,10,11
-  elseif Scalename == "spanish" then
+    isize = 12
+  elseif $STREQ(Scalename'"spanish") then
     iscale[] fillarray 0,1,4,5,7,8,10
-  elseif Scalename == "hungarian" || Scalename == "hungarian_minor" then
+    isize = 7
+  elseif $STREQ(Scalename'"hungarian") || $STREQ(Scalename'"hungarian_minor") then
     iscale[] fillarray 0,2,3,6,7,8,11
-  elseif Scalename == "neapolitan" || Scalename == "neapolitan_minor" then
+    isize = 7
+  elseif $STREQ(Scalename'"neapolitan") || $STREQ(Scalename'"neapolitan_minor") then
     iscale[] fillarray 0,1,3,5,7,8,11
-  elseif Scalename == "neapolitan_major" then
+    isize = 7
+  elseif $STREQ(Scalename'"neapolitan_major") then
     iscale[] fillarray 0,1,3,5,7,9,11
+    isize = 7
   endif
-  xout iscale
+  xout iscale, isize
 endop
 
 
