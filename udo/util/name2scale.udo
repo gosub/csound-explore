@@ -4,7 +4,6 @@
 
 
 ;; TODO: k-rate?
-;; TODO: tests
 ;; TODO: add to readme
 
 
