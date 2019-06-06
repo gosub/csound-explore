@@ -3,12 +3,13 @@
 */
 
 
-;; TODO: k-rate?
+;; MAYBE: k-rate version
 
 
 #ifndef NAME2SCALEUDO
 
 #define STREQ(STRINGA'STRINGB) #(strcmp($STRINGA,$STRINGB)==0)#
+
 
 opcode name2scale, i[]i, S
   Scalename xin
