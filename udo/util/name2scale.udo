@@ -4,7 +4,6 @@
 
 
 ;; TODO: k-rate?
-;; TODO: add to readme
 
 
 #ifndef NAME2SCALEUDO

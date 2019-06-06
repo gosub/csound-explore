@@ -50,6 +50,7 @@ launchpad based, monome inspired
   - arrayreverse.udo - reverse an array
   - arrayshuffle.udo - shuffle an array with the Fisher-Yates algorithm
   - arrayofsubinstr.udo - instatiate n subinstruments inside an a-rate array
+  - name2scale.udo - given a scale name, return an array usable by scale2midinn (and an array size)
 
 ## sccode
 
