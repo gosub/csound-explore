@@ -216,7 +216,6 @@ opcode tprintk, 0, kk
 endop
 
 
-;; TODO: tcoin to readme
 ;; TODO: trandomwalk
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme

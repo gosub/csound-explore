@@ -41,6 +41,7 @@ launchpad based, monome inspired
   - tcount - trigger counter, with optional wrap-around (udo)
   - tline - triggerable version of the line opcode (udo)
   - tlinen - triggerable version of the linen opcode (udo)
+  - tcoin - trow a coin on trigger (udo)
 - turing.udo - Turing Machine eurorack module clone
 - util
   - once.udo - is true only once, at k-rate
