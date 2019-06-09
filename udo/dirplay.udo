@@ -63,3 +63,6 @@ opcode dirplay, aa, Sio
   aR chnget strcat(Schan, "R")
   xout aL, aR
 endop
+
+
+;; MAYBE: reuse more options from diskin2
