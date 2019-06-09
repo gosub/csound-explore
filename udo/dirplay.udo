@@ -42,7 +42,7 @@ instr __dirplay
 endin
 
 
-opcode dirplaywhen, aa, kSkk
+opcode dirplaywhen, aa, kSkO
   ktrig, Sdir, kfilenum, kchoke xin
   Sfmt init {{i %d 0 1 "%s" %d %d "%s"}}
   Schan rndstring 16
@@ -55,7 +55,7 @@ opcode dirplaywhen, aa, kSkk
 endop
 
 
-opcode dirplay, aa, Sii
+opcode dirplay, aa, Sio
   Sdir, ifilenum, ichoke xin
   Schan rndstring 16
   schedule "__dirplay", 0, 1, Sdir, ifilenum, ichoke, Schan
