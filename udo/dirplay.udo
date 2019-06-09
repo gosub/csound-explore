@@ -3,6 +3,8 @@
   dirplaywhen - play the nth file in a folder at trigger, with choke-group support (k-rate)
 */
 
+#include "util/rndstring.udo"
+
 
 instr __sndfileplay
   Sfilename = p4
