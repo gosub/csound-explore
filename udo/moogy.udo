@@ -147,7 +147,7 @@ opcode moogy_rnd_preset, i[], o
   iprintit xin
 
   seed 0
-  ;; TODO: better random parameters
+  ;; MAYBE: better random parameters
   iAmp1 random 0.1, 0.7
   iType1 int random(1, 4.999)
   iPW1 random 0.1, 0.9
