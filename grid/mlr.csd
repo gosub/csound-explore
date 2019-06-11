@@ -11,6 +11,13 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
+
+;; TODO: multiple samples
+;; TODO: groups
+;; TODO: pattern recorder
+;; TODO: add to readme
+
+
 #include "lpmini.inc"
 
 gSamplename = "/home/gg/downloads/audio/samples/csound/loop.wav"
