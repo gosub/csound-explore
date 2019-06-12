@@ -62,7 +62,7 @@ endop
 
 
 instr mlr
-  icolumns init 8
+  icolumns = (p4==0 ? 8 : p4)
   kreset init 0
   koffset init 0
   krunning init 0
