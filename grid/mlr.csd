@@ -20,10 +20,14 @@ nchnls = 2
 
 #include "lpmini.inc"
 
-gSamplename = "/home/gg/downloads/audio/samples/csound/loop.wav"
-;read mono sample, since tablei does not support stereo
-giSample   ftgen 0,0,0,1,gSamplename,0,0,1
-giSampleLen filelen gSamplename
+
+opcode _mlr_setup, 0, 0
+  Samplefolder = "/home/gg/downloads/audio/samples/csound/"
+  gSamplename strcat Samplefolder, "loop.wav"
+  ;read mono sample, since tablei does not support stereo
+  giSample   ftgen 0,0,0,1,gSamplename,0,0,1
+  giSampleLen filelen gSamplename
+endop
 
 
 opcode _mlr_lane, a, iiiikkk
@@ -66,6 +70,7 @@ instr mlr
   klane init 1
 
   lpclear_i
+  _mlr_setup
 
   kreset = 0
   ktrig, kevent, krow, kcol lpread
