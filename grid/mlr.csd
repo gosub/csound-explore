@@ -26,16 +26,30 @@ nchnls = 2
 
 
 opcode _mlr_setup, 0, 0
-  Samplefolder = "/home/gg/downloads/audio/samples/csound/"
-  gSamplename strcat Samplefolder, "loop.wav"
+  Samplefolder = "/home/gg/downloads/audio/samples/sum/mlr/"
+  gSamplename[] init 7
+  giSample[] init 7
+  giSampleLen[] init 7
+  gSamplename[0] strcat Samplefolder, "soul_chicken.wav"
+  gSamplename[1] strcat Samplefolder, "drum_solo.wav"
+  gSamplename[2] strcat Samplefolder, "counterpoint.wav"
+  gSamplename[3] strcat Samplefolder, "pianos.wav"
+  gSamplename[4] strcat Samplefolder, "plucks.wav"
+  gSamplename[5] strcat Samplefolder, "the_bends.wav"
+  gSamplename[6] strcat Samplefolder, "timba.wav"
   ;read mono sample, since tablei does not support stereo
-  giSample   ftgen 0,0,0,1,gSamplename,0,0,1
-  giSampleLen filelen gSamplename
+  indx = 0
+  while indx < 7 do
+    giSample[indx]    ftgen 0,0,0,1,gSamplename[indx],0,0,1
+    giSampleLen[indx] filelen gSamplename[indx]
+    indx += 1
+  od
 endop
 
 
 opcode _mlr_lane, a, iiiikkk
   ilane, ilength, isampletable, isamplelen, klooping, ksync, kposition xin
+  ilane = ilane + 1
   klast init -1
   kprevlooping init 0
 
@@ -64,14 +78,22 @@ opcode _mlr_lane, a, iiiikkk
   xout asig
 endop
 
+;; TODO: complete _mlr_stop_group
+
+opcode _mlr_stop_group, k[], kk[]k[]
+; given a group, a group_assign and current running status
+; return a new running status
+endop
+
 
 instr mlr
   icolumns = (p4==0 ? 8 : p4)
-  kreset init 0
-  koffset init 0
-  krunning init 0
-  kgroup init 0
+  kreset[] init 7
+  koffset[] init 7
+  krunning[] init 7
+  kgroupassign[] fillarray 0,0,1,1,1,2,2
   klane init 1
+  kgroup init 0
 
   lpclear_i
   _mlr_setup
@@ -79,24 +101,29 @@ instr mlr
   kreset = 0
   ktrig, kevent, krow, kcol lpread
   if (ktrig==1) && (kevent==$LP_KEY_DOWN) then
-    if krow == 0 then
-      if kcol == kgroup then
-        krunning = 0
-        lpledoff 0, kgroup
-      endif
+    if krow == 0 && kcol < 4 then
+      ;; click on group
+      kgroup = kcol
+      krunning _mlr_stop_group kgroup, kgroupassign, krunning
     else
-      if krow == klane then
-        kreset = 1
-        koffset = kcol
-        if krunning == 0 then
-          krunning = 1
-          lpledon $LP_GREEN, 0, kgroup
-        endif
+      ;; click on lane
+      klane = krow-1
+      kreset[klane] = 1
+      koffset[klane] = kcol
+      if krunning[klane] == 0 then
+        krunning[klane] = 1
+        lpledon $LP_GREEN, 0, kgroupassign[klane]
       endif
     endif
   endif
 
-  asig _mlr_lane 1, icolumns, giSample, giSampleLen, krunning, kreset, koffset
+  asig _mlr_lane 0, icolumns, giSample[0], giSampleLen[0], krunning[0], kreset[0], koffset[0]
+  asig _mlr_lane 1, icolumns, giSample[1], giSampleLen[1], krunning[1], kreset[1], koffset[1]
+  asig _mlr_lane 2, icolumns, giSample[2], giSampleLen[2], krunning[2], kreset[2], koffset[2]
+  asig _mlr_lane 3, icolumns, giSample[3], giSampleLen[3], krunning[3], kreset[3], koffset[3]
+  asig _mlr_lane 4, icolumns, giSample[4], giSampleLen[4], krunning[4], kreset[4], koffset[4]
+  asig _mlr_lane 5, icolumns, giSample[5], giSampleLen[5], krunning[5], kreset[5], koffset[5]
+  asig _mlr_lane 6, icolumns, giSample[6], giSampleLen[6], krunning[6], kreset[6], koffset[6]
   outs asig, asig
 endin
 
