@@ -29,7 +29,7 @@ endin
 
 instr 99
 	Sample = p4
-	Sdir = "/home/gg/downloads/samples/sums/step/"
+	Sdir = "/home/gg/downloads/samples/sum/step/"
 	a1 diskin strcat(Sdir, strcat(Sample, "01.wav"))
 	out a1, a1
 endin
