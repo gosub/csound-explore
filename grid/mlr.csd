@@ -117,6 +117,7 @@ instr mlr
       kreset[klane] = 1
       koffset[klane] = kcol
       if krunning[klane] == 0 then
+        krunning _mlr_stop_group kgroup, kgroupassign, krunning
         krunning[klane] = 1
         lpledon $LP_GREEN, 0, kgroupassign[klane]
       endif
