@@ -12,8 +12,7 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: multiple samples
-;; TODO: groups
+;; TODO: test multiple samples and groups
 ;; TODO: sub-loops
 ;; TODO: bpm
 ;; TODO: quantization
