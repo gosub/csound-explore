@@ -97,7 +97,7 @@ instr mlr
   kreset[] init 7
   koffset[] init 7
   krunning[] init 7
-  kgroupassign[] fillarray 0,0,1,1,1,2,2
+  kgroupassign[] fillarray 0,0,1,1,1,2,2 ;; lane -> group
   klane init 1
   kgroup init 0
 
