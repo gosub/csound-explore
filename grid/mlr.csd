@@ -78,11 +78,17 @@ opcode _mlr_lane, a, iiiikkk
   xout asig
 endop
 
-;; TODO: complete _mlr_stop_group
 
 opcode _mlr_stop_group, k[], kk[]k[]
 ; given a group, a group_assign and current running status
 ; return a new running status
+  kgroup, kgroupassign[], krunning[] xin
+  klane = 0
+  while klane < 7 do
+    krunning[klane] = (kgroupassign[klane] == kgroup ? 0 : krunning[klane])
+    klane += 1
+  od
+  xout krunning
 endop
 
 
