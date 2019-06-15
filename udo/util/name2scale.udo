@@ -3,7 +3,7 @@
 */
 
 
-;; MAYBE: k-rate version
+;; TODO: verify k-rate version
 
 
 #ifndef NAME2SCALEUDO
@@ -69,6 +69,19 @@ opcode name2scale, i[]i, S
     isize = 7
   endif
   xout iscale, isize
+endop
+
+
+opcode name2scale, k[]k, S
+  Scalename xin
+  kscale[] init 0
+  ksize init 0
+  if strchanged2(Scalename) == 1 then
+    reinit new
+new:
+    kscale, ksize name2scale i(Scalename)
+  endif
+  xout kscale, ksize
 endop
 
 
