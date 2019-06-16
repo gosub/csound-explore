@@ -95,9 +95,9 @@ endin
 
 </CsInstruments>
 <CsScore>
-i "randint_test" 1 1
-i "arrayreverse_test" 2 1
-i "arrayshuffle_test" 3 1
-i "minmax_test" 4 1
+i "randint_test" 0 1
+i "arrayreverse_test" + .
+i "arrayshuffle_test" + .
+i "minmax_test" + .
 </CsScore>
 </CsoundSynthesizer>
