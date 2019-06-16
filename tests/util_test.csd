@@ -12,21 +12,12 @@ nchnls = 2
 
 #include "../udo/util/arrayreverse.udo"
 #include "../udo/util/arrayshuffle.udo"
-#include "../udo/util/once.udo"
 #include "../udo/util/minmax.udo"
 #include "../udo/util/randint.udo"
+#include "../udo/util/once.udo"  ;; used by randint_test
 
 ;; TODO: separate tests in single files under the util directory
 
-
-instr once_test
-  prints "once test\n"
-  konce once
-  printk2 konce, 0, 1
-  if konce == 1 then
-    printks "This line is printed at k-rate, using once\n", 0.1
-  endif
-endin
 
 
 seed 0
@@ -104,7 +95,6 @@ endin
 
 </CsInstruments>
 <CsScore>
-i "once_test"    0 1
 i "randint_test" 1 1
 i "arrayreverse_test" 2 1
 i "arrayshuffle_test" 3 1
