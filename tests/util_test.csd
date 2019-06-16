@@ -16,8 +16,11 @@ nchnls = 2
 #include "../udo/util/randint.udo"
 #include "../udo/util/once.udo"  ;; used by randint_test
 
-;; TODO: separate tests in single files under the util directory
 
+;; TODO: separate test for randint in util directory
+;; TODO: separate test for arrayreverse in util directory
+;; TODO: separate test for arrayshuffle in util directory
+;; TODO: separate test for minmax in util directory
 
 
 seed 0
