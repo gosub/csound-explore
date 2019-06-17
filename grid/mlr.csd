@@ -12,7 +12,6 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: test multiple samples and groups
 ;; TODO: sub-loops
 ;; TODO: bpm
 ;; TODO: quantization
@@ -110,11 +109,13 @@ instr mlr
       ;; click on group
       kgroup = kcol
       krunning _mlr_stop_group kgroup, kgroupassign, krunning
+      lpledoff 0, kgroup
     else
       ;; click on lane
       klane = krow-1
       kreset[klane] = 1
       koffset[klane] = kcol
+      kgroup = kgroupassign[klane]
       if krunning[klane] == 0 then
         krunning _mlr_stop_group kgroup, kgroupassign, krunning
         krunning[klane] = 1
@@ -123,13 +124,14 @@ instr mlr
     endif
   endif
 
-  asig _mlr_lane 0, icolumns, giSample[0], giSampleLen[0], krunning[0], kreset[0], koffset[0]
-  asig _mlr_lane 1, icolumns, giSample[1], giSampleLen[1], krunning[1], kreset[1], koffset[1]
-  asig _mlr_lane 2, icolumns, giSample[2], giSampleLen[2], krunning[2], kreset[2], koffset[2]
-  asig _mlr_lane 3, icolumns, giSample[3], giSampleLen[3], krunning[3], kreset[3], koffset[3]
-  asig _mlr_lane 4, icolumns, giSample[4], giSampleLen[4], krunning[4], kreset[4], koffset[4]
-  asig _mlr_lane 5, icolumns, giSample[5], giSampleLen[5], krunning[5], kreset[5], koffset[5]
-  asig _mlr_lane 6, icolumns, giSample[6], giSampleLen[6], krunning[6], kreset[6], koffset[6]
+  asig0 _mlr_lane 0, icolumns, giSample[0], giSampleLen[0], krunning[0], kreset[0], koffset[0]
+  asig1 _mlr_lane 1, icolumns, giSample[1], giSampleLen[1], krunning[1], kreset[1], koffset[1]
+  asig2 _mlr_lane 2, icolumns, giSample[2], giSampleLen[2], krunning[2], kreset[2], koffset[2]
+  asig3 _mlr_lane 3, icolumns, giSample[3], giSampleLen[3], krunning[3], kreset[3], koffset[3]
+  asig4 _mlr_lane 4, icolumns, giSample[4], giSampleLen[4], krunning[4], kreset[4], koffset[4]
+  asig5 _mlr_lane 5, icolumns, giSample[5], giSampleLen[5], krunning[5], kreset[5], koffset[5]
+  asig6 _mlr_lane 6, icolumns, giSample[6], giSampleLen[6], krunning[6], kreset[6], koffset[6]
+  asig sum asig0, asig1, asig2, asig3, asig4, asig5, asig6
   outs asig, asig
 endin
 
