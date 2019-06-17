@@ -18,6 +18,7 @@ nchnls = 2
 ;; TODO: pattern recorder
 ;; TODO: add to readme
 ;; TODO: support for stereo samples
+;; TODO: limiter
 
 
 #include "lpmini.inc"
