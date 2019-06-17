@@ -4,16 +4,38 @@
 */
 
 
+;; TODO: tests
+;; TODO: readme
+
+
 #ifndef STRCHANGEDUDO
 
 
 opcode strchanged, k, S
-  ;; TODO: implement strchanged
+  Str xin
+  kstored init 0
+  if kstored == 0 then
+    kstored = 1
+    kout = 0
+  else
+    kout = (strcmp(Stored,Str)==0?0:1)
+  endif
+  Stored = Str
+  xout kout
 endop
 
 
 opcode strchanged2, k, S
-  ;; TODO: implement strchanged2
+  Str xin
+  kstored init 0
+  if kstored == 0 then
+    kstored = 1
+    kout = 1
+  else
+    kout = (strcmp(Stored,Str)==0?0:1)
+  endif
+  Stored = Str
+  xout kout
 endop
 
 
