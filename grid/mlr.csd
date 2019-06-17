@@ -30,12 +30,12 @@ opcode _mlr_setup, 0, 0
   giSample[] init 7
   giSampleLen[] init 7
   gSamplename[0] strcat Samplefolder, "soul_chicken.wav"
-  gSamplename[1] strcat Samplefolder, "drum_solo.wav"
+  gSamplename[1] strcat Samplefolder, "timba.wav"
   gSamplename[2] strcat Samplefolder, "counterpoint.wav"
-  gSamplename[3] strcat Samplefolder, "pianos.wav"
+  gSamplename[3] strcat Samplefolder, "the_bends.wav"
   gSamplename[4] strcat Samplefolder, "plucks.wav"
-  gSamplename[5] strcat Samplefolder, "the_bends.wav"
-  gSamplename[6] strcat Samplefolder, "timba.wav"
+  gSamplename[5] strcat Samplefolder, "pianos.wav"
+  gSamplename[6] strcat Samplefolder, "voices.wav"
   ;read mono sample, since tablei does not support stereo
   indx = 0
   while indx < 7 do
