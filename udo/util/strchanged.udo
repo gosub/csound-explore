@@ -4,7 +4,6 @@
 */
 
 
-;; TODO: tests
 ;; TODO: readme
 
 
