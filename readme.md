@@ -80,7 +80,7 @@ port of interesting N.I. Reaktor instruments to Csound
 
 # Distribution
 
-Copyright (C) 2018-2019 Giampaolo Guiducci
+Copyright (C) 2018,2019 Giampaolo Guiducci
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
