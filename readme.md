@@ -52,6 +52,7 @@ launchpad based, monome inspired
   - arrayshuffle.udo - shuffle an array with the Fisher-Yates algorithm
   - arrayofsubinstr.udo - instatiate n subinstruments inside an a-rate array
   - name2scale.udo - given a scale name, return an array usable by scale2midinn (and an array size)
+  - strchanged.udo - return 1 when a string changes (k-rate)
 
 ## sccode
 

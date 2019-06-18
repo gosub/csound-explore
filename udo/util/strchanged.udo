@@ -4,9 +4,6 @@
 */
 
 
-;; TODO: readme
-
-
 #ifndef STRCHANGEDUDO
 
 
