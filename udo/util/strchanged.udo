@@ -13,28 +13,25 @@
 
 opcode strchanged, k, S
   Str xin
-  kstored init 0
-  if kstored == 0 then
-    kstored = 1
-    kout = 0
-  else
-    kout = (strcmp(Stored,Str)==0?0:1)
-  endif
-  Stored = Str
+  Stored strcpy Str
+  kout init 0
+  kout = (strcmpk(Stored,Str)==0?0:1)
+  Stored strcpyk Str
   xout kout
 endop
 
 
 opcode strchanged2, k, S
   Str xin
-  kstored init 0
-  if kstored == 0 then
-    kstored = 1
+  Stored strcpy Str
+  kout init 0
+  kfirst init 1
+  kout = (strcmpk(Stored,Str)==0?0:1)
+  Stored strcpyk Str
+  if kfirst == 1 then
     kout = 1
-  else
-    kout = (strcmp(Stored,Str)==0?0:1)
+    kfirst = 0
   endif
-  Stored = Str
   xout kout
 endop
 
