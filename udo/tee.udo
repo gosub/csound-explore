@@ -220,5 +220,4 @@ endop
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme
 ;; TODO: each udo in a separate file inside the tee directory
-;; TODO: tprintk test
 ;; TODO: tprintk to readme
