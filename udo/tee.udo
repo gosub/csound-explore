@@ -221,4 +221,3 @@ endop
 ;; TODO: trandomwalk to readme
 ;; TODO: each udo in a separate file inside the tee directory
 ;; TODO: tprintk incorporate more parameters from printk
-;; TODO: tprintk to readme
