@@ -65,14 +65,13 @@ endin
 
 ; ergosphere - modulation delay
 
-;; TODO: ergosphere - choose if alfo shoud be absolute or depend on ktime
 
 opcode ergosphere, a, akkkkkk
   ain, kmix, ktime, kfeedback, kmod, kspeed, kbypass xin
   if kbypass == 1 then
     aout = ain
   else
-    alfo poscil kmod * ktime, kspeed
+    alfo poscil kmod, kspeed
     adummy delayr 1
     adelay deltap3 ktime + alfo
     delayw ain + kfeedback * adelay
