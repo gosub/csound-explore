@@ -163,7 +163,8 @@ endop
 
 
 instr finalFX
-  asig = gaBus1
+  ;;asig = gaBus1
+  asig,asig2 ins
 
   kmix1, ktime, kfeedback, kmod, kspeed, kbypass1 init 0.5, 0.3, 0.2, 0.1, 1/5, 0
   kmix2, kecho, kradiancy, kpitch, kbypass2 init 0.7, 0.9, 0.7, 1.5, 0
@@ -178,7 +179,7 @@ endin
 
 
 alwayson "finalFX"
-alwayson "plucker"
+;; alwayson "plucker"
 
 
 </CsInstruments>
