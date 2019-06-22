@@ -166,9 +166,9 @@ instr finalFX
   ;;asig = gaBus1
   asig,asig2 ins
 
-  kmix1, ktime, kfeedback, kmod, kspeed, kbypass1 init 0.5, 0.3, 0.2, 0.1, 1/5, 0
-  kmix2, kecho, kradiancy, kpitch, kbypass2 init 0.7, 0.9, 0.7, 1.5, 0
-  kdisintegrate, kbypass3 init 0.9, 0
+  kmix1, ktime, kfeedback, kmod, kspeed, kbypass1 init 0.5, 0.3, 0.9, 0.0, 1/10, 0
+  kmix2, kecho, kradiancy, kpitch, kbypass2 init 0.5, 0.5, 0.4, 1.5, 0
+  kdisintegrate, kbypass3 init 0.5, 0
 
   asig blackhole asig, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1, \
                        kmix2, kecho, kradiancy, kpitch, kbypass2, \
