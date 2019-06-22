@@ -117,7 +117,7 @@ endop
 ; singularity - destruction fuzz
 
 ;; TODO: singularity - derive pre&postgain, shape1&2 from kdisintegrate
-
+/*
 opcode singularity, a, akk
   ain, kdisintegrate, kbypass xin
   if kbypass == 1 then
@@ -128,6 +128,19 @@ opcode singularity, a, akk
     kshape1 = 1 - kdisintegrate
     kshape2 = 1 - kdisintegrate/2
     aout distort1 ain, kpregain, kpostgain, kshape1, kshape2, 1
+  endif
+  xout aout
+endop
+*/
+
+opcode singularity, a, akk
+  ain, kdisintegrate, kbypass xin
+  ifn	ftgen	0,0, 257, 9, .5,1,270
+  if kbypass == 1 then
+    aout = ain
+  else
+    ain = ain * (1+kdisintegrate)
+    aout distort ain, kdisintegrate, ifn
   endif
   xout aout
 endop
