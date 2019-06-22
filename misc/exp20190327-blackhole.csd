@@ -155,9 +155,9 @@ opcode blackhole, a, akkkkkkkkkkkkk
   ain, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1, \
              kmix2, kecho, kradiancy, kpitch, kbypass2, \
                                kdisintegrate, kbypass3 xin
-  asig1 ergosphere ain, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1
-  asig2 eventhorizon asig1, kmix2, kecho, kradiancy, kpitch, kbypass2
-  aout singularity asig2, kdisintegrate, kbypass3
+  asig1 singularity ain, kdisintegrate, kbypass3
+  asig2 ergosphere asig1, kmix1, ktime, kfeedback, kmod, kspeed, kbypass1
+  aout eventhorizon asig2, kmix2, kecho, kradiancy, kpitch, kbypass2
   xout aout
 endop
 
