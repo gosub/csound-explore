@@ -24,6 +24,12 @@ nchnls = 2
 #include "lpmini.inc"
 
 
+; fsm states for each lane
+#define MRL_FSM_WAIT        #0#
+#define MLR_FSM_KEYDOWN     #1#
+#define MLR_FSM_TILLRELEASE #2#
+
+
 opcode _mlr_setup, 0, 0
   Samplefolder = "/home/gg/downloads/audio/samples/sum/mlr/"
   gSamplename[] init 7
@@ -96,6 +102,7 @@ instr mlr
   kreset[] init 7
   koffset[] init 7
   krunning[] init 7
+  klanefsm[] init 7 ;; autoinitialized at $MLR_FSM_WAIT = 0
   kgroupassign[] fillarray 0,0,1,1,1,2,2 ;; lane -> group
   klane init 1
   kgroup init 0
