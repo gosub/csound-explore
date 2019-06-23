@@ -97,6 +97,20 @@ opcode _mlr_stop_group, k[], kk[]k[]
 endop
 
 
+opcode _mlr_lane_keyup, k[]k[]k[], kkk[]k[]k[]k[]k[]
+  klane, kcol, kreset[], koffset[], krunning[], klanefsm[], kgroupassign[] xin
+  kreset[klane] = 1
+  koffset[klane] = kcol
+  kgroup = kgroupassign[klane]
+  if krunning[klane] == 0 then
+    krunning _mlr_stop_group kgroup, kgroupassign, krunning
+    krunning[klane] = 1
+    lpledon $LP_GREEN, 0, kgroupassign[klane]
+  endif
+  xout kreset, koffset, krunning
+endop
+
+
 instr mlr
   icolumns = (p4==0 ? 8 : p4)
   kreset[] init 7
@@ -112,23 +126,18 @@ instr mlr
 
   kreset = 0
   ktrig, kevent, krow, kcol lpread
-  if (ktrig==1) && (kevent==$LP_KEY_DOWN) then
-    if krow == 0 && kcol < 4 then
+  if (ktrig==1) then
+    if kevent == $LP_KEY_DOWN && krow == 0 && kcol < 4 then
       ;; click on group
       kgroup = kcol
       krunning _mlr_stop_group kgroup, kgroupassign, krunning
       lpledoff 0, kgroup
-    else
-      ;; click on lane
+    elseif krow > 0 && kevent == $LP_KEY_UP then
+      ;; keyup on lane
       klane = krow-1
-      kreset[klane] = 1
-      koffset[klane] = kcol
-      kgroup = kgroupassign[klane]
-      if krunning[klane] == 0 then
-        krunning _mlr_stop_group kgroup, kgroupassign, krunning
-        krunning[klane] = 1
-        lpledon $LP_GREEN, 0, kgroupassign[klane]
-      endif
+      kreset, koffset, krunning _mlr_lane_keyup klane, kcol, kreset, koffset, krunning, klanefsm, kgroupassign
+    elseif krow > 0 && kevent == $LP_KEY_DOWN then
+      ;; keydown on lane
     endif
   endif
 
