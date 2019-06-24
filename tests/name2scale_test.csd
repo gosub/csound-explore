@@ -27,8 +27,8 @@ endin
 
 
 instr ping
-  aenv madsr p3/2, 0, 1, p3/3
-  aout poscil aenv, cpsmidinn(p4)
+  aenv madsr p3/3, 0, 1, p3/3
+  aout poscil aenv*0.5, cpsmidinn(p4)
   outs aout, aout
 endin
 
