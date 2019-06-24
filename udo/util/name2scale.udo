@@ -71,16 +71,20 @@ opcode name2scale, i[]i, S
   xout iscale, isize
 endop
 
+#include "strchanged.udo"
 
 opcode name2scale, k[]k, S
   Scalename xin
-  kscale[] init 0
+  kscale[] init 1
   ksize init 0
-  if strchanged2(Scalename) == 1 then
+  if strchanged(Scalename) == 1 then
+    printk 0, ksize
     reinit new
-new:
-    kscale, ksize name2scale i(Scalename)
   endif
+new:
+  iscale[], isize name2scale Scalename
+  kscale = iscale
+  ksize = isize
   xout kscale, ksize
 endop
 
