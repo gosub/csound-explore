@@ -5,6 +5,7 @@
 
 #ifndef NAME2SCALEUDO
 
+
 #define STREQ(STRINGA'STRINGB) #(strcmp($STRINGA,$STRINGB)==0)#
 
 
