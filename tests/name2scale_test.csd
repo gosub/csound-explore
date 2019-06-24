@@ -16,7 +16,7 @@ nchnls = 2
 instr 1
   Scalename = p4
   kindx init -1
-  prints "name2scale test: %s\n", Scalename
+  prints "name2scale (i) test: %s\n", Scalename
   iscale[],isize name2scale Scalename
   ktick metro 4
   kindx += ktick
