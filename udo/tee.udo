@@ -219,5 +219,13 @@ endop
 ;; TODO: trandomwalk
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme
-;; TODO: each udo in a separate file inside the tee directory
+;; TODO: tsequence UDO in a separate file inside the tee directory
+;; TODO: tchoice   UDO in a separate file inside the tee directory
+;; TODO: twchoice  UDO in a separate file inside the tee directory
+;; TODO: tstepper  UDO in a separate file inside the tee directory
+;; TODO: tcount    UDO in a separate file inside the tee directory
+;; TODO: tline     UDO in a separate file inside the tee directory
+;; TODO: tlinen    UDO in a separate file inside the tee directory
+;; TODO: tcoin     UDO in a separate file inside the tee directory
+;; TODO: tprintk   UDO in a separate file inside the tee directory
 ;; TODO: tprintk incorporate more parameters from printk
