@@ -4,7 +4,6 @@
 
 
 ;; TODO: tests
-;; TODO: add to readme
 
 
 #ifndef SCALE2MIDINNUDO
