@@ -25,7 +25,7 @@ nchnls = 2
 
 
 ; fsm states for each lane
-#define MRL_FSM_WAIT        #0#
+#define MLR_FSM_WAIT        #0#
 #define MLR_FSM_KEYDOWN     #1#
 #define MLR_FSM_TILLRELEASE #2#
 
@@ -97,17 +97,29 @@ opcode _mlr_stop_group, k[], kk[]k[]
 endop
 
 
-opcode _mlr_lane_keyup, k[]k[]k[], kkk[]k[]k[]k[]k[]
+opcode _mlr_lane_keyup, k[]k[]k[]k[], kkk[]k[]k[]k[]k[]
   klane, kcol, kreset[], koffset[], krunning[], klanefsm[], kgroupassign[] xin
-  kreset[klane] = 1
-  koffset[klane] = kcol
-  kgroup = kgroupassign[klane]
-  if krunning[klane] == 0 then
-    krunning _mlr_stop_group kgroup, kgroupassign, krunning
-    krunning[klane] = 1
-    lpledon $LP_GREEN, 0, kgroupassign[klane]
+  if klanefsm[klane] == $MLR_FSM_KEYDOWN then
+    kreset[klane] = 1
+    koffset[klane] = kcol
+    kgroup = kgroupassign[klane]
+    if krunning[klane] == 0 then
+      krunning _mlr_stop_group kgroup, kgroupassign, krunning
+      krunning[klane] = 1
+      lpledon $LP_GREEN, 0, kgroupassign[klane]
+    endif
+    klanefsm[klane] = $MLR_FSM_WAIT
   endif
-  xout kreset, koffset, krunning
+  xout kreset, koffset, krunning, klanefsm
+endop
+
+
+opcode _mlr_lane_keydown, k[], kk[]
+  klane, klanefsm[] xin
+  if klanefsm[klane] == $MLR_FSM_WAIT then
+    klanefsm[klane] = $MLR_FSM_KEYDOWN
+  endif
+  xout klanefsm
 endop
 
 
@@ -135,9 +147,9 @@ instr mlr
     elseif krow > 0 && kevent == $LP_KEY_UP then
       ;; keyup on lane
       klane = krow-1
-      kreset, koffset, krunning _mlr_lane_keyup klane, kcol, kreset, koffset, krunning, klanefsm, kgroupassign
+      kreset, koffset, krunning, klanefsm _mlr_lane_keyup klane, kcol, kreset, koffset, krunning, klanefsm, kgroupassign
     elseif krow > 0 && kevent == $LP_KEY_DOWN then
-      ;; keydown on lane
+      klanefsm _mlr_lane_keydown klane, klanefsm
     endif
   endif
 
