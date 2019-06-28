@@ -114,12 +114,13 @@ opcode _mlr_lane_keyup, k[]k[]k[]k[], kkk[]k[]k[]k[]k[]
 endop
 
 
-opcode _mlr_lane_keydown, k[], kk[]
-  klane, klanefsm[] xin
+opcode _mlr_lane_keydown, k[]k[], kkk[]k[]
+  kcol, klane, klanefsm[], klanefsmvalue[] xin
   if klanefsm[klane] == $MLR_FSM_WAIT then
     klanefsm[klane] = $MLR_FSM_KEYDOWN
+    klanefsmvalue[klane] = kcol
   endif
-  xout klanefsm
+  xout klanefsm, klanefsmvalue
 endop
 
 
@@ -129,6 +130,7 @@ instr mlr
   koffset[] init 7
   krunning[] init 7
   klanefsm[] init 7 ;; autoinitialized at $MLR_FSM_WAIT = 0
+  klanefsmvalue[] init 7
   kgroupassign[] fillarray 0,0,1,1,1,2,2 ;; lane -> group
   klane init 1
   kgroup init 0
@@ -149,7 +151,7 @@ instr mlr
       klane = krow-1
       kreset, koffset, krunning, klanefsm _mlr_lane_keyup klane, kcol, kreset, koffset, krunning, klanefsm, kgroupassign
     elseif krow > 0 && kevent == $LP_KEY_DOWN then
-      klanefsm _mlr_lane_keydown klane, klanefsm
+      klanefsm, klanefsmvalue _mlr_lane_keydown kcol, klane, klanefsm, klanefsmvalue
     endif
   endif
 
