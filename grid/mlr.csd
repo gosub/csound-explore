@@ -131,6 +131,8 @@ instr mlr
   krunning[] init 7
   klanefsm[] init 7 ;; autoinitialized at $MLR_FSM_WAIT = 0
   klanefsmvalue[] init 7
+  klanestart[] init 7
+  klaneend[] fillarray icolumns, icolumns, icolumns, icolumns, icolumns, icolumns, icolumns
   kgroupassign[] fillarray 0,0,1,1,1,2,2 ;; lane -> group
   klane init 1
   kgroup init 0
