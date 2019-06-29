@@ -13,6 +13,7 @@ nchnls = 2
 
 
 ;; TODO: sub-loops
+;; TODO: sub-loop reverse
 ;; TODO: bpm
 ;; TODO: quantization
 ;; TODO: pattern recorder
