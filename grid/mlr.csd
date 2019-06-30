@@ -54,17 +54,19 @@ endop
 
 
 opcode _mlr_lane, a, iiiikkk
-  ilane, ilength, isampletable, isamplelen, klooping, ksync, kposition xin
+  ilane, ilength, isampletable, isamplelen, klooping, ksync, kposition, kstart, kend xin
   ilane = ilane + 1
   klast init -1
   kprevlooping init 0
+  kloopfrac = (abs(kend-kstart)+1)/ilength
 
   asig = 0
   if klooping == 1 then
     async upsamp ksync
     aphase, adummy syncphasor 1/isamplelen, async
+    aphase *= kloopfrac
     kphase downsamp aphase
-    kindex = (int(kphase*(ilength-0.001)) + kposition) % ilength
+    kindex = (int(kphase*(ilength-0.001)) + kposition + kstart) % ilength
     if kindex != klast then
       lpledon $LP_GREEN, ilane, kindex
       if klast != -1 then
@@ -72,6 +74,7 @@ opcode _mlr_lane, a, iiiikkk
       endif
       klast = kindex
     endif
+    aphase += 1/ilength * kstart
     aphase += 1/ilength * kposition
     asig tablei aphase, isampletable, 1, 0, 1
   else
@@ -103,6 +106,7 @@ opcode _mlr_lane_keyup, k[]k[]k[]k[], kkk[]k[]k[]k[]k[]
   if klanefsm[klane] == $MLR_FSM_KEYDOWN then
     kreset[klane] = 1
     koffset[klane] = kcol
+    ;; TODO: set klanestart and klaneend
     kgroup = kgroupassign[klane]
     if krunning[klane] == 0 then
       krunning _mlr_stop_group kgroup, kgroupassign, krunning
@@ -158,13 +162,13 @@ instr mlr
     endif
   endif
 
-  asig0 _mlr_lane 0, icolumns, giSample[0], giSampleLen[0], krunning[0], kreset[0], koffset[0]
-  asig1 _mlr_lane 1, icolumns, giSample[1], giSampleLen[1], krunning[1], kreset[1], koffset[1]
-  asig2 _mlr_lane 2, icolumns, giSample[2], giSampleLen[2], krunning[2], kreset[2], koffset[2]
-  asig3 _mlr_lane 3, icolumns, giSample[3], giSampleLen[3], krunning[3], kreset[3], koffset[3]
-  asig4 _mlr_lane 4, icolumns, giSample[4], giSampleLen[4], krunning[4], kreset[4], koffset[4]
-  asig5 _mlr_lane 5, icolumns, giSample[5], giSampleLen[5], krunning[5], kreset[5], koffset[5]
-  asig6 _mlr_lane 6, icolumns, giSample[6], giSampleLen[6], krunning[6], kreset[6], koffset[6]
+  asig0 _mlr_lane 0, icolumns, giSample[0], giSampleLen[0], krunning[0], kreset[0], koffset[0], klanestart[0], klaneend[0]
+  asig1 _mlr_lane 1, icolumns, giSample[1], giSampleLen[1], krunning[1], kreset[1], koffset[1], klanestart[1], klaneend[1]
+  asig2 _mlr_lane 2, icolumns, giSample[2], giSampleLen[2], krunning[2], kreset[2], koffset[2], klanestart[2], klaneend[2]
+  asig3 _mlr_lane 3, icolumns, giSample[3], giSampleLen[3], krunning[3], kreset[3], koffset[3], klanestart[3], klaneend[3]
+  asig4 _mlr_lane 4, icolumns, giSample[4], giSampleLen[4], krunning[4], kreset[4], koffset[4], klanestart[4], klaneend[4]
+  asig5 _mlr_lane 5, icolumns, giSample[5], giSampleLen[5], krunning[5], kreset[5], koffset[5], klanestart[5], klaneend[5]
+  asig6 _mlr_lane 6, icolumns, giSample[6], giSampleLen[6], krunning[6], kreset[6], koffset[6], klanestart[6], klaneend[6]
   asig sum asig0, asig1, asig2, asig3, asig4, asig5, asig6
   outs asig, asig
 endin
