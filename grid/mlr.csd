@@ -53,7 +53,7 @@ opcode _mlr_setup, 0, 0
 endop
 
 
-opcode _mlr_lane, a, iiiikkk
+opcode _mlr_lane, a, iiiikkkkk
   ilane, ilength, isampletable, isamplelen, klooping, ksync, kposition, kstart, kend xin
   ilane = ilane + 1
   klast init -1
@@ -119,13 +119,22 @@ opcode _mlr_lane_keyup, k[]k[]k[]k[], kkk[]k[]k[]k[]k[]
 endop
 
 
-opcode _mlr_lane_keydown, k[]k[], kkk[]k[]
-  kcol, klane, klanefsm[], klanefsmvalue[] xin
+opcode _mlr_lane_keydown, k[]k[]k[]k[], kkk[]k[]k[]k[]
+  kcol, klane, klanefsm[], klanefsmvalue[], klanestart[], klaneend[] xin
   if klanefsm[klane] == $MLR_FSM_WAIT then
     klanefsm[klane] = $MLR_FSM_KEYDOWN
     klanefsmvalue[klane] = kcol
+  elseif klanefsm[klane] == $MLR_FSM_KEYDOWN then
+    kstart min klanefsmvalue[klane], kcol
+    kend max klanefsmvalue[klane], kcol
+    klanestart[klane] = kstart
+    klaneend[klane] = kend
+    klanefsm[klane] = $MLR_FSM_TILLRELEASE
+    klanefsmvalue[klane] = 2
+  elseif klanefsm[klane] == $MLR_FSM_TILLRELEASE then
+    klanefsmvalue[klane] = klanefsmvalue[klane] + 1
   endif
-  xout klanefsm, klanefsmvalue
+  xout klanefsm, klanefsmvalue, klanestart, klaneend
 endop
 
 
@@ -158,7 +167,7 @@ instr mlr
       klane = krow-1
       kreset, koffset, krunning, klanefsm _mlr_lane_keyup klane, kcol, kreset, koffset, krunning, klanefsm, kgroupassign
     elseif krow > 0 && kevent == $LP_KEY_DOWN then
-      klanefsm, klanefsmvalue _mlr_lane_keydown kcol, klane, klanefsm, klanefsmvalue
+      klanefsm, klanefsmvalue, klanestart, klaneend _mlr_lane_keydown kcol, klane, klanefsm, klanefsmvalue, klanestart, klaneend
     endif
   endif
 
