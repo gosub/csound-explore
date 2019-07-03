@@ -137,6 +137,7 @@ opcode _mlr_lane_keydown, k[]k[]k[]k[], kkk[]k[]k[]k[]
     kend max klanefsmvalue[klane], kcol
     klanestart[klane] = kstart
     klaneend[klane] = kend
+    ;; TODO: set reset and offset
     klanefsm[klane] = $MLR_FSM_TILLRELEASE
     klanefsmvalue[klane] = 2
   elseif klanefsm[klane] == $MLR_FSM_TILLRELEASE then
