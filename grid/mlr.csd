@@ -12,6 +12,7 @@ nchnls = 2
 0dbfs = 1
 
 
+;; TODO: refactor lane state in an array of arrays; State = [LaneState], LaneState = [Running, Offset, Start, End, ...]
 ;; TODO: sub-loop reverse
 ;; TODO: bpm
 ;; TODO: quantization
