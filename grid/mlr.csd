@@ -63,7 +63,7 @@ opcode _mlr_lane, a, iiiikkkkk
   asig = 0
   if klooping == 1 then
     async upsamp ksync
-    aphase, adummy syncphasor 1/isamplelen, async
+    aphase, adummy syncphasor 1/isamplelen*1/kloopfrac, async
     aphase *= kloopfrac
     kphase downsamp aphase
     kindex = (int(kphase*(ilength-0.001)) + kposition + kstart) % ilength
@@ -107,7 +107,7 @@ opcode _mlr_lane_keyup, k[]k[]k[]k[]k[]k[]k[], kkk[]k[]k[]k[]k[]k[]k[]k[]
     kreset[klane] = 1
     koffset[klane] = kcol
     klanestart[klane] = 0
-    klaneend[klane] = 8 ;; TODO: should be icolumns
+    klaneend[klane] = 7 ;; TODO: should be icolumns-1
     kgroup = kgroupassign[klane]
     if krunning[klane] == 0 then
       krunning _mlr_stop_group kgroup, kgroupassign, krunning
@@ -155,8 +155,8 @@ instr mlr
   klanefsm[] init 7 ;; autoinitialized at $MLR_FSM_WAIT = 0
   klanefsmvalue[] init 7
   klanestart[] init 7
-  klaneend[] fillarray icolumns, icolumns, icolumns, \
-                       icolumns, icolumns, icolumns, icolumns
+  klaneend[] fillarray icolumns-1, icolumns-1, icolumns-1, \
+                       icolumns-1, icolumns-1, icolumns-1, icolumns-1
   kgroupassign[] fillarray 0,0,1,1,1,2,2 ;; lane -> group
   klane init 1
   kgroup init 0
