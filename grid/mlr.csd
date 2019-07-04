@@ -12,7 +12,6 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: sub-loops
 ;; TODO: sub-loop reverse
 ;; TODO: bpm
 ;; TODO: quantization
@@ -127,8 +126,8 @@ opcode _mlr_lane_keyup, k[]k[]k[]k[]k[]k[]k[], kkk[]k[]k[]k[]k[]k[]k[]k[]
 endop
 
 
-opcode _mlr_lane_keydown, k[]k[]k[]k[], kkk[]k[]k[]k[]
-  kcol, klane, klanefsm[], klanefsmvalue[], klanestart[], klaneend[] xin
+opcode _mlr_lane_keydown, k[]k[]k[]k[]k[]k[]k[], kkk[]k[]k[]k[]k[]k[]k[]k[]
+  kcol, klane, klanefsm[], klanefsmvalue[], klanestart[], klaneend[], kreset[], koffset[], krunning[], kgroupassign[] xin
   if klanefsm[klane] == $MLR_FSM_WAIT then
     klanefsm[klane] = $MLR_FSM_KEYDOWN
     klanefsmvalue[klane] = kcol
@@ -137,13 +136,16 @@ opcode _mlr_lane_keydown, k[]k[]k[]k[], kkk[]k[]k[]k[]
     kend max klanefsmvalue[klane], kcol
     klanestart[klane] = kstart
     klaneend[klane] = kend
-    ;; TODO: set reset and offset
+    kreset[klane] = 1
+    koffset[klane] = 0
+    krunning[klane] = 1
+    lpledon $LP_GREEN, 0, kgroupassign[klane]
     klanefsm[klane] = $MLR_FSM_TILLRELEASE
     klanefsmvalue[klane] = 2
   elseif klanefsm[klane] == $MLR_FSM_TILLRELEASE then
     klanefsmvalue[klane] = klanefsmvalue[klane] + 1
   endif
-  xout klanefsm, klanefsmvalue, klanestart, klaneend
+  xout klanefsm, klanefsmvalue, klanestart, klaneend, kreset, koffset, krunning
 endop
 
 
@@ -180,9 +182,11 @@ instr mlr
               krunning, klanefsm, kgroupassign, \
 	      klanestart, klaneend, klanefsmvalue
     elseif krow > 0 && kevent == $LP_KEY_DOWN then
-      klanefsm, klanefsmvalue, klanestart, klaneend \
+      ;; keydown on lane
+      klane = krow-1
+      klanefsm, klanefsmvalue, klanestart, klaneend, kreset, koffset, krunning \
               _mlr_lane_keydown kcol, klane, klanefsm, \
-	      klanefsmvalue, klanestart, klaneend
+	      klanefsmvalue, klanestart, klaneend, kreset, koffset, krunning, kgroupassign
     endif
   endif
 
