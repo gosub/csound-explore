@@ -45,30 +45,44 @@ nchnls = 2
 #define LANE_STRUCT_SIZE #11#
 
 
-opcode _mlr_setup, i[]i[]i[]i[], i
-  icolumns xin
+opcode _mlr_setup, k[][], ik[][]
+  icolumns, klanes[][] xin
   igroupassign[] fillarray 0,0,1,1,1,2,2 ;; lane -> group
-  Samplefolder = "/home/gg/downloads/audio/samples/sum/mlr/"
-  Samplename[] init 7
-  iSample[] init 7
-  iSampleLen[] init 7
-  iends[] init 7
-  Samplename[0] strcat Samplefolder, "soul_chicken.wav"
-  Samplename[1] strcat Samplefolder, "timba.wav"
-  Samplename[2] strcat Samplefolder, "counterpoint.wav"
-  Samplename[3] strcat Samplefolder, "the_bends.wav"
-  Samplename[4] strcat Samplefolder, "plucks.wav"
-  Samplename[5] strcat Samplefolder, "pianos.wav"
-  Samplename[6] strcat Samplefolder, "voices.wav"
-  ;read mono sample, since tablei does not support stereo
-  indx = 0
-  while indx < 7 do
-    iSample[indx]    ftgen 0,0,0,1,Samplename[indx],0,0,1
-    iSampleLen[indx] filelen Samplename[indx]
-    iends[indx] = icolumns - 1
-    indx += 1
-  od
-  xout iSample, iSampleLen, igroupassign, iends
+  Sfold = "/home/gg/downloads/audio/samples/sum/mlr/"
+  Sfiles[] fillarray "soul_chicken.wav", "timba.wav", "counterpoint.wav",\
+                     "the_bends.wav", "plucks.wav", "pianos.wav", "voices.wav"
+  itables[] init 7
+  itables[0] ftgen 0,0,0,1,strcat(Sfold,Sfiles[0]),0,0,1
+  itables[1] ftgen 0,0,0,1,strcat(Sfold,Sfiles[1]),0,0,1
+  itables[2] ftgen 0,0,0,1,strcat(Sfold,Sfiles[2]),0,0,1
+  itables[3] ftgen 0,0,0,1,strcat(Sfold,Sfiles[3]),0,0,1
+  itables[4] ftgen 0,0,0,1,strcat(Sfold,Sfiles[4]),0,0,1
+  itables[5] ftgen 0,0,0,1,strcat(Sfold,Sfiles[5]),0,0,1
+  itables[6] ftgen 0,0,0,1,strcat(Sfold,Sfiles[6]),0,0,1
+  ilens[] init 7
+  ilens[0] filelen strcat(Sfold,Sfiles[0])
+  ilens[1] filelen strcat(Sfold,Sfiles[1])
+  ilens[2] filelen strcat(Sfold,Sfiles[2])
+  ilens[3] filelen strcat(Sfold,Sfiles[3])
+  ilens[4] filelen strcat(Sfold,Sfiles[4])
+  ilens[5] filelen strcat(Sfold,Sfiles[5])
+  ilens[6] filelen strcat(Sfold,Sfiles[6])
+
+  konce init 0
+  if konce == 0 then
+    kndx = 0
+    while kndx < 7 do
+      ;read mono sample, since tablei does not support stereo
+      klanes[kndx][$LANE_TABLE] = itables[kndx]
+      klanes[kndx][$LANE_SAMPLELEN] = ilens[kndx]
+      klanes[kndx][$LANE_GROUP] = igroupassign[kndx]
+      klanes[kndx][$LANE_END] = icolumns -1
+      kndx += 1
+    od
+    konce = 1
+  endif
+
+  xout klanes
 endop
 
 
@@ -192,21 +206,9 @@ instr mlr
   klanes[][] init 7, $LANE_STRUCT_SIZE
   klane init 1
   kgroup init 0
-  konce init 0
   lpclear_i
-  itables[], ilens[], igroups[], iends[] _mlr_setup icolumns
 
-  if konce == 0 then
-    kndx = 0
-    while kndx < 7 do
-      klanes[kndx][$LANE_TABLE] = itables[kndx]
-      klanes[kndx][$LANE_SAMPLELEN] = ilens[kndx]
-      klanes[kndx][$LANE_GROUP] = igroups[kndx]
-      klanes[kndx][$LANE_END] = iends[kndx]
-      kndx += 1
-    od
-    konce = 1
-  endif
+  klanes _mlr_setup icolumns, klanes
 
   klanes _mlr_lane_reset_clear klanes
 
