@@ -147,56 +147,58 @@ opcode _mlr_lane_reset_clear, k[][], k[][]
   xout klanes
 endop
 
+
+opcode _mlr_lane_start, k[][], kk[][]kkk
+  klanenum, klanes[][], koffset, kstart, kend xin
+  klane[] getrow klanes, klanenum
+
+  klane[$LANE_RESET] = 1
+  klane[$LANE_OFFSET] = koffset
+  klane[$LANE_START] = kstart
+  klane[$LANE_END] = kend
+  kgroup = klane[$LANE_GROUP]
+  if klane[$LANE_RUNNING] == 0 then
+    klanes _mlr_stop_group kgroup, klanes
+    klane[$LANE_RUNNING] = 1
+    lpledon $LP_GREEN, 0, kgroup
+  endif
+
+  klanes setrow klane, klanenum
+  xout klanes
+endop
+
+
 opcode _mlr_lane_keyup, k[][], kkk[][]
   klanenum, kcol, klanes[][] xin
-  klane[] getrow klanes, klanenum
-  if klane[$LANE_FSM] == $MLR_FSM_KEYDOWN then
-    klane[$LANE_RESET] = 1
-    klane[$LANE_OFFSET] = kcol
-    klane[$LANE_START] = 0
-    klane[$LANE_END] = 7 ;; TODO: should be icolumns-1
-    kgroup = klane[$LANE_GROUP]
-    if klane[$LANE_RUNNING] == 0 then
-      klanes _mlr_stop_group kgroup, klanes
-      klane[$LANE_RUNNING] = 1
-      lpledon $LP_GREEN, 0, kgroup
-    endif
-    klane[$LANE_FSM] = $MLR_FSM_WAIT
-  elseif klane[$LANE_FSM] == $MLR_FSM_TILLRELEASE then
-    if klane[$LANE_FSMVAL] > 1 then
-      klane[$LANE_FSMVAL] = klane[$LANE_FSMVAL] -1
+  if klanes[klanenum][$LANE_FSM] == $MLR_FSM_KEYDOWN then
+    klanes _mlr_lane_start klanenum, klanes, kcol, 0, 7
+    klanes[klanenum][$LANE_FSM] = $MLR_FSM_WAIT
+  elseif klanes[klanenum][$LANE_FSM] == $MLR_FSM_TILLRELEASE then
+    if klanes[klanenum][$LANE_FSMVAL] > 1 then
+      klanes[klanenum][$LANE_FSMVAL] = klanes[klanenum][$LANE_FSMVAL] -1
     else
-      klane[$LANE_FSMVAL] = 0
-      klane[$LANE_FSM] = $MLR_FSM_WAIT
+      klanes[klanenum][$LANE_FSMVAL] = 0
+      klanes[klanenum][$LANE_FSM] = $MLR_FSM_WAIT
     endif
   endif
-  klanes setrow klane, klanenum
   xout klanes
 endop
 
 
 opcode _mlr_lane_keydown, k[][], kkk[][]
   klanenum, kcol, klanes[][] xin
-  klane[] getrow klanes, klanenum
-  if klane[$LANE_FSM] == $MLR_FSM_WAIT then
-    klane[$LANE_FSM] = $MLR_FSM_KEYDOWN
-    klane[$LANE_FSMVAL] = kcol
-  elseif klane[$LANE_FSM] == $MLR_FSM_KEYDOWN then
-    kstart min klane[$LANE_FSMVAL], kcol
-    kend max klane[$LANE_FSMVAL], kcol
-    klane[$LANE_START] = kstart
-    klane[$LANE_END] = kend
-    klane[$LANE_RESET] = 1
-    klane[$LANE_OFFSET] = 0
-    klanes _mlr_stop_group klane[$LANE_GROUP], klanes
-    klane[$LANE_RUNNING] = 1
-    lpledon $LP_GREEN, 0, klane[$LANE_GROUP]
-    klane[$LANE_FSM] = $MLR_FSM_TILLRELEASE
-    klane[$LANE_FSMVAL] = 2
-  elseif klane[$LANE_FSM] == $MLR_FSM_TILLRELEASE then
-    klane[$LANE_FSMVAL] = klane[$LANE_FSMVAL] + 1
+  if klanes[klanenum][$LANE_FSM] == $MLR_FSM_WAIT then
+    klanes[klanenum][$LANE_FSM] = $MLR_FSM_KEYDOWN
+    klanes[klanenum][$LANE_FSMVAL] = kcol
+  elseif klanes[klanenum][$LANE_FSM] == $MLR_FSM_KEYDOWN then
+    kstart min klanes[klanenum][$LANE_FSMVAL], kcol
+    kend max klanes[klanenum][$LANE_FSMVAL], kcol
+    klanes _mlr_lane_start klanenum, klanes, 0, kstart, kend
+    klanes[klanenum][$LANE_FSM] = $MLR_FSM_TILLRELEASE
+    klanes[klanenum][$LANE_FSMVAL] = 2
+  elseif klanes[klanenum][$LANE_FSM] == $MLR_FSM_TILLRELEASE then
+    klanes[klanenum][$LANE_FSMVAL] = klanes[klanenum][$LANE_FSMVAL] + 1
   endif
-  klanes setrow klane, klanenum
   xout klanes
 endop
 
