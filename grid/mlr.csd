@@ -137,6 +137,7 @@ opcode _mlr_stop_group, k[][], kk[][]
   xout klanes
 endop
 
+
 opcode _mlr_lane_reset_clear, k[][], k[][]
   klanes[][] xin
   kndx = 0
@@ -208,10 +209,11 @@ instr mlr
   klanes[][] init 7, $LANE_STRUCT_SIZE
   klane init 1
   kgroup init 0
-  lpclear_i
 
+  lpclear_i
   klanes _mlr_setup icolumns, klanes
 
+  ;; at every k-cycle clear eventual lane reset
   klanes _mlr_lane_reset_clear klanes
 
   ktrig, kevent, krow, kcol lpread
