@@ -12,7 +12,6 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: sub-loop reverse
 ;; TODO: bpm
 ;; TODO: quantization
 ;; TODO: pattern recorder
@@ -31,18 +30,18 @@ nchnls = 2
 
 
 ; lane structure fields
-#define LANE_TABLE     #0#
-#define LANE_SAMPLELEN #1#
-#define LANE_RUNNING   #2#
-#define LANE_RESET     #3#
-#define LANE_OFFSET    #4#
-#define LANE_GROUP     #5#
-#define LANE_FSM       #6#
-#define LANE_FSMVAL    #7#
-#define LANE_START     #8#
-#define LANE_END       #9#
-#define LANE_DIR       #10#
-#define LANE_STRUCT_SIZE #11#
+#define TABLE     #0#
+#define SAMPLELEN #1#
+#define RUNNING   #2#
+#define RESET     #3#
+#define OFFSET    #4#
+#define GROUP     #5#
+#define FSM       #6#
+#define FSMVAL    #7#
+#define START     #8#
+#define END       #9#
+#define DIR       #10#
+#define STRUCT_SIZE #11#
 
 
 opcode _mlr_setup, k[][], ik[][]
@@ -73,10 +72,10 @@ opcode _mlr_setup, k[][], ik[][]
     kndx = 0
     while kndx < 7 do
       ;read mono sample, since tablei does not support stereo
-      klanes[kndx][$LANE_TABLE] = itables[kndx]
-      klanes[kndx][$LANE_SAMPLELEN] = ilens[kndx]
-      klanes[kndx][$LANE_GROUP] = igroupassign[kndx]
-      klanes[kndx][$LANE_END] = icolumns -1
+      klanes[kndx][$TABLE] = itables[kndx]
+      klanes[kndx][$SAMPLELEN] = ilens[kndx]
+      klanes[kndx][$GROUP] = igroupassign[kndx]
+      klanes[kndx][$END] = icolumns -1
       kndx += 1
     od
     konce = 1
@@ -92,16 +91,17 @@ opcode _mlr_lane, a, iik[][]
   irow = ilanenum + 1
   klast init -1
   kprevlooping init 0
-  kloopfrac = (abs(klane[$LANE_END] - klane[$LANE_START])+1)/ilength
+  kloopfrac = (abs(klane[$END] - klane[$START])+1)/ilength
 
   asig = 0
-  if klane[$LANE_RUNNING] == 1 then
-    async upsamp klane[$LANE_RESET]
-    kfreq = 1/klane[$LANE_SAMPLELEN]*1/kloopfrac
+  if klane[$RUNNING] == 1 then
+    async upsamp klane[$RESET]
+    kfreq = 1/klane[$SAMPLELEN]*1/kloopfrac
     aphase, adummy syncphasor kfreq, async
+    aphase = (klane[$DIR]==1 ? 1-aphase : aphase)
     aphase *= kloopfrac
     kphase downsamp aphase
-    kindex = (int(kphase*(ilength-0.001)) + klane[$LANE_OFFSET] + klane[$LANE_START]) % ilength
+    kindex = (int(kphase*(ilength-0.001)) + klane[$OFFSET] + klane[$START]) % ilength
     if kindex != klast then
       lpledon $LP_GREEN, irow, kindex
       if klast != -1 then
@@ -109,16 +109,16 @@ opcode _mlr_lane, a, iik[][]
       endif
       klast = kindex
     endif
-    aphase += 1/ilength * klane[$LANE_START]
-    aphase += 1/ilength * klane[$LANE_OFFSET]
-    asig tableikt aphase, klane[$LANE_TABLE], 1, 0, 1
+    aphase += 1/ilength * klane[$START]
+    aphase += 1/ilength * klane[$OFFSET]
+    asig tableikt aphase, klane[$TABLE], 1, 0, 1
   else
     if kprevlooping == 1 then
       lpledoff irow, klast
       klast = -1
     endif
   endif
-  kprevlooping = klane[$LANE_RUNNING]
+  kprevlooping = klane[$RUNNING]
   xout asig
 endop
 
@@ -129,9 +129,9 @@ opcode _mlr_stop_group, k[][], kk[][]
   kgroup, klanes[][] xin
   klane = 0
   while klane < 7 do
-    kassigned = klanes[klane][$LANE_GROUP]
-    krunning = klanes[klane][$LANE_RUNNING]
-    klanes[klane][$LANE_RUNNING] = (kassigned == kgroup ? 0 : krunning)
+    kassigned = klanes[klane][$GROUP]
+    krunning = klanes[klane][$RUNNING]
+    klanes[klane][$RUNNING] = (kassigned == kgroup ? 0 : krunning)
     klane += 1
   od
   xout klanes
@@ -142,25 +142,26 @@ opcode _mlr_lane_reset_clear, k[][], k[][]
   klanes[][] xin
   kndx = 0
   while kndx < lenarray(klanes) do
-    klanes[kndx][$LANE_RESET] = 0
+    klanes[kndx][$RESET] = 0
     kndx += 1
   od
   xout klanes
 endop
 
 
-opcode _mlr_lane_start, k[][], kk[][]kkk
-  klanenum, klanes[][], koffset, kstart, kend xin
+opcode _mlr_lane_start, k[][], kk[][]kkkk
+  klanenum, klanes[][], koffset, kstart, kend, kdir xin
   klane[] getrow klanes, klanenum
 
-  klane[$LANE_RESET] = 1
-  klane[$LANE_OFFSET] = koffset
-  klane[$LANE_START] = kstart
-  klane[$LANE_END] = kend
-  kgroup = klane[$LANE_GROUP]
-  if klane[$LANE_RUNNING] == 0 then
+  klane[$RESET] = 1
+  klane[$OFFSET] = koffset
+  klane[$START] = kstart
+  klane[$END] = kend
+  klane[$DIR] = kdir
+  kgroup = klane[$GROUP]
+  if klane[$RUNNING] == 0 then
     klanes _mlr_stop_group kgroup, klanes
-    klane[$LANE_RUNNING] = 1
+    klane[$RUNNING] = 1
     lpledon $LP_GREEN, 0, kgroup
   endif
 
@@ -171,15 +172,15 @@ endop
 
 opcode _mlr_lane_keyup, k[][], kkk[][]
   klanenum, kcol, klanes[][] xin
-  if klanes[klanenum][$LANE_FSM] == $MLR_FSM_KEYDOWN then
-    klanes _mlr_lane_start klanenum, klanes, kcol, 0, 7
-    klanes[klanenum][$LANE_FSM] = $MLR_FSM_WAIT
-  elseif klanes[klanenum][$LANE_FSM] == $MLR_FSM_TILLRELEASE then
-    if klanes[klanenum][$LANE_FSMVAL] > 1 then
-      klanes[klanenum][$LANE_FSMVAL] = klanes[klanenum][$LANE_FSMVAL] -1
+  if klanes[klanenum][$FSM] == $MLR_FSM_KEYDOWN then
+    klanes _mlr_lane_start klanenum, klanes, kcol, 0, 7, 0
+    klanes[klanenum][$FSM] = $MLR_FSM_WAIT
+  elseif klanes[klanenum][$FSM] == $MLR_FSM_TILLRELEASE then
+    if klanes[klanenum][$FSMVAL] > 1 then
+      klanes[klanenum][$FSMVAL] = klanes[klanenum][$FSMVAL] -1
     else
-      klanes[klanenum][$LANE_FSMVAL] = 0
-      klanes[klanenum][$LANE_FSM] = $MLR_FSM_WAIT
+      klanes[klanenum][$FSMVAL] = 0
+      klanes[klanenum][$FSM] = $MLR_FSM_WAIT
     endif
   endif
   xout klanes
@@ -188,17 +189,21 @@ endop
 
 opcode _mlr_lane_keydown, k[][], kkk[][]
   klanenum, kcol, klanes[][] xin
-  if klanes[klanenum][$LANE_FSM] == $MLR_FSM_WAIT then
-    klanes[klanenum][$LANE_FSM] = $MLR_FSM_KEYDOWN
-    klanes[klanenum][$LANE_FSMVAL] = kcol
-  elseif klanes[klanenum][$LANE_FSM] == $MLR_FSM_KEYDOWN then
-    kstart min klanes[klanenum][$LANE_FSMVAL], kcol
-    kend max klanes[klanenum][$LANE_FSMVAL], kcol
-    klanes _mlr_lane_start klanenum, klanes, 0, kstart, kend
-    klanes[klanenum][$LANE_FSM] = $MLR_FSM_TILLRELEASE
-    klanes[klanenum][$LANE_FSMVAL] = 2
-  elseif klanes[klanenum][$LANE_FSM] == $MLR_FSM_TILLRELEASE then
-    klanes[klanenum][$LANE_FSMVAL] = klanes[klanenum][$LANE_FSMVAL] + 1
+  if klanes[klanenum][$FSM] == $MLR_FSM_WAIT then
+    klanes[klanenum][$FSM] = $MLR_FSM_KEYDOWN
+    klanes[klanenum][$FSMVAL] = kcol
+  elseif klanes[klanenum][$FSM] == $MLR_FSM_KEYDOWN then
+    kstart = klanes[klanenum][$FSMVAL]
+    kend = kcol
+    if kstart <= kend then
+      klanes _mlr_lane_start klanenum, klanes, 0, kstart, kend, 0
+    else
+      klanes _mlr_lane_start klanenum, klanes, 0, kend, kstart, 1
+    endif
+    klanes[klanenum][$FSM] = $MLR_FSM_TILLRELEASE
+    klanes[klanenum][$FSMVAL] = 2
+  elseif klanes[klanenum][$FSM] == $MLR_FSM_TILLRELEASE then
+    klanes[klanenum][$FSMVAL] = klanes[klanenum][$FSMVAL] + 1
   endif
   xout klanes
 endop
@@ -206,7 +211,7 @@ endop
 
 instr mlr
   icolumns = (p4==0 ? 8 : p4)
-  klanes[][] init 7, $LANE_STRUCT_SIZE
+  klanes[][] init 7, $STRUCT_SIZE
   klane init 1
   kgroup init 0
 
