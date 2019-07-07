@@ -51,27 +51,19 @@ opcode _mlr_setup, k[][], ik[][]
   Sfiles[] fillarray "soul_chicken.wav", "timba.wav", "counterpoint.wav",\
                      "the_bends.wav", "plucks.wav", "pianos.wav", "voices.wav"
   itables[] init 7
-  itables[0] ftgen 0,0,0,1,strcat(Sfold,Sfiles[0]),0,0,1
-  itables[1] ftgen 0,0,0,1,strcat(Sfold,Sfiles[1]),0,0,1
-  itables[2] ftgen 0,0,0,1,strcat(Sfold,Sfiles[2]),0,0,1
-  itables[3] ftgen 0,0,0,1,strcat(Sfold,Sfiles[3]),0,0,1
-  itables[4] ftgen 0,0,0,1,strcat(Sfold,Sfiles[4]),0,0,1
-  itables[5] ftgen 0,0,0,1,strcat(Sfold,Sfiles[5]),0,0,1
-  itables[6] ftgen 0,0,0,1,strcat(Sfold,Sfiles[6]),0,0,1
   ilens[] init 7
-  ilens[0] filelen strcat(Sfold,Sfiles[0])
-  ilens[1] filelen strcat(Sfold,Sfiles[1])
-  ilens[2] filelen strcat(Sfold,Sfiles[2])
-  ilens[3] filelen strcat(Sfold,Sfiles[3])
-  ilens[4] filelen strcat(Sfold,Sfiles[4])
-  ilens[5] filelen strcat(Sfold,Sfiles[5])
-  ilens[6] filelen strcat(Sfold,Sfiles[6])
+  indx = 1
+  while indx < 7 do
+    ;read mono sample, since tablei does not support stereo
+    itables[indx] ftgen 0,0,0,1,strcat(Sfold,Sfiles[indx]),0,0,1
+    ilens[indx] filelen strcat(Sfold,Sfiles[indx])
+    indx += 1
+  od
 
   konce init 0
   if konce == 0 then
     kndx = 0
     while kndx < 7 do
-      ;read mono sample, since tablei does not support stereo
       klanes[kndx][$TABLE] = itables[kndx]
       klanes[kndx][$SAMPLELEN] = ilens[kndx]
       klanes[kndx][$GROUP] = igroupassign[kndx]
