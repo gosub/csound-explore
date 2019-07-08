@@ -12,8 +12,6 @@ nchnls = 2
 0dbfs = 1
 
 
-;; TODO: bpm
-;; TODO: quantization
 ;; TODO: pattern recorder
 ;; TODO: add to readme
 ;; TODO: support for stereo samples
@@ -204,8 +202,11 @@ endop
 instr mlr
   icolumns = (p4==0 ? 8 : p4)
   klanes[][] init 7, $STRUCT_SIZE
+  klanesquant[][] init 7, $STRUCT_SIZE
   klane init 1
   kgroup init 0
+  kbpm init 120
+  kquantization init 16
 
   lpclear_i
   klanes _mlr_setup icolumns, klanes
@@ -228,13 +229,18 @@ instr mlr
     endif
   endif
 
-  asig0 _mlr_lane 0, icolumns, klanes
-  asig1 _mlr_lane 1, icolumns, klanes
-  asig2 _mlr_lane 2, icolumns, klanes
-  asig3 _mlr_lane 3, icolumns, klanes
-  asig4 _mlr_lane 4, icolumns, klanes
-  asig5 _mlr_lane 5, icolumns, klanes
-  asig6 _mlr_lane 6, icolumns, klanes
+  kmetro metro kquantization*(kbpm/60)
+  if kmetro == 1 then
+    klanesquant = klanes
+  endif
+
+  asig0 _mlr_lane 0, icolumns, klanesquant
+  asig1 _mlr_lane 1, icolumns, klanesquant
+  asig2 _mlr_lane 2, icolumns, klanesquant
+  asig3 _mlr_lane 3, icolumns, klanesquant
+  asig4 _mlr_lane 4, icolumns, klanesquant
+  asig5 _mlr_lane 5, icolumns, klanesquant
+  asig6 _mlr_lane 6, icolumns, klanesquant
   asig sum asig0, asig1, asig2, asig3, asig4, asig5, asig6
   outs asig, asig
 endin
