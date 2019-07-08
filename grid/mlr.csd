@@ -12,6 +12,8 @@ nchnls = 2
 0dbfs = 1
 
 
+;; TODO: test quantization
+;; TODO: beats measure per loop
 ;; TODO: pattern recorder
 ;; TODO: add to readme
 ;; TODO: support for stereo samples
