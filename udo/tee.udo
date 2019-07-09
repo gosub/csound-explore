@@ -8,6 +8,7 @@
   tlinen    - Triggerable version of linen opcode
   tcoin     - Flip a coin on trigger
   tprintk   - Print a k-rate value on trigger
+  talternate - Alternate two values, on trigger
 */
 
 
@@ -216,9 +217,24 @@ opcode tprintk, 0, kk
 endop
 
 
+opcode talternate, k, kkkkkP
+  ktrig, ka, kb, kmod, kthres, kdiv xin
+  kcount init -1
+  kcount += ktrig
+  if int(kcount/kdiv)%kmod < kthres then
+    kout = ka
+  else
+    kout = kb
+  endif
+  xout kout
+endop
+
+
 ;; TODO: trandomwalk
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme
+;; TODO: talternate test
+;; TODO: talternate to readme
 ;; TODO: tsequence UDO in a separate file inside the tee directory
 ;; TODO: tchoice   UDO in a separate file inside the tee directory
 ;; TODO: twchoice  UDO in a separate file inside the tee directory
@@ -228,4 +244,5 @@ endop
 ;; TODO: tlinen    UDO in a separate file inside the tee directory
 ;; TODO: tcoin     UDO in a separate file inside the tee directory
 ;; TODO: tprintk   UDO in a separate file inside the tee directory
+;; TODO: talternate UDO in a separate file inside the tee directory
 ;; TODO: tprintk incorporate more parameters from printk
