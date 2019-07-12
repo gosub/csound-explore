@@ -9,7 +9,7 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-#include "../udo/tee.udo"
+#include "../../udo/tee/tcoin.udo"
 
 
 instr 1, tcoint_test
