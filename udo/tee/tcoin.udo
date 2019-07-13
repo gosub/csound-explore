@@ -2,6 +2,8 @@
   tcoin     - Flip a coin on trigger
 */
 
+#include "tchoice.udo"
+
 
 opcode tcoin, k, k
   ktrig xin
@@ -11,5 +13,4 @@ opcode tcoin, k, k
 endop
 
 
-;; TODO: import tchoice
 ;; TODO: ifndef

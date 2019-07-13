@@ -10,6 +10,7 @@ nchnls = 2
 0dbfs = 1
 
 #include "../udo/tee.udo"
+#include "../udo/tee/tchoice.udo"
 
 
 instr 1, tsequence_tstepper_tchoice_twchoice_tcount_test

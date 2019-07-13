@@ -1,6 +1,5 @@
 /*
   tsequence - Triggerable Sequencer
-  tchoice   - Triggerable Random Sequencer
   twchoice  - Triggerable Weighted Random Sequencer
   tstepper  - Trigerrable Advanced Sequencer
   tcount    - Trigger counter
@@ -29,17 +28,6 @@ opcode tsequence, k[], kk[][]
     kindex += 1
     kindex = kindex % lenarray:k(ksequence)
     kout[] getrow ksequence, int(kindex)
-  endif
-  xout kout
-endop
-
-
-opcode tchoice, k, kk[]
-  ktrig, ksequence[] xin
-  kout init 0
-  if ktrig == 1 then
-    kindex random 0, lenarray:k(ksequence) - 0.001
-    kout = ksequence[int(kindex)]
   endif
   xout kout
 endop
@@ -202,7 +190,6 @@ endop
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme
 ;; TODO: tsequence  UDO in a separate file inside the tee directory
-;; TODO: tchoice    UDO in a separate file inside the tee directory
 ;; TODO: twchoice   UDO in a separate file inside the tee directory
 ;; TODO: tstepper   UDO in a separate file inside the tee directory
 ;; TODO: tcount     UDO in a separate file inside the tee directory
