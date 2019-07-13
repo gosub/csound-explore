@@ -22,6 +22,7 @@ endin
 
 
 instr 2
+  prints "playing note: %f\n", p4
   aenv madsr 0.05, 0, 1, 0.05
   asig poscil aenv*0.2, p4
   outs asig, asig
