@@ -2,7 +2,6 @@
   tsequence - Triggerable Sequencer
   twchoice  - Triggerable Weighted Random Sequencer
   tstepper  - Trigerrable Advanced Sequencer
-  tcount    - Trigger counter
 */
 
 
@@ -78,33 +77,10 @@ opcode tstepper, k, kk[]POOO
 endop
 
 
-opcode tcount, k, ko
-  ktrig, imax xin
-  kvalue init 0
-  if ktrig == 1 then
-    kvalue += 1
-    kvalue = (imax != 0 ? kvalue % imax : kvalue)
-  endif
-  xout kvalue
-endop
-
-
-opcode tcount, k, kO
-  ktrig, kmax xin
-  kvalue init 0
-  if ktrig == 1 then
-    kvalue += 1
-    kvalue = (kmax != 0 ? kvalue % kmax : kvalue)
-  endif
-  xout kvalue
-endop
-
-
 ;; TODO: trandomwalk
 ;; TODO: trandomwalk test
 ;; TODO: trandomwalk to readme
 ;; TODO: tsequence  UDO in a separate file inside the tee directory
 ;; TODO: twchoice   UDO in a separate file inside the tee directory
 ;; TODO: tstepper   UDO in a separate file inside the tee directory
-;; TODO: tcount     UDO in a separate file inside the tee directory
 
