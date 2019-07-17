@@ -12,6 +12,7 @@ nchnls = 2
 #include "../udo/tee.udo"
 #include "../udo/tee/tchoice.udo"
 #include "../udo/tee/tcount.udo"
+#include "../udo/tee/tstepper.udo"
 
 
 instr 1, tsequence_tstepper_tchoice_twchoice_tcount_test
