@@ -33,16 +33,16 @@ launchpad based, monome inspired
   - exprand.udo - [logarithmic uniform distribution random number generator](http://doc.sccode.org/Classes/SimpleNumber.html#-exprand)
   - lfgauss.udo - [non-band-limited gaussian function oscillator](http://doc.sccode.org/Classes/LFGauss.html)
   - splay.udo - [spreads an array of channels across the stereo field](http://doc.sccode.org/Classes/Splay.html)
-- tee.udo - trigger based UDOs
-  - tsequence - sequence an array on trigger (udo)
-  - tchoice - sequence a random array member on trigger (udo) 
-  - twchoice - sequence a random array member on trigger, with probability (udo)
-  - tstepper - sequence an array on trigger, with step-length, reverse, rotation and reset (udo) 
-  - tcount - trigger counter, with optional wrap-around (udo)
-  - tline - triggerable version of the line opcode (udo)
-  - tlinen - triggerable version of the linen opcode (udo)
-  - tcoin - trow a coin on trigger (udo)
-  - tprintk   - Print a k-rate value on trigger (udo)
+- tee - trigger based UDOs
+  - tsequence.udo - sequence an array on trigger
+  - tchoice.udo - sequence a random array member on trigger
+  - twchoice.udo - sequence a random array member on trigger, with probability
+  - tstepper.udo - sequence an array on trigger, with step-length, reverse, rotation and reset
+  - tcount.udo - trigger counter, with optional wrap-around
+  - tline.udo - triggerable version of the line opcode
+  - tlinen.udo - triggerable version of the linen opcode
+  - tcoin.udo - trow a coin on trigger
+  - tprintk.udo   - Print a k-rate value on trigger
 - turing.udo - Turing Machine eurorack module clone
 - util
   - once.udo - is true only once, at k-rate
