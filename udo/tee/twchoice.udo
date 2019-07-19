@@ -24,8 +24,5 @@ opcode twchoice, k, kk[]k[]
 endop
 
 
-;; TODO: trandomwalk
-;; TODO: trandomwalk test
-;; TODO: trandomwalk to readme
-;; TODO: twchoice   UDO in a separate file inside the tee directory
+;; TODO: ifndef
 
