@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TCHOICEUDO
+
+
 opcode tchoice, k, kk[]
   ktrig, ksequence[] xin
   kout init 0
@@ -14,5 +17,6 @@ opcode tchoice, k, kk[]
 endop
 
 
-;; TODO: ifndef
+#define TCHOICEUDO ##
+#end
 
