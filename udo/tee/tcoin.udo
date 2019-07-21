@@ -5,6 +5,9 @@
 #include "tchoice.udo"
 
 
+#ifndef TCOINUDO
+
+
 opcode tcoin, k, k
   ktrig xin
   kcoin[] fillarray 0,1
@@ -13,5 +16,5 @@ opcode tcoin, k, k
 endop
 
 
-;; TODO: ifndef
-
+#define TCOINUDO ##
+#end
