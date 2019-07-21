@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TALTERNATEUDO
+
+
 opcode talternate, k, kkkkkP
   ktrig, ka, kb, kmod, kthres, kdiv xin
   kcount init -1
@@ -16,7 +19,9 @@ opcode talternate, k, kkkkkP
 endop
 
 
+#define TALTERNATEUDO ##
+#end
+
 ;; TODO: talternate test
 ;; TODO: talternate to readme
-;; TODO: ifndef
 
