@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TCOUNTUDO
+
+
 opcode tcount, k, ko
   ktrig, imax xin
   kvalue init 0
@@ -24,3 +27,6 @@ opcode tcount, k, kO
   xout kvalue
 endop
 
+
+#define TCOUNTUDO ##
+#end
