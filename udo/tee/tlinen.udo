@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TLINENUDO
+
+
 opcode tlinen, k, kkiii
   ktrig, kamp, irise, idur, idec xin
   krun, kstart init 0, 0
@@ -38,4 +41,7 @@ opcode tlinen, a, kaiii
   xout aout
 endop
 
-;; TODO: ifndef
+
+#define TLINENUDO ##
+#end
+
