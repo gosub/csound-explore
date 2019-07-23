@@ -3,6 +3,8 @@
 */
 
 
+#ifndef TLINEUDO
+
 opcode tline, k, kiii
   ktrig, ia, idur, ib xin
   krun init 0
@@ -51,5 +53,5 @@ opcode tline, a, kiii
 endop
 
 
-;; TODO: ifndef
-
+#define TLINEUDO ##
+#end
