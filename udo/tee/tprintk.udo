@@ -3,6 +3,8 @@
 */
 
 
+#ifndef TPRINTKUDO
+
 opcode tprintk, 0, kk
   ktrig, kvalue xin
   if ktrig == 1 then
@@ -12,5 +14,8 @@ endop
 
 
 ;; TODO: tprintk incorporate more parameters from printk
-;; TODO: ifndef
+
+
+#define TPRINTK ##
+#end
 
