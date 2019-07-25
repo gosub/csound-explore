@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TSEQUENCEUDO
+
+
 opcode tsequence, k, kk[]
   ktrig, ksequence[] xin
   kout init 0
@@ -28,5 +31,5 @@ opcode tsequence, k[], kk[][]
 endop
 
 
-;; TODO: ifndef
-
+#define TSEQUENCEUDO ##
+#end
