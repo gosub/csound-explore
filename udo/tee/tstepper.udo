@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TSTEPPERUDO
+
+
 opcode tstepper, k, kk[]POOO
   ktrig, ksequence[], kstep, kreverse, krotate, kreset xin
   kout init 0
@@ -29,5 +32,5 @@ opcode tstepper, k, kk[]POOO
 endop
 
 
-;; TODO: ifndef
-
+#define TSTEPPERUDO ##
+#end
