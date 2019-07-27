@@ -3,6 +3,9 @@
 */
 
 
+#ifndef TWCHOICEUDO
+
+
 opcode twchoice, k, kk[]k[]
   ktrig, ksequence[], kweights[] xin
   kout init 0
@@ -24,5 +27,5 @@ opcode twchoice, k, kk[]k[]
 endop
 
 
-;; TODO: ifndef
-
+#define TWCHOICEUDO ##
+#end
