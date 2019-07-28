@@ -5,15 +5,12 @@
 
 #ifndef TPRINTKUDO
 
-opcode tprintk, 0, kk
-  ktrig, kvalue xin
+opcode tprintk, 0, kko
+  ktrig, kvalue, ispace xin
   if ktrig == 1 then
-    printk 0, kvalue
+    printk 0, kvalue, ispace
   endif
 endop
-
-
-;; TODO: tprintk incorporate more parameters from printk
 
 
 #define TPRINTK ##
