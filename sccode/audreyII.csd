@@ -1,7 +1,6 @@
 <CsoundSynthesizer>
 <CsOptions>
--odac -d
--m4
+-odac
 </CsOptions>
 <CsInstruments>
 
@@ -107,11 +106,12 @@ instr 1
 
   ; karplus-strong resonator (tuned comb + brightness damping)
   ; decay: ~31 periods to -60 dB
+  ; NOTE: vcomb needs separate output vars (same-buffer I/O zeroes delay line)
   kRvt    = kPeriod * 31
-  aSigL   vcomb aSigL, kRvt, kPeriod, 0.2
-  aSigR   vcomb aSigR, kRvt, kPeriod, 0.2
-  aSigL   tone  aSigL, iDamp
-  aSigR   tone  aSigR, iDamp
+  aVcombL vcomb aSigL, kRvt, kPeriod, 0.2
+  aVcombR vcomb aSigR, kRvt, kPeriod, 0.2
+  aSigL   tone  aVcombL, iDamp
+  aSigR   tone  aVcombR, iDamp
 
   ; overdrive (soft clipping)
   aSigL   = tanh(aSigL * 1.5)
@@ -180,7 +180,49 @@ instr 1
           outs aOutL, aOutR
 endin
 
+
+instr 2
+  ; autopilot: slow random exploration of parameter space
+  kFreq     rspline 36, 60, 0.005, 0.02
+  kFbGain   rspline 1, 6, 0.01, 0.04
+  kBody     rspline 0.003, 0.08, 0.02, 0.08
+  kLpf      rspline 500, 10000, 0.01, 0.05
+  kHpf      rspline 20, 80, 0.01, 0.05
+  kVmix     rspline 0.1, 0.7, 0.005, 0.02
+  kVdecay   rspline 0.3, 0.9, 0.005, 0.02
+  kEsend    rspline 0.05, 0.5, 0.01, 0.04
+  kEtime    rspline 0.1, 2.0, 0.01, 0.04
+  kEfb      rspline 0.2, 0.8, 0.01, 0.04
+  kVol      rspline 0.15, 0.4, 0.005, 0.015
+
+  ; clamp to safe ranges (rspline can overshoot min/max)
+  kFreq     limit kFreq, 16, 72
+  kFbGain   limit kFbGain, 1, 12
+  kBody     limit kBody, 0.001, 0.1
+  kLpf      limit kLpf, 100, 18000
+  kHpf      limit kHpf, 10, 4000
+  kVmix     limit kVmix, 0, 1
+  kVdecay   limit kVdecay, 0.2, 1
+  kEsend    limit kEsend, 0, 1
+  kEtime    limit kEtime, 0.05, 5
+  kEfb      limit kEfb, 0, 1.5
+  kVol      limit kVol, 0.001, 1
+
+            chnset kFreq, "freq"
+            chnset kFbGain, "fbGain"
+            chnset kBody, "body"
+            chnset kLpf, "lpf"
+            chnset kHpf, "hpf"
+            chnset kVmix, "verbMix"
+            chnset kVdecay, "verbDecay"
+            chnset kEsend, "echoSend"
+            chnset kEtime, "echoTime"
+            chnset kEfb, "echoFb"
+            chnset kVol, "vol"
+endin
+
 alwayson 1
+alwayson 2
 
 </CsInstruments>
 <CsScore>
